@@ -4,12 +4,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>异类人敏捷开发平台</title>
+
+
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-    
+        <a href="background/sys/login.aspx">登陆</a>
     </div>
     </form>
 </body>
