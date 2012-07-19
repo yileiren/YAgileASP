@@ -51,6 +51,9 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="background\images\login\login.png" />
+    <Content Include="background\images\login\userName.png" />
+    <Content Include="background\images\login\userPassword.png" />
     <Content Include="background\mainPage.aspx" />
     <Content Include="background\sys\login.aspx" />
     <Content Include="Default.aspx" />
@@ -310,6 +313,7 @@
     <Content Include="js\jquery-easyui\themes\icons\sum.png" />
     <Content Include="js\jquery-easyui\themes\icons\tip.png" />
     <Content Include="js\jquery-easyui\themes\icons\undo.png" />
+    <Content Include="js\jquery-easyui\themes\icons\userlogin.png" />
     <Content Include="js\jquery.json.js" />
     <Content Include="js\jquery\jquery.js" />
     <Content Include="js\jquery\jquery.min.js" />
@@ -317,7 +321,9 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

@@ -11,7 +11,14 @@ namespace YAgileASP.background.sys
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!this.IsPostBack)
+            {
 
+            }
+        }
+
+        protected void butLogin_Click(object sender, EventArgs e)
+        { 
         }
     }
 }
