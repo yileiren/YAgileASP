@@ -8,7 +8,7 @@ namespace YLR.YOrganization
     /// <summary>
     /// 组织机构实体类。
     /// </summary>
-    public class Organization
+    public class OrganizationInfo
     {
         /// <summary>
         /// 组织机构id，-1表示错误机构。

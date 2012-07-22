@@ -8,7 +8,7 @@ namespace YLR.YOrganization
     /// <summary>
     /// 组织机构用户实体类。
     /// </summary>
-    public class User
+    public class UserInfo
     {
         /// <summary>
         /// 用户id。

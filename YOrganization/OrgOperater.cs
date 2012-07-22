@@ -53,7 +53,7 @@ namespace YLR.YOrganization
         /// </summary>
         /// <param name="org">新组织机构，组织机构名称不能为""，切长度不能大于50。</param>
         /// <returns>成功返回组织机构id，失败返回-1。</returns>
-        public int createNewOrganization(Organization org)
+        public int createNewOrganization(OrganizationInfo org)
         {
             int orgId = -1; //创建的组织机构id。
 
