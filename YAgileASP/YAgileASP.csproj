@@ -49,6 +49,9 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
+    <Reference Include="YAdoNet">
+      <HintPath>..\libs\YAdoNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="background\images\login\login.png" />
@@ -364,6 +367,12 @@
   <ItemGroup>
     <None Include="js\jquery-easyui\themes\default\images\Thumbs.db" />
     <None Include="js\jquery-easyui\themes\gray\images\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YOrganization\YOrganization.csproj">
+      <Project>{85A2BF8C-3ABA-44F3-AE4C-7C425B72C0AD}</Project>
+      <Name>YOrganization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
