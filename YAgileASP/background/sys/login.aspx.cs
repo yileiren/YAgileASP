@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using YLR.YAdoNet;
 
 namespace YAgileASP.background.sys
 {
@@ -19,6 +20,17 @@ namespace YAgileASP.background.sys
 
         protected void butLogin_Click(object sender, EventArgs e)
         { 
+            //用户登陆
+            try
+            {
+                //获取配置文件路径。
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+
+                YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer");
+            }
+            catch(Exception ex)
+            {
+            }
         }
     }
 }
