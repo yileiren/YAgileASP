@@ -60,6 +60,8 @@
     <Content Include="background\images\login\login.png" />
     <Content Include="background\images\login\userName.png" />
     <Content Include="background\images\login\userPassword.png" />
+    <Content Include="background\images\mainPage\title_01.gif" />
+    <Content Include="background\images\mainPage\title_02.gif" />
     <Content Include="background\mainPage.aspx" />
     <Content Include="background\sys\login.aspx" />
     <Content Include="Default.aspx" />
@@ -306,11 +308,15 @@
     <Content Include="js\jquery-easyui\themes\icons\edit_remove.png" />
     <Content Include="js\jquery-easyui\themes\icons\filesave.png" />
     <Content Include="js\jquery-easyui\themes\icons\help.png" />
+    <Content Include="js\jquery-easyui\themes\icons\home.png" />
+    <Content Include="js\jquery-easyui\themes\icons\key.png" />
+    <Content Include="js\jquery-easyui\themes\icons\menu.png" />
     <Content Include="js\jquery-easyui\themes\icons\mini_add.png" />
     <Content Include="js\jquery-easyui\themes\icons\mini_edit.png" />
     <Content Include="js\jquery-easyui\themes\icons\mini_refresh.png" />
     <Content Include="js\jquery-easyui\themes\icons\no.png" />
     <Content Include="js\jquery-easyui\themes\icons\ok.png" />
+    <Content Include="js\jquery-easyui\themes\icons\out.png" />
     <Content Include="js\jquery-easyui\themes\icons\pencil.png" />
     <Content Include="js\jquery-easyui\themes\icons\print.png" />
     <Content Include="js\jquery-easyui\themes\icons\redo.png" />
@@ -321,6 +327,7 @@
     <Content Include="js\jquery-easyui\themes\icons\undo.png" />
     <Content Include="js\jquery-easyui\themes\icons\userlogin.png" />
     <Content Include="js\jquery.json.js" />
+    <Content Include="js\jquery.json.min.js" />
     <Content Include="js\jquery\jquery.js" />
     <Content Include="js\jquery\jquery.min.js" />
     <Content Include="js\md5.js" />
@@ -371,6 +378,7 @@
     <Content Include="background\images\Web.config" />
     <None Include="js\jquery-easyui\themes\default\images\Thumbs.db" />
     <None Include="js\jquery-easyui\themes\gray\images\Thumbs.db" />
+    <Content Include="js\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YOrganization\YOrganization.csproj">
