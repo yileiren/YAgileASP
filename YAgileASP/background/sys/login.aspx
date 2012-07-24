@@ -60,9 +60,8 @@
     //-->
     </script>
 </head>
-<body style="background-color:#89BBDE" onkeypress="enterPress()">
+<body style="background-color:#89BBDE">
     <form id="form1" runat="server">
-    <!--网页顶-->
     <div style="position:absolute;background-color:#4550B8;width:100%;height:30px;top:0px;left:0px;right:0px;bottom:0px">
     </div>
 
@@ -71,10 +70,10 @@
     
         <div style="width:640px;height:270px"></div>
         <div style="width:335px;height:40px;margin-left:auto;margin-right:10px;background-image:url('../images/login/userName.png')">
-            <input type="text"id="txtUserName" name="txtUserName" style="width:236px;height:26px;margin-left:92px;margin-top:6px;border-width:0px;font-size:18px" class="easyui-validatebox" required="true" maxlength="20" />
+            <input type="text" id="txtUserName" name="txtUserName" runat="server" runat="server" maxlength="20" style="width:236px;height:26px;margin-left:92px;margin-top:6px;border-width:0px;font-size:18px" class="easyui-validatebox" required="true"/>
         </div>
         <div style="width:335px;height:40px;margin-top:5px;margin-left:auto;margin-right:10px;background-image:url('../images/login/userPassword.png')">
-            <input type="password"id="passUserPassword" name="passUserPassword" maxlength="20" style="width:236px;height:26px;margin-left:92px;margin-top:6px;border-width:0px;font-size:18px" />
+            <input type="password" id="passUserPassword" name="passUserPassword" maxlength="20" runat="server" runat="server" style="width:236px;height:26px;margin-left:92px;margin-top:6px;border-width:0px;font-size:18px" />
         </div>
         <div style="width:100px;height:40px;margin-top:5px;margin-left:auto;margin-right:10px">
             <a href="#" id="butLogin" name="butLogin" class="easyui-linkbutton" iconCls="icon-userlogin" runat="server" onclick="javascript:if(!checkForms()){ return false; };" onserverclick="butLogin_Click">登陆</a>

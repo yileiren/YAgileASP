@@ -52,6 +52,9 @@
     <Reference Include="YAdoNet">
       <HintPath>..\libs\YAdoNet.dll</HintPath>
     </Reference>
+    <Reference Include="YCrypto">
+      <HintPath>..\libs\YCrypto.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="background\images\login\login.png" />
@@ -365,6 +368,7 @@
     <Content Include="background\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="background\images\Web.config" />
     <None Include="js\jquery-easyui\themes\default\images\Thumbs.db" />
     <None Include="js\jquery-easyui\themes\gray\images\Thumbs.db" />
   </ItemGroup>
