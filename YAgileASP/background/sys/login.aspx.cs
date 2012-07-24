@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using YLR.YAdoNet;
+using YLR.YMessage;
 
 namespace YAgileASP.background.sys
 {
@@ -27,9 +28,11 @@ namespace YAgileASP.background.sys
                 string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
 
                 YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer");
+
             }
             catch(Exception ex)
             {
+                YMessageBox.show(this,"用户登陆异常！异常消息[" + ex.Message + "]");
             }
         }
     }
