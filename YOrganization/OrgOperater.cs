@@ -135,7 +135,7 @@ namespace YLR.YOrganization
             try
             {
                 //构建SQL语句
-                string sql = string.Format("SELECT TOP(1) * FROM ORG_USER WHILE LOGNAME = '%s' AND LOGPASSWORD = '%s'",logName,logPassword);
+                string sql = string.Format("SELECT TOP(1) * FROM ORG_USER WHERE LOGNAME = '{0}' AND LOGPASSWORD = '{1}'",logName,logPassword);
 
                 //连接数据库
                 if (this._orgDataBase.connectDataBase())

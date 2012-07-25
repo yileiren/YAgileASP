@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YCrypto</name>
+    </assembly>
+    <members>
+        <member name="T:YLR.YCrypto.MD5Encrypt">
+            <summary>
+            MD5加密算法。
+            </summary>
+        </member>
+        <member name="M:YLR.YCrypto.MD5Encrypt.#ctor">
+            <summary>
+            默认构造函数。
+            </summary>
+        </member>
+        <member name="M:YLR.YCrypto.MD5Encrypt.GetMD5(System.Byte[])">
+            <summary>
+            给二进制数据加密。
+            </summary>
+            <param name="data">二进制数据</param>
+            <returns>加密后的字符串。</returns>
+        </member>
+        <member name="M:YLR.YCrypto.MD5Encrypt.GetMD5(System.String)">
+            <summary>
+            给字符串加密。
+            </summary>
+            <param name="data">要加密的字符串。</param>
+            <returns>加密后的字符串。</returns>
+        </member>
+    </members>
+</doc>
