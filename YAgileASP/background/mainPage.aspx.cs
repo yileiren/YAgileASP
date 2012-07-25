@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using YLR.YOrganization;
 using System.Web.Security;
+using YLR.YMessage;
 
 namespace YAgileASP.background
 {
@@ -31,6 +32,7 @@ namespace YAgileASP.background
                 }
                 catch (Exception ex)
                 {
+                    YMessageBox.show(this, "系统运行异常！异常信息[" + ex.Message + "]");
                 }
             }
         }
