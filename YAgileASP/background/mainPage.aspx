@@ -32,7 +32,7 @@
         <input type="hidden" id="hidMenu" runat="server" name="hidMenu" />
     </form>
     </div>
-	<div region="west" split="true" title="菜单" iconCls="icon-menu" style="width:250px;padding:3px;">
+	<div region="west" split="true" title="菜单" iconCls="icon-menu" style="width:250px;padding:3px;background-color:#EEF5FD">
 	    <div id="menu" class="easyui-accordion" fit="true" border="true" style="background-color:#EEF5FD">
 	        
 	    </div>
@@ -46,7 +46,7 @@
 	        <span id="logName" runat="server"></span>
 	    </span>
 	</div>
-	<div id="center" region="center" title="首页" iconCls="icon-home" style="padding:3px;">
+	<div id="center" region="center" title="首页" iconCls="icon-home" style="padding:3px;background-color:#EEF5FD">
 	    <div style="width:100%;height:100%">
 	        <iframe id="centerPage" frameborder="0" style="width:100%;height:100%">
 	        </iframe>
