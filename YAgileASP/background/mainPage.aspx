@@ -12,6 +12,21 @@
     <script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../js/YWindows.js"></script>
+
+    <script type="text/javascript">
+        //退出系统处理方法。
+        function logOut()
+        {
+            return confirm("确定要退出系统？");
+        }
+
+        //修改密码
+        function changePassword()
+        {
+            popupsWindow("#popups", "修改密码", 300, 185, "sys/changePassword.aspx", "icon-key", true, true);
+        }
+    </script>
 </head>
 <body class="easyui-layout">
     <div region="north" border="false" style="height:50px;background-image:url('images/mainPage/title_01.gif')">
@@ -20,16 +35,9 @@
             <img src="images/mainPage/title_02.gif" alt="异类人敏捷开发平台" />
         </span>
         <span style="position:absolute;right:10px;bottom:0px">
-            <a id="butChangePassword" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-key" runat="server" onclick="">修改密码</a>
+            <a id="butChangePassword" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-key" onclick="javascript:changePassword();">修改密码</a>
             <a id="logOut" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-out" runat="server" onclick="javascript:return logOut();" onserverclick="logOut_onClick">退出系统</a>
         </span>
-        <div id="changePswDlg" class="easyui-dialog" closed="true" modal="true" title="修改密码" iconCls="icon-key" buttons="#dlg-buttons" resizable="false" style="overflow:hidden;width:340px;height:160px;padding:0px">
-	        <div style="width:335px;height:135px">
-	        <iframe id="changePswIframe" frameborder="0" src="changePassward.aspx" style="width:335px;height:135px"></iframe>
-	        </div>
-        </div>
-        <div id="message" runat="server"></div>
-        <input type="hidden" id="hidMenu" runat="server" name="hidMenu" />
     </form>
     </div>
 	<div region="west" split="true" title="菜单" iconCls="icon-menu" style="width:250px;padding:3px;background-color:#EEF5FD">
@@ -47,10 +55,14 @@
 	    </span>
 	</div>
 	<div id="center" region="center" title="首页" iconCls="icon-home" style="padding:3px;background-color:#EEF5FD">
-	    <div style="width:100%;height:100%">
-	        <iframe id="centerPage" frameborder="0" style="width:100%;height:100%">
+	</div>
+
+    <!--弹出窗口-->
+    <div id="popups" class="easyui-dialog" closed="true" style="padding:5px;background-color:#EEF5FD">
+        <div style="width:100%;height:100%">
+	        <iframe id="popupsIframe" frameborder="0" style="width:100%;height:100%">
 	        </iframe>
 	    </div>
-	</div>
+    </div>
 </body>
 </html>

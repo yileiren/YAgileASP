@@ -63,6 +63,7 @@
     <Content Include="background\images\mainPage\title_01.gif" />
     <Content Include="background\images\mainPage\title_02.gif" />
     <Content Include="background\mainPage.aspx" />
+    <Content Include="background\sys\changePassword.aspx" />
     <Content Include="background\sys\login.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="js\jquery-easyui\changelog.txt" />
@@ -353,6 +354,13 @@
     <Compile Include="background\mainPage.aspx.designer.cs">
       <DependentUpon>mainPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="background\sys\changePassword.aspx.cs">
+      <DependentUpon>changePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="background\sys\changePassword.aspx.designer.cs">
+      <DependentUpon>changePassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="background\sys\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -372,6 +380,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="background\sys\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="background\Web.config" />

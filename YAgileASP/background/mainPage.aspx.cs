@@ -26,13 +26,12 @@ namespace YAgileASP.background
                     }
                     else
                     {
-                        Exception ex = new Exception("用户登陆超时，请重新登陆！");
-                        throw ex;
+                        YMessageBox.showAndRedirect(this, "用户登陆超时，请重新登陆！", "sys/login.aspx");
                     }
                 }
                 catch (Exception ex)
                 {
-                    YMessageBox.show(this, "系统运行异常！异常信息[" + ex.Message + "]");
+                    YMessageBox.showAndRedirect(this, "系统运行异常！异常信息[" + ex.Message + "]","sys/login.aspx");
                 }
             }
         }

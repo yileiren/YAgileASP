@@ -27,15 +27,16 @@
 function popupsWindow(windowId,titleName,windowWidth,windowHeight,pageUrl,windowIcon,allowClose,isModal)
 {
     $(windowId).dialog({
-        title:titleName,
-        width:windowWidth,
-        height:windowHeight,
-        iconCls:windowIcon,
-        href:pageUrl,
-        closable:allowClose,
-        modal:isModal,
-        closed:false
-   });
+        title: titleName,
+        width: windowWidth,
+        height: windowHeight,
+        iconCls: windowIcon,
+        closable: allowClose,
+        modal: isModal,
+        closed: false,
+        cache:false
+    });
+    $("#popupsIframe").attr("src", pageUrl);
 }
 
 /*!
@@ -46,5 +47,6 @@ function popupsWindow(windowId,titleName,windowWidth,windowHeight,pageUrl,window
  */
 function closePopupsWindow(windowId)
 {
+    
     $(windowId).dialog('close');
 }

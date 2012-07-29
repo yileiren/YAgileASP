@@ -7,45 +7,45 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace YAgileASP.background {
+namespace YAgileASP.background.sys {
     
     
-    public partial class mainPage {
+    public partial class changePassword {
         
         /// <summary>
-        /// title 控件。
+        /// form1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm title;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// logOut 控件。
+        /// pswOldPsw 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor logOut;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword pswOldPsw;
         
         /// <summary>
-        /// userName 控件。
+        /// pswNewPsw1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl userName;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword pswNewPsw1;
         
         /// <summary>
-        /// logName 控件。
+        /// pswNewPsw2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl logName;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword pswNewPsw2;
     }
 }
