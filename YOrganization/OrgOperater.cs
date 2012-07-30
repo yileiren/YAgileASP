@@ -208,5 +208,56 @@ namespace YLR.YOrganization
 
             return user;
         }
+
+        /// <summary>
+        /// 修改用户密码。
+        /// </summary>
+        /// <param name="user">要修改的用户信息。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool changePassword(UserInfo user)
+        {
+            bool retVal = false;
+            try
+            {
+                //更新语句
+                string sql = string.Format("UPDATE ORG_USER SET LOGPASSWORD = '{0}' WHERE ID = {1}", user.logPassword, user.id);
+
+                //连接数据库
+                if (this._orgDataBase.connectDataBase())
+                {
+                    //更新数据
+                    int iRet = this._orgDataBase.executeSqlWithOutDs(sql);
+                    if (iRet > 0)
+                    {
+                        retVal = true;
+                    }
+                    else
+                    {
+                        this._errorMessage = "更新数据出错！";
+
+                        if (iRet < 0)
+                        {
+                            //执行出错
+                            this._errorMessage += "[" + this.orgDataBase.errorText + "]";
+                        }
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "连接数据库出错！错误信息[" + this._orgDataBase.errorText + "]";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                //断开数据库连接。
+                this._orgDataBase.disconnectDataBase();
+            }
+
+            return retVal;
+        }
     }
 }

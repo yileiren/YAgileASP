@@ -40,7 +40,7 @@
 </head>
 <body style="background-color:#EEF5FD">
     <form id="form1" runat="server">
-	<div id="p" class="easyui-panel" noheader="true" fit="true" style="margin-left:auto;margin-right:auto;padding:3px;">
+	<div id="p" class="easyui-panel" noheader="true" fit="true" style="margin-left:auto;margin-right:auto;padding:3px">
 	
         <div style="width:250px;margin-left:auto;margin-right:auto">
             <table style="border-collapse:collapse">
@@ -50,7 +50,7 @@
 	        </table>
         </div>
         <div style="width:170px;margin-left:auto;margin-top:5px;margin-right:5px">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="javascript:return changePsw();">修改</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="javascript:return changePsw();"  runat="server" onserverclick="butChange_onClick">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:window.parent.closePopupsWindow('#popups')">取消</a>
         </div>
     </div>

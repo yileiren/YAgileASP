@@ -24,7 +24,7 @@
         //修改密码
         function changePassword()
         {
-            popupsWindow("#popups", "修改密码", 300, 185, "sys/changePassword.aspx", "icon-key", true, true);
+            popupsWindow("#popups", "修改密码", 300, 175, "sys/changePassword.aspx", "icon-key", true, true);
         }
     </script>
 </head>
@@ -58,7 +58,7 @@
 	</div>
 
     <!--弹出窗口-->
-    <div id="popups" class="easyui-dialog" closed="true" style="padding:5px;background-color:#EEF5FD">
+    <div id="popups" class="easyui-dialog" closed="true" style="padding:0px;background-color:#EEF5FD">
         <div style="width:100%;height:100%">
 	        <iframe id="popupsIframe" frameborder="0" style="width:100%;height:100%">
 	        </iframe>

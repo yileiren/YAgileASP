@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using YLR.YOrganization;
 using YLR.YCrypto;
+using YLR.YMessage;
+using YLR.YAdoNet;
 
 namespace YAgileASP.background.sys
 {
@@ -34,25 +36,38 @@ namespace YAgileASP.background.sys
                     if (user.logPassword == md5Encrypt.GetMD5(this.pswOldPsw.Value))
                     {
                         user.logPassword = md5Encrypt.GetMD5(this.pswNewPsw1.Value);
-                        OrganizationDataBase orgDB = new OrganizationDataBase();
-                        if (orgDB.changePassword(user))
+                        OrgOperater orgDB = new OrgOperater();
+
+                        //获取配置文件路径。
+                        string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+
+                        //获取数据库实例。
+                        YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer");
+
+                        if (orgDb != null)
                         {
-                            Session["User"] = user;
-                            YMessageBox.showMessageBox(this.UpdatePanel1, "提示", "密码修改成功！", YMessageType.Info, "", "$('.easyui-linkbutton').linkbutton({});");
-                            //this.message.InnerHtml = YMessageBox.createMessageBox("提示", "密码修改成功！", YMessageType.Info);
-                        }
-                        else
-                        {
-                            //提示错误信息
-                            YMessageBox.showMessageBox(this.UpdatePanel1, "提示", "修改密码失败！", YMessageType.Info, "", "$('.easyui-linkbutton').linkbutton({});");
-                            //this.message.InnerHtml = YMessageBox.createMessageBox("提示", "原密码输入错误，请重新输入！", YMessageType.Info);
+                            //更新数据
+                            OrgOperater orgOper = new OrgOperater();
+                            orgOper.orgDataBase = orgDb;
+
+                            bool bRet = orgOper.changePassword(user);
+
+                            if (bRet)
+                            {
+                                //更新成功。
+                                YMessageBox.showAndResponseScript(this, "修改用户密码成功！", "window.parent.closePopupsWindow('#popups');","");
+                            }
+                            else
+                            {
+                                //更新出错。
+                                YMessageBox.show(this, "修改用户密码出错！错误信息[" + orgOper.errorMessage + "]");
+                            }
                         }
                     }
                     else
                     {
-                        //提示错误信息
-                        YMessageBox.showMessageBox(this.UpdatePanel1, "提示", "原密码输入错误，请重新输入！", YMessageType.Info, "", "$('.easyui-linkbutton').linkbutton({});");
-                        //this.message.InnerHtml = YMessageBox.createMessageBox("提示","原密码输入错误，请重新输入！",YMessageType.Info);
+                        //原密码验证出错。
+                        YMessageBox.show(this,"原密码验证错误！");
                     }
                 }
                 else
@@ -63,10 +78,7 @@ namespace YAgileASP.background.sys
             }
             catch (Exception ex)
             {
-                YMessageBox.showMessageBox(this.UpdatePanel1, "提示", ex.Message, YMessageType.Info, "", "$('.easyui-linkbutton').linkbutton({});");
-                //this.message.InnerHtml = YMessageBox.createMessageBox("提示", ex.Message, YMessageType.Info);
-                FormsAuthentication.SignOut();
-                FormsAuthentication.RedirectToLoginPage();
+                YMessageBox.show(this,"修改用户密码出错！错误信息[" + ex.Message + "]");
             }
         }
     }

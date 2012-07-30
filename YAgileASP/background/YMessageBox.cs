@@ -21,6 +21,18 @@ namespace YLR.YMessage
         }
 
         /// <summary>
+        /// 显示消息提示框，并执行脚本。
+        /// </summary>
+        /// <param name="page">当前页面指针，一般为this</param>
+        /// <param name="msg">提示信息。</param>
+        /// <param name="beginScript">提示信息前执行的脚本。</param>
+        /// <param name="endScript">提示信息后执行的脚本</param>
+        public static void showAndResponseScript(System.Web.UI.Page page, string msg, string beginScript,string endScript)
+        {
+            page.ClientScript.RegisterStartupScript(page.GetType(), "message", "<script language='javascript' defer>" + beginScript + ";alert('" + msg.ToString() + "');" + endScript + "</script>");
+        }
+
+        /// <summary>
         /// 控件点击 消息确认提示框
         /// </summary>
         /// <param name="page">当前页面指针，一般为this</param>
