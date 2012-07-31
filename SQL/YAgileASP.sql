@@ -15,6 +15,7 @@ CREATE TABLE ORG_ORGANIZATION
 );
 GO
 
+--创建用户表
 CREATE TABLE ORG_USER
 (
 	-- 用户id，使用自增列作为主键。
@@ -34,8 +35,7 @@ CREATE TABLE ORG_USER
 GO
 
 
-/* Create Foreign Keys */
-
+--用户表创建外键
 ALTER TABLE ORG_USER
 	ADD FOREIGN KEY (ORGANIZATIONID)
 	REFERENCES ORG_ORGANIZATION (ID)
@@ -46,3 +46,29 @@ GO
 INSERT INTO org_user (logName, logPassword, name) VALUES ('root', '63a9f0ea7bb98050796b649e85481845', '超级用户');
 INSERT INTO org_user (logName, logPassword, name) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', '超级管理员');
 GO
+
+
+--创建系统菜单表。
+CREATE TABLE SYS_MENUS
+(
+	-- 菜单id，使用自增列做主键。
+	ID INT NOT NULL IDENTITY ,
+	-- 菜单名称，记录菜单显示的名称。
+	NAME NVARCHAR(20) NOT NULL,
+	-- 菜单地址，根据实际情况设置相对路径和绝对路径。
+	URL NVARCHAR(200),
+	-- 父菜单ID，为NULL表示顶级菜单。
+	PARENTID INT,
+	-- 菜单前面显示的图标，使用JQuery EasyUI中的图标字符串类型。
+	ICON NVARCHAR(20),
+	-- 桌面图标，记录图片相对路径。
+	DESKTOPICON NVARCHAR(100),
+	-- 用来控制菜单的显示顺序。
+	[ORDER] INT DEFAULT 0 NOT NULL,
+	PRIMARY KEY (ID)
+);
+GO
+
+--插入系统菜单表基础数据。
+INSERT INTO sys_menus (name) VALUES ('系统设置')
+INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('系统菜单', 'sys/menu/menu_list.aspx', '1', 'icon-menu');

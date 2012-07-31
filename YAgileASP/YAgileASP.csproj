@@ -65,6 +65,7 @@
     <Content Include="background\mainPage.aspx" />
     <Content Include="background\sys\changePassword.aspx" />
     <Content Include="background\sys\login.aspx" />
+    <Content Include="background\sys\menu\menu_list.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="js\jquery-easyui\changelog.txt" />
     <Content Include="js\jquery-easyui\easyloader.js" />
@@ -368,6 +369,13 @@
     <Compile Include="background\sys\login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="background\sys\menu\menu_list.aspx.cs">
+      <DependentUpon>menu_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="background\sys\menu\menu_list.aspx.designer.cs">
+      <DependentUpon>menu_list.aspx</DependentUpon>
+    </Compile>
     <Compile Include="background\YMessageBox.cs" />
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -380,7 +388,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="background\sys\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="background\Web.config" />
