@@ -42,7 +42,11 @@
     </div>
 	<div region="west" split="true" title="菜单" iconCls="icon-menu" style="width:250px;padding:3px;background-color:#EEF5FD">
 	    <div id="menu" class="easyui-accordion" fit="true" border="true" style="background-color:#EEF5FD">
-	        
+            <asp:Repeater ID="menuGroup" runat="server">
+                <ItemTemplate>
+                    <div title="Title1" iconCls="icon-ok" style="overflow:auto;padding:5px;"></div>
+                </ItemTemplate>
+            </asp:Repeater>
 	    </div>
 	</div>
 	<div region="south" border="true" style="height:25px;background:#D9E5FD;padding:5px;">
