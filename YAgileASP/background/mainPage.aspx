@@ -42,9 +42,16 @@
     </div>
 	<div region="west" split="true" title="菜单" iconCls="icon-menu" style="width:250px;padding:3px;background-color:#EEF5FD">
 	    <div id="menu" class="easyui-accordion" fit="true" border="true" style="background-color:#EEF5FD">
-            <asp:Repeater ID="menuGroup" runat="server">
+            <asp:Repeater ID="menuGroup" runat="server" 
+                onitemdatabound="menuGroup_ItemDataBound">
                 <ItemTemplate>
-                    <div title="Title1" iconCls="icon-ok" style="overflow:auto;padding:5px;"></div>
+                <div title="<%#Eval("NAME") %>" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" style="overflow:auto;padding:3px;overflow-x:hidden">
+                    <asp:Repeater ID="menuButton" runat="server">
+                        <ItemTemplate>
+                        <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" iconCls="icon-cancel" style="width:100%"><%#Eval("NAME") %></a>            
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
                 </ItemTemplate>
             </asp:Repeater>
 	    </div>

@@ -67,6 +67,12 @@
 .icon-home{
 	background:url('icons/home.png') no-repeat;
 }
+.icon-systemMenu{
+	background:url('icons/systemMenu.png') no-repeat;
+}
+.icon-systemSetting{
+	background:url('icons/systemSetting.png') no-repeat;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat 2px 2px;

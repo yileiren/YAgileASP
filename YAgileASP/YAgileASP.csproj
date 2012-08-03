@@ -400,6 +400,10 @@
     <Content Include="js\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\YMenu\YMenu.csproj">
+      <Project>{ECDCE1BC-059A-43B5-8862-1C8B0F2E1C4B}</Project>
+      <Name>YMenu</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YOrganization\YOrganization.csproj">
       <Project>{85A2BF8C-3ABA-44F3-AE4C-7C425B72C0AD}</Project>
       <Name>YOrganization</Name>
