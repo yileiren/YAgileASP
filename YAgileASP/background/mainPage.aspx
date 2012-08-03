@@ -30,7 +30,6 @@
 </head>
 <body class="easyui-layout">
     <div region="north" border="false" style="height:50px;background-image:url('images/mainPage/title_01.gif')">
-    <form id="title" runat="server">
         <span style="position:absolute;left:10px">
             <img src="images/mainPage/title_02.gif" alt="异类人敏捷开发平台" />
         </span>
@@ -38,26 +37,27 @@
             <a id="butChangePassword" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-key" onclick="javascript:changePassword();">修改密码</a>
             <a id="logOut" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-out" runat="server" onclick="javascript:return logOut();" onserverclick="logOut_onClick">退出系统</a>
         </span>
-    </form>
     </div>
     <!--系统菜单-->
 	<div region="west" split="true" title="菜单" iconCls="icon-menu" style="width:250px;padding:3px;background-color:#EEF5FD">
-	    <div id="menu" class="easyui-accordion" fit="true" border="true" style="background-color:#EEF5FD">
+        <div id="menu" class="easyui-accordion" fit="true" border="true" style="background-color:#EEF5FD">
             <asp:Repeater ID="menuGroup" runat="server" 
                 onitemdatabound="menuGroup_ItemDataBound">
                 <ItemTemplate>
                 <div title="<%#Eval("NAME") %>" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" style="overflow:auto;padding:3px;overflow-x:hidden">
                     <asp:Repeater ID="menuButton" runat="server">
                         <ItemTemplate>
-                        <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" iconCls="icon-cancel" style="width:100%"><%#Eval("NAME") %></a>            
+                        <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" style="width:100%"><%#Eval("NAME") %></a>            
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
                 </ItemTemplate>
             </asp:Repeater>
 	    </div>
+        
 	</div>
 	<div region="south" border="true" style="height:25px;background:#D9E5FD;padding:5px;">
+        <form id="title" runat="server">
 	    <span style="position:absolute;right:0px;width:400px">
 	        <span style="font-weight:bold">登陆用户：</span>
 	        <span id="userName" runat="server"></span>
@@ -65,6 +65,7 @@
 	        <span style="font-weight:bold">登录名：</span>
 	        <span id="logName" runat="server"></span>
 	    </span>
+        </form>
 	</div>
     <!--操作区域-->
 	<div id="center" region="center" title="首页" iconCls="icon-home" style="padding:3px;background-color:#EEF5FD">

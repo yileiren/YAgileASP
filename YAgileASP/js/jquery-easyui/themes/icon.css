@@ -55,12 +55,6 @@
 .icon-userlogin{
 	background:url('icons/userlogin.png') no-repeat;
 }
-.icon-out{
-	background:url('icons/out.png') no-repeat;
-}
-.icon-key{
-	background:url('icons/key.png') no-repeat;
-}
 .icon-menu{
 	background:url('icons/menu.png') no-repeat;
 }
@@ -72,6 +66,12 @@
 }
 .icon-systemSetting{
 	background:url('icons/systemSetting.png') no-repeat;
+}
+.icon-out{
+	background:url('icons/out.png') no-repeat;
+}
+.icon-key{
+	background:url('icons/key.png') no-repeat;
 }
 
 .icon-mini-add{
