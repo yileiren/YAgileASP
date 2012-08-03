@@ -40,6 +40,7 @@
         </span>
     </form>
     </div>
+    <!--系统菜单-->
 	<div region="west" split="true" title="菜单" iconCls="icon-menu" style="width:250px;padding:3px;background-color:#EEF5FD">
 	    <div id="menu" class="easyui-accordion" fit="true" border="true" style="background-color:#EEF5FD">
             <asp:Repeater ID="menuGroup" runat="server" 
@@ -65,6 +66,7 @@
 	        <span id="logName" runat="server"></span>
 	    </span>
 	</div>
+    <!--操作区域-->
 	<div id="center" region="center" title="首页" iconCls="icon-home" style="padding:3px;background-color:#EEF5FD">
 	</div>
 
