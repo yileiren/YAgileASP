@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YMenu
+namespace YLR.YMenu
 {
     /// <summary>
     /// 菜单实体类。

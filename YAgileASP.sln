@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAgileASP", "YAgileASP\YAgileASP.csproj", "{00EA9EA8-526D-4BF2-BD5C-37F0674793ED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ECDCE1BC-059A-43B5-8862-1C8B0F2E1C4B} = {ECDCE1BC-059A-43B5-8862-1C8B0F2E1C4B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YOrganization", "YOrganization\YOrganization.csproj", "{85A2BF8C-3ABA-44F3-AE4C-7C425B72C0AD}"
 EndProject

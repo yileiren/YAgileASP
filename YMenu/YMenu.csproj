@@ -8,7 +8,7 @@
     <ProjectGuid>{ECDCE1BC-059A-43B5-8862-1C8B0F2E1C4B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YMenu</RootNamespace>
+    <RootNamespace>YLR.YMenu</RootNamespace>
     <AssemblyName>YMenu</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -38,9 +38,13 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="YAdoNet">
+      <HintPath>..\libs\YAdoNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MenuInfo.cs" />
+    <Compile Include="MenuOperater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
