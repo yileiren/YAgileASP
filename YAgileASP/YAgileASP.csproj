@@ -326,6 +326,8 @@
     <Content Include="js\jquery-easyui\themes\icons\reload.png" />
     <Content Include="js\jquery-easyui\themes\icons\search.png" />
     <Content Include="js\jquery-easyui\themes\icons\sum.png" />
+    <Content Include="js\jquery-easyui\themes\icons\systemMenu.png" />
+    <Content Include="js\jquery-easyui\themes\icons\systemSetting.png" />
     <Content Include="js\jquery-easyui\themes\icons\tip.png" />
     <Content Include="js\jquery-easyui\themes\icons\undo.png" />
     <Content Include="js\jquery-easyui\themes\icons\userlogin.png" />
