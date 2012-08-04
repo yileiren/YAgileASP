@@ -26,6 +26,29 @@
         {
             popupsWindow("#popups", "修改密码", 300, 175, "sys/changePassword.aspx", "icon-key", true, true);
         }
+
+        /*!
+         * \brief
+         * 菜单按钮点击事件处理方法。用来显示点击的菜单页面。
+         * 作者：董帅 
+         *
+         * \param name 菜单名称，显示在中间区域的title中。
+         * \param icon 菜单图标，显示在中间区域的icon中。
+         * \param url 菜单对应的url。
+         */
+        function menuButtonOnClick(name, icon, url) 
+        {
+            //设置panel标题和图标。
+            $('#center').panel(
+                {
+                    title:name,
+                    iconCls:icon
+                }
+            );
+
+            //显示页面
+            $("#centerIframe").attr("src", url);
+        }
     </script>
 </head>
 <body class="easyui-layout">
@@ -47,7 +70,7 @@
                 <div title="<%#Eval("NAME") %>" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" style="overflow:auto;padding:3px;overflow-x:hidden">
                     <asp:Repeater ID="menuButton" runat="server">
                         <ItemTemplate>
-                        <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" style="width:100%"><%#Eval("NAME") %></a>            
+                        <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" style="width:100%" onclick="javascript:menuButtonOnClick('<%#Eval("NAME") %>','<%#Eval("ICON") %>','<%#Eval("URL") %>');"><%#Eval("NAME") %></a>            
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
@@ -69,12 +92,14 @@
 	</div>
     <!--操作区域-->
 	<div id="center" region="center" title="首页" iconCls="icon-home" style="padding:3px;background-color:#EEF5FD">
-	</div>
+	    <iframe id="centerIframe" frameborder="0" style="width:100%;height:100%;background-color:#EEF5FD">
+	    </iframe>
+    </div>
 
     <!--弹出窗口-->
     <div id="popups" class="easyui-dialog" closed="true" style="padding:0px;background-color:#EEF5FD">
         <div style="width:100%;height:100%">
-	        <iframe id="popupsIframe" frameborder="0" style="width:100%;height:100%">
+	        <iframe id="popupsIframe" frameborder="0" style="width:100%;height:100%;background-color:#EEF5FD">
 	        </iframe>
 	    </div>
     </div>
