@@ -77,7 +77,6 @@
                 </ItemTemplate>
             </asp:Repeater>
 	    </div>
-        
 	</div>
 	<div region="south" border="true" style="height:25px;background:#D9E5FD;padding:5px;">
         <form id="title" runat="server">
