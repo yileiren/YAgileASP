@@ -125,7 +125,7 @@ namespace YLR.YMenu
                     {
 
                         //sql语句，获取所有菜单
-                        string sql = "SELECT * FROM SYS_MENUS  ORDER BY PARENTID ASC,[ORDER] ASC ";
+                        string sql = "SELECT * FROM SYS_MENUS ORDER BY PARENTID ASC,[ORDER] ASC";
 
                         //获取数据
                         DataTable dt = this._menuDataBase.executeSqlReturnDt(sql);
@@ -168,7 +168,7 @@ namespace YLR.YMenu
                 }
                 else
                 {
-                    this._errorMessage = "为设置数据库实例！";
+                    this._errorMessage = "未设置数据库实例！";
                 }
             }
             catch (Exception ex)
@@ -178,6 +178,79 @@ namespace YLR.YMenu
             finally
             {
                 this._menuDataBase.disconnectDataBase();
+            }
+
+            return menus;
+        }
+
+        /// <summary>
+        /// 通过父id获取菜单。
+        /// 作者：董帅 创建时间：2012-8-6 12:57:40
+        /// </summary>
+        /// <param name="id">父id，为-1时表示获取顶层菜单。。</param>
+        /// <returns>菜单，失败返回null。</returns>
+        public List<MenuInfo> getMenuByParentId(int parentId)
+        {
+            List<MenuInfo> menus = null;
+            try
+            {
+                menus = new List<MenuInfo>();
+
+                //连接数据库
+                if (this._menuDataBase != null)
+                {
+                    //连接数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+
+                        //构建sql语句。
+                        string sql = "";
+                        if (parentId == -1)
+                        {
+                            sql = "SELECT * FROM SYS_MENUS WHERE PARENTID IS NULL OR PARENTID = -1 ORDER BY [ORDER] ASC";
+                        }
+                        else
+                        {
+                            sql = string.Format("SELECT * FROM SYS_MENUS WHERE PARENTID = {0} ORDER BY [ORDER] ASC", parentId);
+                        }
+
+                        //获取数据
+                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql);
+                        if (dt != null)
+                        {
+
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                MenuInfo m = this.getMenuFormDataRow(row);
+
+                                if (m != null)
+                                {
+                                    menus.Add(m);
+                                }
+                            }
+
+                            return menus;
+                        }
+
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._menuDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                //断开数据库连接。
+                this.menuDataBase.disconnectDataBase();
             }
 
             return menus;
