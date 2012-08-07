@@ -66,6 +66,7 @@
     <Content Include="background\sys\changePassword.aspx" />
     <Content Include="background\sys\login.aspx" />
     <Content Include="background\sys\menu\menu_list.aspx" />
+    <Content Include="css\table.css" />
     <Content Include="DataBaseConfig.xml" />
     <Content Include="Default.aspx" />
     <Content Include="js\jquery-easyui\changelog.txt" />

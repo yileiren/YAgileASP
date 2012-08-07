@@ -1,0 +1,89 @@
+﻿table.admintable {
+    border:1px solid #AEDEF2;
+    border-collapse: collapse;
+}
+table.admintable_s2{
+    color:#658fd4;
+    border-bottom:#aedef2 thin solid;
+    border-left:#aedef2 thin solid;
+    border-right:#aedef2 thin solid;
+    border-top:#aedef2 thin solid;
+    background-color: #eef6fe;
+    font-size:12px;
+    font-family:"新宋体";
+    overflow:auto;
+}
+td.admintd{
+    color: #0066cc;
+    font-size:14px;
+    color:#05B;
+}
+th.adminth {
+    width: 671px;
+    color: #0066cc;
+    background-color: #eef6fe;
+    font-size:14px;
+    color:#05B;
+    border:1px solid #AEDEF2;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#AEDEF2,endColorStr=ghostwhite);
+}
+th.adminth_s2 {
+    width: 671px;
+    color: #0066cc;
+    background-color: #eef6fe;
+    font-size:14px;
+    color:#05B;
+    border:1px solid #AEDEF2;
+}
+td.admincls0 {
+    border:1px solid #AEDEF2;
+    background:ghostwhite;
+    font-size:12px;
+    font-family: "宋体";
+    color: #333;
+}
+td.admincls1 {
+    border:1px solid #AEDEF2;
+    background:#DAF0F1;
+    font-size:12px;
+    font-family: "宋体";
+    color: #333;
+}
+th.menu {
+    color: #006699;
+    font-family: "宋体";
+    font-size: 14px;
+}
+td.stagetd{
+    color:#236E11;
+    font-size:14px;
+    font-family:"新宋体";
+    border-bottom:#456602 thin dashed;
+    background:#EBFEC5;
+}
+table.stage{
+    border-bottom:#FFFFFF thin solid;
+    border-left:#FFFFFF thin solid;
+    border-right:#FFFFFF thin solid;
+    border-top:#FFFFFF thin solid;
+    font-size:14px;
+    font-family:"新宋体";
+    overflow:auto;
+}
+tr.stagetr_tr1{
+    border-bottom:#FFFFFF thin solid;
+    border-left:#FFFFFF thin solid;
+    border-right:#FFFFFF thin solid;
+    border-top:#FFFFFF thin solid;
+    background-color: #EBFEC5;
+    font-size:12px;
+    font-family:"新宋体";
+}
+tr.stagetr_tr2{
+    border-bottom:#FFFFFF thin solid;
+    border-left:#FFFFFF thin solid;
+    border-right:#FFFFFF thin solid;
+    border-top:#FFFFFF thin solid;
+    font-size:12px;
+    font-family:"新宋体";
+}
