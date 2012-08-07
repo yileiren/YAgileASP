@@ -25,15 +25,24 @@
         <div class="easyui-panel" fit="true" style="width:1024px;height:600px;padding:5px;background-color:#EEF5FD">
             <div class="easyui-layout"  style="width: 100%;height: 100%;background-color:#EEF5FD">
             <div region="west" border="false" style="width:250px;padding:0px;background-color:#EEF5FD">
-                <div id="p" class="easyui-panel" title="菜单分组" fit="true" style="overflow-x:hidden;background-color:#FFFFFF">
+                <div class="easyui-panel" title="菜单分组" fit="true" tools="#groutsButtons" style="overflow-x:hidden;background-color:#FFFFFF">
                     <asp:Repeater ID="menuGroups" runat="server">
-                        <ItemTemplate>
-                        <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" style="width:100%" onclick="javascript:menuButtonOnClick('<%#Eval("NAME") %>','<%#Eval("ICON") %>','<%#Eval("URL") %>');"><%#Eval("NAME") %></a>            
-                        </ItemTemplate>
+                    <HeaderTemplate>
+                        <table class="admintable" style="width:100%">
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <tr style="width:100%;height:30px">
+                            <td class="admincls0" style="text-align:center;width:30px"><input type="checkbox" id="<%#Eval("ID") %>" /></td>
+                            <td class="admincls0" style="width:220px"><a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" style="width:215px" onclick="javascript:menuButtonOnClick('<%#Eval("NAME") %>','<%#Eval("ICON") %>','<%#Eval("URL") %>');"><%#Eval("NAME") %></a></td>
+                        </tr>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        </table>
+                    </FooterTemplate>
                     </asp:Repeater>
 	            </div>
             </div>
-            <div region="center" title="<%=groupTitle %>" iconCls="<%=groupIcon %>" style="background-color:#FFFFFF">
+            <div region="center" title="<%=groupTitle %>" iconCls="<%=groupIcon %>" tools="#menusButtons" style="background-color:#FFFFFF">
                 <asp:Repeater ID="childs" runat="server">
                     <HeaderTemplate>
                         <table class="admintable" style="width:100%">
@@ -79,6 +88,16 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     </div>
+    <div id="groutsButtons">
+		<a href="#" class="icon-add" onclick="javascript:alert('add')"></a>
+		<a href="#" class="icon-edit" onclick="javascript:alert('edit')"></a>
+		<a href="#" class="icon-cancel" onclick="javascript:alert('cut')"></a>
+	</div>
+    <div id="menusButtons">
+		<a href="#" class="icon-add" onclick="javascript:alert('add')"></a>
+		<a href="#" class="icon-edit" onclick="javascript:alert('edit')"></a>
+		<a href="#" class="icon-cancel" onclick="javascript:alert('cut')"></a>
+	</div>
     </form>
 </body>
 </html>
