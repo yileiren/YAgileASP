@@ -65,6 +65,7 @@
     <Content Include="background\mainPage.aspx" />
     <Content Include="background\sys\changePassword.aspx" />
     <Content Include="background\sys\login.aspx" />
+    <Content Include="background\sys\menu\menu_edit.aspx" />
     <Content Include="background\sys\menu\menu_list.aspx" />
     <Content Include="css\table.css" />
     <Content Include="DataBaseConfig.xml" />
@@ -372,6 +373,13 @@
     </Compile>
     <Compile Include="background\sys\login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="background\sys\menu\menu_edit.aspx.cs">
+      <DependentUpon>menu_edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="background\sys\menu\menu_edit.aspx.designer.cs">
+      <DependentUpon>menu_edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="background\sys\menu\menu_list.aspx.cs">
       <DependentUpon>menu_list.aspx</DependentUpon>

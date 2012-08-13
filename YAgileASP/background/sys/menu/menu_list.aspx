@@ -14,6 +14,19 @@
     <script type="text/javascript" src="../../../js/jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../../../js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="../../../js/YWindows.js"></script>
+
+    <script type="text/javascript" language="javascript">
+        /*!
+         * \brief
+         * 新增分组。
+         * 作者：董帅 创建时间：2012-8-13 17:20:49
+         */
+        function addGroup()
+        {
+            window.parent.popupsWindow("#popups", "新增菜单分组", 500, 600, "sys/menu/menu_edit.aspx", "icon-add", true, true);
+        }
+
+    </script>
 </head>
 <body class="easyui-layout">
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD">
@@ -89,7 +102,7 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     <div id="groutsButtons">
-		<a href="#" class="icon-add" onclick="javascript:alert('add')"></a>
+		<a href="#" class="icon-add" onclick="javascript:addGroup();"></a>
 		<a href="#" class="icon-edit" onclick="javascript:alert('edit')"></a>
 		<a href="#" class="icon-cancel" onclick="javascript:alert('cut')"></a>
 	</div>

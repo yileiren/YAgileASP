@@ -34,7 +34,8 @@ function popupsWindow(windowId,titleName,windowWidth,windowHeight,pageUrl,window
         closable: allowClose,
         modal: isModal,
         closed: false,
-        cache:false
+        cache:false,
+        draggable:false
     });
     $("#popupsIframe").attr("src", pageUrl);
 }
