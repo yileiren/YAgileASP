@@ -43,8 +43,8 @@ ALTER TABLE ORG_USER
 GO
 
 --插入用户表基本数据。
-INSERT INTO org_user (logName, logPassword, name) VALUES ('root', '63a9f0ea7bb98050796b649e85481845', '超级用户');
-INSERT INTO org_user (logName, logPassword, name) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', '超级管理员');
+INSERT INTO org_user (logName, logPassword, name) VALUES ('root', 'b9be11166d72e9e3ae7fd407165e4bd2', '超级用户');
+INSERT INTO org_user (logName, logPassword, name) VALUES ('admin', 'c3284d0f94606de1fd2af172aba15bf3', '超级管理员');
 GO
 
 

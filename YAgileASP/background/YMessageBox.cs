@@ -17,7 +17,7 @@ namespace YLR.YMessage
         /// <param name="msg">提示信息</param>
         public static void show(System.Web.UI.Page page, string msg)
         {
-            page.ClientScript.RegisterStartupScript(page.GetType(), "message", "<script language='javascript' defer>alert('" + msg.ToString() + "');</script>");
+            page.ClientScript.RegisterStartupScript(page.GetType(), "message", "<script language='javascript' defer>alert('" + msg.Replace("\\","\\\\").Replace("'","\\'").Replace("\"","\\\"") + "');</script>");
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace YLR.YMessage
         /// <param name="endScript">提示信息后执行的脚本</param>
         public static void showAndResponseScript(System.Web.UI.Page page, string msg, string beginScript,string endScript)
         {
-            page.ClientScript.RegisterStartupScript(page.GetType(), "message", "<script language='javascript' defer>" + beginScript + ";alert('" + msg.ToString() + "');" + endScript + "</script>");
+            page.ClientScript.RegisterStartupScript(page.GetType(), "message", "<script language='javascript' defer>" + beginScript + ";alert('" + msg.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\"", "\\\"") + "');" + endScript + "</script>");
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace YLR.YMessage
         public static void showConfirm(System.Web.UI.WebControls.WebControl Control, string msg)
         {
             //Control.Attributes.Add("onClick","if (!window.confirm('"+msg+"')){return false;}");
-            Control.Attributes.Add("onclick", "return confirm('" + msg + "');");
+            Control.Attributes.Add("onclick", "return confirm('" + msg.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\"", "\\\"") + "');");
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace YLR.YMessage
         {
             StringBuilder Builder = new StringBuilder();
             Builder.Append("<script language='javascript' defer>");
-            Builder.AppendFormat("alert('{0}');", msg);
+            Builder.AppendFormat("alert('{0}');", msg.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\"", "\\\""));
             Builder.AppendFormat("top.location.href='{0}'", url);
             Builder.Append("</script>");
             page.ClientScript.RegisterStartupScript(page.GetType(),"message", Builder.ToString());
@@ -63,7 +63,7 @@ namespace YLR.YMessage
         {
             StringBuilder Builder = new StringBuilder();
             Builder.Append("<script language='javascript' defer>");
-            Builder.AppendFormat("return confirm(('{0}');", msg);
+            Builder.AppendFormat("return confirm(('{0}');", msg.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\"", "\\\""));
             Builder.AppendFormat("top.location.href='{0}'", url);
             Builder.Append("</script>");
             page.ClientScript.RegisterStartupScript(page.GetType(), "message", Builder.ToString());

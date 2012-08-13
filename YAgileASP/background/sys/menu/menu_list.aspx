@@ -23,7 +23,7 @@
          */
         function addGroup()
         {
-            window.parent.popupsWindow("#popups", "新增菜单分组", 500, 600, "sys/menu/menu_edit.aspx", "icon-add", true, true);
+            window.parent.popupsWindow("#popups", "新增菜单分组", 700, 230, "sys/menu/menu_edit.aspx?pageType=group", "icon-add", true, true);
         }
 
     </script>
@@ -46,7 +46,7 @@
                     <ItemTemplate>
                         <tr style="width:100%;height:30px">
                             <td class="admincls0" style="text-align:center;width:30px"><input type="checkbox" id="<%#Eval("ID") %>" /></td>
-                            <td class="admincls0" style="width:220px"><a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" style="width:215px" onclick="javascript:menuButtonOnClick('<%#Eval("NAME") %>','<%#Eval("ICON") %>','<%#Eval("URL") %>');"><%#Eval("NAME") %></a></td>
+                            <td class="admincls0" style="width:220px"><a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" style="width:215px" onclick="javascript:menuButtonOnClick('<%#Eval("NAME") %>','<%#Eval("ICON") %>','<%#Eval("URL") %>');"><%#Eval("NAME").ToString().Length > 16 ? Eval("NAME").ToString().Substring(0, 15) + "..." : Eval("NAME")%></a></td>
                         </tr>
                     </ItemTemplate>
                     <FooterTemplate>

@@ -187,7 +187,7 @@ namespace YLR.YMenu
         /// 通过父id获取菜单。
         /// 作者：董帅 创建时间：2012-8-6 12:57:40
         /// </summary>
-        /// <param name="id">父id，为-1时表示获取顶层菜单。。</param>
+        /// <param name="parentId">父id，为-1时表示获取顶层菜单。。</param>
         /// <returns>菜单，失败返回null。</returns>
         public List<MenuInfo> getMenuByParentId(int parentId)
         {
@@ -254,6 +254,87 @@ namespace YLR.YMenu
             }
 
             return menus;
+        }
+
+        /// <summary>
+        /// 创建一个菜单。
+        /// </summary>
+        /// <param name="menu">要创建的菜单，名称不能为空。</param>
+        /// <returns>成功返回创建的菜单id，失败返回-1。</returns>
+        public int createNewMenu(MenuInfo menu)
+        {
+            int menuId = -1; //创建的组织机构id。
+
+            try
+            {
+                if (menu == null)
+                {
+                    //不能插入空组织机构
+                    this._errorMessage = "不能插入空菜单！";
+                }
+                else if (string.IsNullOrEmpty(menu.name) || menu.name.Length > 50)
+                {
+                    //组织机构名称不合法。
+                    this._errorMessage = "菜单名称不合法！";
+                }
+                else
+                {
+                    //新增数据
+                    string sql = "";
+                    if (menu.parentID == -1)
+                    {
+
+                        sql = string.Format("INSERT INTO SYS_MENUS (NAME,ICON,[ORDER]) VALUES ('{0}','{1}',{2}) SELECT SCOPE_IDENTITY() AS id"
+                            , menu.name
+                            , menu.icon
+                            ,menu.order);
+                    }
+                    else
+                    {
+                        sql = string.Format("INSERT INTO SYS_MENUS (NAME,URL,PARENTID,ICON,DESKTOPICON,[ORDER]) VALUES ('{0}','{1}',{2},'{3}','{4}',{5}) SELECT SCOPE_IDENTITY() AS id"
+                            , menu.name
+                            , menu.url
+                            , menu.parentID
+                            , menu.icon
+                            , menu.desktopIcon
+                            , menu.order);
+                    }
+
+                    //存入数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+                        DataTable retDt = this._menuDataBase.executeSqlReturnDt(sql);
+                        if (retDt != null && retDt.Rows.Count > 0)
+                        {
+                            //获取组织机构id
+                            menuId = Convert.ToInt32(retDt.Rows[0]["id"]);
+                        }
+                        else
+                        {
+                            this._errorMessage = "创建菜单失败！";
+                            if (retDt == null)
+                            {
+                                this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._menuDataBase.errorText + "]";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                //断开数据库连接。
+                this._menuDataBase.disconnectDataBase();
+            }
+
+            return menuId;
         }
     }
 }

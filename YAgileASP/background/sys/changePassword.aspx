@@ -38,7 +38,7 @@
         }
     </script>
 </head>
-<body style="background-color:#EEF5FD">
+<body style="margin:0px;background-color:#EEF5FD">
     <form id="form1" runat="server">
 	<div id="p" class="easyui-panel" noheader="true" fit="true" style="margin-left:auto;margin-right:auto;padding:3px">
 	
