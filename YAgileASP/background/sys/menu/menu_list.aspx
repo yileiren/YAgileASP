@@ -26,6 +26,24 @@
             window.parent.popupsWindow("#popups", "新增菜单分组", 700, 230, "sys/menu/menu_edit.aspx?pageType=group", "icon-add", true, true);
         }
 
+        /*!
+         * \brief
+         * 修改分组。
+         * 作者：董帅 创建时间：2012-8-14 11:35:05
+         */
+        function editGroup()
+        {
+            //判断选中
+            if ($("input:checked[type='checkbox'][name='chkGroup']").length != 1)
+            {
+                alert("请选中要编辑的分组，一次只能选择一个！");
+                return;
+            }
+
+            //打开编辑页面
+            window.parent.popupsWindow("#popups", "新增菜单分组", 700, 230, "sys/menu/menu_edit.aspx?pageType=group&id=" + $("input:checked[type='checkbox'][name='chkGroup']").eq(0).attr("id"), "icon-edit", true, true);
+        }
+
     </script>
 </head>
 <body class="easyui-layout">
@@ -45,7 +63,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <tr style="width:100%;height:30px">
-                            <td class="admincls0" style="text-align:center;width:30px"><input type="checkbox" id="<%#Eval("ID") %>" /></td>
+                            <td class="admincls0" style="text-align:center;width:30px"><input type="checkbox" id="<%#Eval("ID") %>" name="chkGroup" /></td>
                             <td class="admincls0" style="width:220px"><a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" style="width:215px" onclick="javascript:menuButtonOnClick('<%#Eval("NAME") %>','<%#Eval("ICON") %>','<%#Eval("URL") %>');"><%#Eval("NAME").ToString().Length > 16 ? Eval("NAME").ToString().Substring(0, 15) + "..." : Eval("NAME")%></a></td>
                         </tr>
                     </ItemTemplate>
@@ -103,7 +121,7 @@
     </asp:UpdatePanel>
     <div id="groutsButtons">
 		<a href="#" class="icon-add" onclick="javascript:addGroup();"></a>
-		<a href="#" class="icon-edit" onclick="javascript:alert('edit')"></a>
+		<a href="#" class="icon-edit" onclick="javascript:editGroup();"></a>
 		<a href="#" class="icon-cancel" onclick="javascript:alert('cut')"></a>
 	</div>
     <div id="menusButtons">

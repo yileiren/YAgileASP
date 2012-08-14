@@ -336,5 +336,136 @@ namespace YLR.YMenu
 
             return menuId;
         }
+
+        /// <summary>
+        /// 获取指定id的菜单。
+        /// </summary>
+        /// <param name="id">菜单id</param>
+        /// <returns>菜单，失败返回null</returns>
+        public MenuInfo getMenu(int id)
+        {
+            MenuInfo menu = null;
+
+            try
+            {
+                if (this._menuDataBase != null)
+                {
+                    //连接数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取所有菜单
+                        string sql = string.Format("SELECT * FROM SYS_MENUS WHERE id = {0} ORDER BY PARENTID ASC,[ORDER] ASC",id);
+
+                        //获取数据
+                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql);
+                        if (dt != null && dt.Rows.Count == 1)
+                        {
+                            //获取分组
+                             menu = this.getMenuFormDataRow(dt.Rows[0]); //获取父菜单
+                        }
+
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._menuDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._menuDataBase.disconnectDataBase();
+            }
+
+            return menu;
+        }
+
+        /// <summary>
+        /// 修改指定菜单的内容，通过菜单id匹配。
+        /// </summary>
+        /// <param name="menu">要修改的菜单。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool changeMenu(MenuInfo menu)
+        {
+            bool bRet = false; //返回值
+
+            try
+            {
+                if (this._menuDataBase != null)
+                {
+                    //连接数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+
+                        //sql语句
+                        string sql = "";
+                        if (menu.parentID == -1)
+                        {
+                            //顶级菜单
+                            sql = string.Format("UPDATE SYS_MENUS SET NAME = '{0}',ICON = '{1}',[ORDER] = {2} WHERE ID = {3}"
+                                , menu.name
+                                , menu.icon
+                                , menu.order
+                                , menu.id);
+                        }
+                        else
+                        {
+                            sql = string.Format("UPDATE SYS_MENUS SET NAME = '{0}',URL = '{1}',PARENTID = {2},ICON = '{3}',DESKTOPICON = '{4}',[ORDER] = {5} WHERE ID = {6}"
+                                , menu.name
+                                , menu.url
+                                , menu.parentID
+                                , menu.icon
+                                , menu.desktopIcon
+                                , menu.order
+                                , menu.id);
+                        }
+
+                        //更新数据库
+                        if (this._menuDataBase.connectDataBase())
+                        {
+                            int retCount = this._menuDataBase.executeSqlWithOutDs(sql);
+                            if (retCount == 1)
+                            {
+                                bRet = true;
+                            }
+                            else
+                            {
+                                this._errorMessage = "更新数据失败！";
+                                if (retCount != 1)
+                                {
+                                    this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this._errorMessage = "连接数据库出错！错误信息[" + this._menuDataBase.errorText + "]";
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "未设置数据库实例！";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._menuDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
     }
 }
