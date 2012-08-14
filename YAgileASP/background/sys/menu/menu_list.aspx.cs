@@ -81,7 +81,58 @@ namespace YAgileASP.background.sys.menu
             }
             catch (Exception ex)
             {
-                YMessageBox.showAndRedirect(this, "系统运行异常！异常信息[" + ex.Message + "]", "sys/login.aspx");
+                YMessageBox.show(this, "系统运行异常！异常信息[" + ex.Message + "]");
+            }
+        }
+
+        protected void butDeleteGroup_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] ids = Request["chkGroup"].Split(',');
+
+                if (ids.Length > 0)
+                {
+                    //获取配置文件路径。
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+
+                    //获取数据库实例。
+                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer");
+
+                    if (orgDb != null)
+                    {
+                        MenuOperater menuOper = new MenuOperater();
+                        menuOper.menuDataBase = orgDb;
+
+                        //删除数据
+                        int[] intIds = new int[ids.Length];
+                        for (int i = 0; i < intIds.Length; i++)
+                        {
+                            intIds[i] = Convert.ToInt32(ids[i]);
+                        }
+
+                        if (menuOper.deleteGroup(intIds))
+                        {
+                            YMessageBox.show(this, "删除数据成功！");
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "删除数据失败！错误信息[" + menuOper.errorMessage + "]");
+                        }
+                    }
+                    else
+                    {
+                        YMessageBox.show(this, "获取数据库实例失败！");
+                    }
+                }
+                else
+                {
+                    YMessageBox.show(this, "没有选择要删除的分组！");
+                }
+            }
+            catch (Exception ex)
+            {
+                YMessageBox.show(this, "系统运行异常！异常信息[" + ex.Message + "]");
             }
         }
     }

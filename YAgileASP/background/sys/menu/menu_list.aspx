@@ -41,7 +41,26 @@
             }
 
             //打开编辑页面
-            window.parent.popupsWindow("#popups", "新增菜单分组", 700, 230, "sys/menu/menu_edit.aspx?pageType=group&id=" + $("input:checked[type='checkbox'][name='chkGroup']").eq(0).attr("id"), "icon-edit", true, true);
+            window.parent.popupsWindow("#popups", "新增菜单分组", 700, 230, "sys/menu/menu_edit.aspx?pageType=group&id=" + $("input:checked[type='checkbox'][name='chkGroup']").eq(0).attr("value"), "icon-edit", true, true);
+        }
+
+        /*!
+         * \brief
+         * 删除选中的分组。
+         * 作者：董帅 创建时间：2012-8-14 14:19:19
+         */
+        function deleteGroups()
+        {
+            //判断选中
+            if ($("input:checked[type='checkbox'][name='chkGroup']").length > 0)
+            {
+                return confirm("确认要删除选中的分组？删除分组将连同子菜单一并删除，并且无法恢复！");
+            }
+            else
+            {
+                alert("请选中要删除的分组！");
+                return false;
+            }
         }
 
     </script>
@@ -63,7 +82,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <tr style="width:100%;height:30px">
-                            <td class="admincls0" style="text-align:center;width:30px"><input type="checkbox" id="<%#Eval("ID") %>" name="chkGroup" /></td>
+                            <td class="admincls0" style="text-align:center;width:30px"><input type="checkbox" value="<%#Eval("ID") %>" name="chkGroup" /></td>
                             <td class="admincls0" style="width:220px"><a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" style="width:215px" onclick="javascript:menuButtonOnClick('<%#Eval("NAME") %>','<%#Eval("ICON") %>','<%#Eval("URL") %>');"><%#Eval("NAME").ToString().Length > 16 ? Eval("NAME").ToString().Substring(0, 15) + "..." : Eval("NAME")%></a></td>
                         </tr>
                     </ItemTemplate>
@@ -89,7 +108,7 @@
                     <ItemTemplate>
                         <tr style="width:100%;height:30px">
                             <td class="admincls0" style="text-align:center">
-                                <input type="checkbox" id="<%#Eval("id") %>" />
+                                <input type="checkbox" value="<%#Eval("id") %>" />
                             </td>
                             <td class="admincls0" style="text-align:center"><%#Eval("name") %></td>
                             <td class="admincls0"><%#Eval("url") %></td>
@@ -101,7 +120,7 @@
                     <AlternatingItemTemplate>
                         <tr style="width:100%;height:30px">
                             <td class="admincls1" style="text-align:center">
-                                <input type="checkbox" id="<%#Eval("id") %>" />
+                                <input type="checkbox" value="<%#Eval("id") %>" />
                             </td>
                             <td class="admincls1" style="text-align:center"><%#Eval("name") %></td>
                             <td class="admincls1"><%#Eval("url") %></td>
@@ -122,7 +141,7 @@
     <div id="groutsButtons">
 		<a href="#" class="icon-add" onclick="javascript:addGroup();"></a>
 		<a href="#" class="icon-edit" onclick="javascript:editGroup();"></a>
-		<a href="#" class="icon-cancel" onclick="javascript:alert('cut')"></a>
+		<a href="#" class="icon-cancel" onclick="javascript:return deleteGroups();" runat="server" onserverclick="butDeleteGroup_Click"></a>
 	</div>
     <div id="menusButtons">
 		<a href="#" class="icon-add" onclick="javascript:alert('add')"></a>

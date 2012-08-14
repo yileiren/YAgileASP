@@ -404,7 +404,6 @@ namespace YLR.YMenu
                     //连接数据库
                     if (this._menuDataBase.connectDataBase())
                     {
-
                         //sql语句
                         string sql = "";
                         if (menu.parentID == -1)
@@ -428,32 +427,29 @@ namespace YLR.YMenu
                                 , menu.id);
                         }
 
-                        //更新数据库
-                        if (this._menuDataBase.connectDataBase())
+                        int retCount = this._menuDataBase.executeSqlWithOutDs(sql);
+                        if (retCount == 1)
                         {
-                            int retCount = this._menuDataBase.executeSqlWithOutDs(sql);
-                            if (retCount == 1)
-                            {
-                                bRet = true;
-                            }
-                            else
-                            {
-                                this._errorMessage = "更新数据失败！";
-                                if (retCount != 1)
-                                {
-                                    this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
-                                }
-                            }
+                            bRet = true;
                         }
                         else
                         {
-                            this._errorMessage = "连接数据库出错！错误信息[" + this._menuDataBase.errorText + "]";
+                            this._errorMessage = "更新数据失败！";
+                            if (retCount != 1)
+                            {
+                                this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
+                            }
                         }
                     }
                     else
                     {
-                        this._errorMessage = "未设置数据库实例！";
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._menuDataBase.errorText + "]";
                     }
+                    
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
                 }
             }
             catch (Exception ex)
@@ -462,6 +458,77 @@ namespace YLR.YMenu
             }
             finally
             {
+                this._menuDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
+
+        /// <summary>
+        /// 批量删除分组。
+        /// 作者：董帅 创建时间：2012-8-14 14:49:28
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public bool deleteGroup(int[] ids)
+        {
+            bool bRet = false; //返回值
+
+            try
+            {
+                if (this._menuDataBase != null)
+                {
+                    //连接数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+                        this._menuDataBase.beginTransaction();
+                        int i = 0;
+                        for (i = 0; i < ids.Length; i++)
+                        {
+                            //sql语句
+                            string sql = string.Format("DELETE SYS_MENUS WHERE ID = {0} OR PARENTID = {0}",ids[i]);
+
+                            int retCount = this._menuDataBase.executeSqlWithOutDs(sql);
+                            if (retCount != 1)
+                            {
+                                this._errorMessage = "删除数据失败！";
+                                this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
+                                break;
+                            }
+                        }
+
+                        //成功
+                        if (i >= ids.Length)
+                        {
+                            bRet = true;
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._menuDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                //提交或回滚事务。
+                if (bRet)
+                {
+                    this._menuDataBase.commitTransaction();
+                }
+                else
+                {
+                    this._menuDataBase.rollbackTransaction();
+                }
+
                 this._menuDataBase.disconnectDataBase();
             }
 
