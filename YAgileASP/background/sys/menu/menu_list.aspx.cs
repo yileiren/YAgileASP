@@ -113,7 +113,7 @@ namespace YAgileASP.background.sys.menu
 
                         if (menuOper.deleteGroup(intIds))
                         {
-                            YMessageBox.show(this, "删除数据成功！");
+                            YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx')");
                         }
                         else
                         {
