@@ -26,6 +26,13 @@ namespace YAgileASP.background.sys.menu
                         this.txtMenuDesktopICON.Disabled = true;
                     }
 
+                    //获取父id
+                    string parentId = Request.QueryString["parentId"];
+                    if (!string.IsNullOrEmpty(parentId))
+                    {
+                        this.hidParentId.Value = parentId;
+                    }
+
                     //获取id，没有id表示新增，否则为修改
                     string menuId = Request.QueryString["id"];
                     if (!string.IsNullOrEmpty(menuId))
@@ -120,7 +127,16 @@ namespace YAgileASP.background.sys.menu
                         int iRet = menuOper.createNewMenu(menu);
                         if (iRet > 0)
                         {
-                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx')");
+                            if (this.txtMenuURL.Disabled)
+                            {
+                                //分组
+                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + iRet.ToString() + "')");
+                            }
+                            else
+                            {
+                                //菜单
+                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + this.hidParentId.Value + "')");
+                            }
                         }
                         else
                         {
@@ -134,7 +150,16 @@ namespace YAgileASP.background.sys.menu
                         bool bRet = menuOper.changeMenu(menu);
                         if (bRet)
                         {
-                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx')");
+                            if (this.txtMenuURL.Disabled)
+                            {
+                                //分组
+                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + menu.id.ToString() + "')");
+                            }
+                            else
+                            {
+                                //菜单
+                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + menu.parentID.ToString() + "')");
+                            }
                         }
                         else
                         {

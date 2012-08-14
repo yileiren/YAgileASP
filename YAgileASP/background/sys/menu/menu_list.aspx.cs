@@ -20,10 +20,18 @@ namespace YAgileASP.background.sys.menu
         {
             if (!this.IsPostBack)
             {
+                string groupId = Request.QueryString["id"];
+                if (!string.IsNullOrEmpty(groupId))
+                {
+                    this.selectGroupId.Value = groupId;
+                }
                 this.bindData();
             }
         }
 
+        /// <summary>
+        /// 绑定数据。
+        /// </summary>
         private void bindData()
         {
             //获取菜单
@@ -61,6 +69,18 @@ namespace YAgileASP.background.sys.menu
                         this.groupTitle = menus[0].name;
                         this.groupIcon = menus[0].icon;
                     }
+                    else
+                    { 
+                        //设置标题和图标
+                        foreach (MenuInfo m in menus)
+                        {
+                            if (m.id.ToString() == this.selectGroupId.Value)
+                            {
+                                this.groupTitle = m.name;
+                                this.groupIcon = m.icon;
+                            }
+                        }
+                    }
 
                     //获取子菜单
                     if (menus.Count > 0)
@@ -85,6 +105,11 @@ namespace YAgileASP.background.sys.menu
             }
         }
 
+        /// <summary>
+        /// 删除分组。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void butDeleteGroup_Click(object sender, EventArgs e)
         {
             try
@@ -134,6 +159,72 @@ namespace YAgileASP.background.sys.menu
             {
                 YMessageBox.show(this, "系统运行异常！异常信息[" + ex.Message + "]");
             }
+        }
+
+        /// <summary>
+        /// 删除菜单。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void butDeleteItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] ids = Request["chkItem"].Split(',');
+
+                if (ids.Length > 0)
+                {
+                    //获取配置文件路径。
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+
+                    //获取数据库实例。
+                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer");
+
+                    if (orgDb != null)
+                    {
+                        MenuOperater menuOper = new MenuOperater();
+                        menuOper.menuDataBase = orgDb;
+
+                        //删除数据
+                        int[] intIds = new int[ids.Length];
+                        for (int i = 0; i < intIds.Length; i++)
+                        {
+                            intIds[i] = Convert.ToInt32(ids[i]);
+                        }
+
+                        if (menuOper.deleteGroup(intIds))
+                        {
+                            YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx')");
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "删除数据失败！错误信息[" + menuOper.errorMessage + "]");
+                        }
+                    }
+                    else
+                    {
+                        YMessageBox.show(this, "获取数据库实例失败！");
+                    }
+                }
+                else
+                {
+                    YMessageBox.show(this, "没有选择要删除的分组！");
+                }
+            }
+            catch (Exception ex)
+            {
+                YMessageBox.show(this, "系统运行异常！异常信息[" + ex.Message + "]");
+            }
+        }
+
+        /// <summary>
+        /// 选择菜单分组。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void butSelectGroup_Click(object sender, EventArgs e)
+        {
+            this.bindData();
         }
     }
 }

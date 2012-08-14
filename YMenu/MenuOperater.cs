@@ -489,7 +489,7 @@ namespace YLR.YMenu
                             string sql = string.Format("DELETE SYS_MENUS WHERE ID = {0} OR PARENTID = {0}",ids[i]);
 
                             int retCount = this._menuDataBase.executeSqlWithOutDs(sql);
-                            if (retCount != 1)
+                            if (retCount <= 0)
                             {
                                 this._errorMessage = "删除数据失败！";
                                 this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
