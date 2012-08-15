@@ -67,6 +67,12 @@
 .icon-systemSetting{
 	background:url('icons/systemSetting.png') no-repeat;
 }
+.icon-system{
+	background:url('icons/system.png') no-repeat;
+}
+.icon-role{
+	background:url('icons/role.png') no-repeat;
+}
 .icon-out{
 	background:url('icons/out.png') no-repeat;
 }

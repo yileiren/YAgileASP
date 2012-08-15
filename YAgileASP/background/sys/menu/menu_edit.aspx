@@ -42,15 +42,15 @@
         </tr>
         <tr style="height:30px">
             <th class="adminth_s2" style="width:120px;text-align:right">页面URL：</th>
-            <td bgcolor="#FFFFFF"><input type="text" id="txtMenuURL" name="txtMenuURL" runat="server" style="width:300px" /></td>
+            <td bgcolor="#FFFFFF"><input type="text" id="txtMenuURL" name="txtMenuURL" maxlength="200" runat="server" style="width:300px" /></td>
         </tr>
         <tr style="height:30px">
             <th class="adminth_s2" style="width:120px;text-align:right">菜单图标：</th>
-            <td bgcolor="#FFFFFF"><input type="text" id="txtMenuICON" name="txtMenuICON" runat="server" style="width:300px" /></td>
+            <td bgcolor="#FFFFFF"><input type="text" id="txtMenuICON" name="txtMenuICON" maxlength="20" runat="server" style="width:300px" /></td>
         </tr>
         <tr style="height:30px">
             <th class="adminth_s2" style="width:120px;text-align:right">桌面图标：</th>
-            <td bgcolor="#FFFFFF"><input type="text" id="txtMenuDesktopICON" name="txtMenuDesktopICON" runat="server" style="width:300px" /></td>
+            <td bgcolor="#FFFFFF"><input type="text" id="txtMenuDesktopICON" name="txtMenuDesktopICON" maxlength="100" runat="server" style="width:300px" /></td>
         </tr>
         <tr style="height:30px">
             <th class="adminth_s2" style="width:120px;text-align:right">序号：</th>

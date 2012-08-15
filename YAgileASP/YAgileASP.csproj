@@ -67,6 +67,8 @@
     <Content Include="background\sys\login.aspx" />
     <Content Include="background\sys\menu\menu_edit.aspx" />
     <Content Include="background\sys\menu\menu_list.aspx" />
+    <Content Include="background\sys\role\role_edit.aspx" />
+    <Content Include="background\sys\role\role_list.aspx" />
     <Content Include="css\table.css" />
     <Content Include="DataBaseConfig.xml" />
     <Content Include="Default.aspx" />
@@ -388,6 +390,20 @@
     <Compile Include="background\sys\menu\menu_list.aspx.designer.cs">
       <DependentUpon>menu_list.aspx</DependentUpon>
     </Compile>
+    <Compile Include="background\sys\role\role_edit.aspx.cs">
+      <DependentUpon>role_edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="background\sys\role\role_edit.aspx.designer.cs">
+      <DependentUpon>role_edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="background\sys\role\role_list.aspx.cs">
+      <DependentUpon>role_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="background\sys\role\role_list.aspx.designer.cs">
+      <DependentUpon>role_list.aspx</DependentUpon>
+    </Compile>
     <Compile Include="background\YMessageBox.cs" />
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -418,6 +434,10 @@
     <ProjectReference Include="..\YOrganization\YOrganization.csproj">
       <Project>{85A2BF8C-3ABA-44F3-AE4C-7C425B72C0AD}</Project>
       <Name>YOrganization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YRole\YRole.csproj">
+      <Project>{09D4B73E-DE61-4BD0-8D0E-F65965D9C205}</Project>
+      <Name>YRole</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

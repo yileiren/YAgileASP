@@ -272,10 +272,22 @@ namespace YLR.YMenu
                     //不能插入空组织机构
                     this._errorMessage = "不能插入空菜单！";
                 }
-                else if (string.IsNullOrEmpty(menu.name) || menu.name.Length > 50)
+                else if (string.IsNullOrEmpty(menu.name) || menu.name.Length > 20)
                 {
                     //组织机构名称不合法。
                     this._errorMessage = "菜单名称不合法！";
+                }
+                else if (string.IsNullOrEmpty(menu.url) || menu.url.Length > 200)
+                {
+                    this._errorMessage = "菜单URL不合法！";
+                }
+                else if (string.IsNullOrEmpty(menu.icon) || menu.icon.Length > 20)
+                {
+                    this._errorMessage = "菜单图标不合法！";
+                }
+                else if (string.IsNullOrEmpty(menu.desktopIcon) || menu.desktopIcon.Length > 100)
+                {
+                    this._errorMessage = "菜单桌面图标不合法！";
                 }
                 else
                 {
@@ -287,7 +299,7 @@ namespace YLR.YMenu
                         sql = string.Format("INSERT INTO SYS_MENUS (NAME,ICON,[ORDER]) VALUES ('{0}','{1}',{2}) SELECT SCOPE_IDENTITY() AS id"
                             , menu.name
                             , menu.icon
-                            ,menu.order);
+                            , menu.order);
                     }
                     else
                     {
