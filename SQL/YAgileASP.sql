@@ -72,3 +72,36 @@ GO
 --插入系统菜单表基础数据。
 INSERT INTO sys_menus (name,icon) VALUES ('系统设置','icon-systemMenu')
 INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('系统菜单', 'sys/menu/menu_list.aspx', '1', 'icon-systemSetting');
+GO
+
+--创建角色表。
+CREATE TABLE AUT_ROLE
+(
+	ID INT NOT NULL IDENTITY ,
+	NAME NVARCHAR(20) NOT NULL,
+	EXPLAIN NVARCHAR(50),
+	PRIMARY KEY (ID)
+);
+GO
+
+--创建角色菜单关联表。
+CREATE TABLE AUT_ROLE_MENU
+(
+	ROLEID INT NOT NULL,
+	-- 菜单id，使用自增列做主键。
+	MENUID INT NOT NULL,
+	PRIMARY KEY (ROLEID, MENUID)
+);
+GO
+
+--创建角色菜单关联表中的角色id外键
+ALTER TABLE AUT_ROLE_MENU
+	ADD FOREIGN KEY (ROLEID)
+	REFERENCES AUT_ROLE (ID);
+GO
+
+--创建角色菜单关联表中的菜单id外键
+ALTER TABLE AUT_ROLE_MENU
+	ADD FOREIGN KEY (MENUID)
+	REFERENCES SYS_MENUS (ID);
+GO
