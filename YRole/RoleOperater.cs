@@ -238,5 +238,118 @@ namespace YLR.YRole
 
             return roles;
         }
+
+        /// <summary>
+        /// 通过指定的权限id获取权限。
+        /// </summary>
+        /// <param name="id">权限id</param>
+        /// <returns>权限</returns>
+        public RoleInfo getRole(int id)
+        {
+            RoleInfo role = null;
+
+            try
+            {
+                if (this._roleDataBase != null)
+                {
+                    //连接数据库
+                    if (this._roleDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取所有权限
+                        string sql = "SELECT * FROM AUT_ROLE WHERE ID = " + id.ToString(); ;
+
+                        //获取数据
+                        DataTable dt = this._roleDataBase.executeSqlReturnDt(sql);
+                        if (dt != null)
+                        {
+                            role = this.getRoleFormDataRow(dt.Rows[0]);
+                        }
+                        else
+                        {
+                            this._errorMessage = "获取数据失败！错误信息：[" + this._roleDataBase.errorText + "]";
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._roleDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._roleDataBase.disconnectDataBase();
+            }
+
+            return role;
+        }
+
+        /// <summary>
+        /// 修改权限。
+        /// 作者：董帅 创建时间：2012-8-16 22:16:27
+        /// </summary>
+        /// <param name="role">要修改的权限，使用id作为唯一标识。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool changeRole(RoleInfo role)
+        {
+            bool bRet = false;
+
+            try
+            {
+                if (this._roleDataBase != null)
+                {
+                    //连接数据库
+                    if (this._roleDataBase.connectDataBase())
+                    {
+                        //sql语句
+                        string sql = string.Format("UPDATE AUT_ROLE SET NAME = '{0}',EXPLAIN = '{1}' WHERE ID = {2}"
+                                        , role.name
+                                        , role.explain
+                                        , role.id);
+
+                        int retCount = this._roleDataBase.executeSqlWithOutDs(sql);
+                        if (retCount == 1)
+                        {
+                            bRet = true;
+                        }
+                        else
+                        {
+                            this._errorMessage = "更新数据失败！";
+                            if (retCount != 1)
+                            {
+                                this._errorMessage += "错误信息[" + this._roleDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._roleDataBase.errorText + "]";
+                    }
+
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._roleDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
     }
 }

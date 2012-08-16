@@ -25,13 +25,31 @@
         {
             window.parent.popupsWindow("#popups", "新增角色", 600, 170, "sys/role/role_edit.aspx", "icon-add", true, true);
         }
+
+        /*!
+         * \brief
+         * 修改权限。
+         * 作者：董帅 创建时间：2012-8-16 22:03:13
+         */
+        function editRole()
+        {
+            //判断选中
+            if ($("input:checked[type='checkbox'][name='chkItem']").length != 1)
+            {
+                alert("请选中要编辑的权限，一次只能选择一个！");
+                return;
+            }
+
+            //打开编辑页面
+            window.parent.popupsWindow("#popups", "修改权限", 600, 170, "sys/role/role_edit.aspx?id=" + $("input:checked[type='checkbox'][name='chkItem']").eq(0).val(), "icon-edit", true, true);
+        }
     </script>
 </head>
 <body class="easyui-layout" style="margin:0px;background-color:#EEF5FD;">
     <div region="north" border="true" style="height:28px;background-color:#EEF5FD">
         <div style="width:200px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a id="A1" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addRole();">新增</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:window.parent.closePopupsWindow('#popups')">修改</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editRole();">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:window.parent.closePopupsWindow('#popups')">删除</a>
         </div>
     </div>

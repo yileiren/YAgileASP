@@ -36,7 +36,7 @@
 </head>
 <body style="margin:0px;background-color:#EEF5FD">
     <form id="form1" runat="server">
-    <input type="hidden" id="roleId" name="roleId" runat="server" />
+    <input type="hidden" id="hidRoleId" name="hidRoleId" runat="server" />
     <div style="width:500px;margin:0px auto;padding:5px">
     <table class="admintable" style="width:100%;">
         <tr style="height:30px">

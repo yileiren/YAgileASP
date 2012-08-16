@@ -13,7 +13,41 @@ namespace YAgileASP.background.sys.role
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!this.IsPostBack)
+            {
+                try
+                {
+                    //获取id，没有id表示新增，否则为修改
+                    string roleId = Request.QueryString["id"];
+                    if (!string.IsNullOrEmpty(roleId))
+                    {
+                        this.hidRoleId.Value = roleId;
+                        //获取配置文件路径。
+                        string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
 
+                        //创建数据库操作对象。
+                        RoleOperater roleOper = RoleOperater.createRoleOperater(configFile, "SQLServer");
+                        if (roleOper != null)
+                        {
+                            RoleInfo role = roleOper.getRole(Convert.ToInt32(roleId));
+                            if(role != null)
+                            {
+                                this.txtRoleName.Value = role.name;
+                                this.txtRoleExplain.Value = role.explain;
+                            }
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "创建数据库对象失败！");
+                            return;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    YMessageBox.show(this, "错误信息：[" + ex.Message + "]");
+                }
+            }
         }
 
         /// <summary>
@@ -49,15 +83,34 @@ namespace YAgileASP.background.sys.role
                 RoleOperater roleOper = RoleOperater.createRoleOperater(configFile, "SQLServer");
                 if (roleOper != null)
                 {
-                    int retId = roleOper.createNewRole(role);
-                    if (retId > 0)
+                    if (string.IsNullOrEmpty(this.hidRoleId.Value))
                     {
-                        YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/role/role_list.aspx')");
+                        //新增
+                        int retId = roleOper.createNewRole(role);
+                        if (retId > 0)
+                        {
+                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx')");
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "创建角色失败！错误信息：[" + roleOper.errorMessage + "]");
+                            return;
+                        }
                     }
                     else
                     {
-                        YMessageBox.show(this, "创建角色失败！错误信息：[" + roleOper.errorMessage + "]");
-                        return;
+                        //修改
+                        role.id = Convert.ToInt32(this.hidRoleId.Value);
+                        bool bRet = roleOper.changeRole(role);
+                        if (bRet)
+                        {
+                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx')");
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "修改角色失败！错误信息：[" + roleOper.errorMessage + "]");
+                            return;
+                        }
                     }
                 }
                 else
