@@ -351,5 +351,71 @@ namespace YLR.YRole
 
             return bRet;
         }
+
+        /// <summary>
+        /// 删除角色。
+        /// 作者：董帅 创建时间：2012-8-16 22:33:20
+        /// </summary>
+        /// <param name="ids">要删除的角色id。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool deleteRoles(int[] ids)
+        {
+            bool bRet = false; //返回值
+
+            try
+            {
+                if (this._roleDataBase != null)
+                {
+                    //连接数据库
+                    if (this._roleDataBase.connectDataBase())
+                    {
+                        //组件id字符串
+                        string strIds = "";
+                        for (int i = 0; i < ids.Length; i++)
+                        {
+                            if (i == 0)
+                            {
+                                strIds += ids[i].ToString();
+                            }
+                            else
+                            {
+                                strIds += "," + ids[i].ToString();
+                            }
+                        }
+                        //sql语句
+                        string sql = string.Format("DELETE AUT_ROLE WHERE ID IN ({0})", strIds);
+
+                        int retCount = this._roleDataBase.executeSqlWithOutDs(sql);
+                        if (retCount > 0)
+                        {
+                            bRet = true;
+                        }
+                        else
+                        {
+                            this._errorMessage = "删除数据失败！";
+                            this._errorMessage += "错误信息[" + this._roleDataBase.errorText + "]";
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._roleDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._roleDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
     }
 }

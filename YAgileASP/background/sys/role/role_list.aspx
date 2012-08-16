@@ -43,6 +43,25 @@
             //打开编辑页面
             window.parent.popupsWindow("#popups", "修改权限", 600, 170, "sys/role/role_edit.aspx?id=" + $("input:checked[type='checkbox'][name='chkItem']").eq(0).val(), "icon-edit", true, true);
         }
+
+        /*!
+         * \brief
+         * 删除权限。
+         * 作者：董帅 创建时间：2012-8-16 22:27:50
+         */
+        function deleteRoles()
+        {
+            //判断选中
+            if ($("input:checked[type='checkbox'][name='chkItem']").length > 0)
+            {
+                return confirm("确认要删除选中的角色？");
+            }
+            else
+            {
+                alert("请选中要删除的角色！");
+                return false;
+            }
+        }
     </script>
 </head>
 <body class="easyui-layout" style="margin:0px;background-color:#EEF5FD;">
@@ -50,7 +69,7 @@
         <div style="width:200px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a id="A1" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addRole();">新增</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editRole();">修改</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:window.parent.closePopupsWindow('#popups')">删除</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteRoles();" runat="server" onserverclick="butDeleteRoles_Click">删除</a>
         </div>
     </div>
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD"">

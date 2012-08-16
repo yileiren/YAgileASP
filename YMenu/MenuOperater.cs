@@ -480,8 +480,8 @@ namespace YLR.YMenu
         /// 批量删除分组。
         /// 作者：董帅 创建时间：2012-8-14 14:49:28
         /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
+        /// <param name="ids">要删除的分组id。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
         public bool deleteGroup(int[] ids)
         {
             bool bRet = false; //返回值
