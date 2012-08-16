@@ -137,5 +137,106 @@ namespace YLR.YRole
 
             return roleId;
         }
+
+        /// <summary>
+        /// 根据DataRow获取权限对象。
+        /// </summary>
+        /// <param name="r">权限数据</param>
+        /// <returns>权限，失败返回null。</returns>
+        private RoleInfo getRoleFormDataRow(DataRow r)
+        {
+            if (r != null)
+            {
+                //分组对象
+                RoleInfo role = new RoleInfo();
+
+                //菜单id不能为null，否则返回失败。
+                if (!r.IsNull("ID"))
+                {
+                    role.id = Convert.ToInt32(r["ID"]);
+                }
+                else
+                {
+                    return null;
+                }
+
+                if (!r.IsNull("NAME"))
+                {
+                    role.name = r["NAME"].ToString();
+                }
+
+                if (!r.IsNull("EXPLAIN"))
+                {
+                    role.explain = r["EXPLAIN"].ToString();
+                }
+
+                return role;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取所有的权限。
+        /// 作者：董帅 创建时间：2012-8-16 21:45:33
+        /// </summary>
+        /// <returns>权限，如果失败返回null。</returns>
+        public List<RoleInfo> getRoles()
+        {
+            List<RoleInfo> roles = null;
+
+            try
+            {
+                if (this._roleDataBase != null)
+                {
+                    //连接数据库
+                    if (this._roleDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取所有权限
+                        string sql = "SELECT * FROM AUT_ROLE";
+
+                        //获取数据
+                        DataTable dt = this._roleDataBase.executeSqlReturnDt(sql);
+                        if (dt != null)
+                        {
+                            roles = new List<RoleInfo>();
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                RoleInfo role = this.getRoleFormDataRow(row);
+                                if (role != null)
+                                {
+                                    roles.Add(role);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this._errorMessage = "获取数据失败！错误信息：[" + this._roleDataBase.errorText + "]";
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._roleDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._roleDataBase.disconnectDataBase();
+            }
+
+            return roles;
+        }
     }
 }

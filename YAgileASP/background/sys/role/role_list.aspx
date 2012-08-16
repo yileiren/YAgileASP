@@ -38,7 +38,37 @@
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD"">
     <form id="form1" runat="server">
     <div>
-    role
+        <asp:Repeater ID="rolesRepeater" runat="server">
+            <HeaderTemplate>
+                <table class="admintable" style="width:100%">
+                <tr style="width:100%;height:30px">
+                    <th class="adminth" style="width:40px">选择</th>
+                    <th class="adminth" style="width:200px">名称</th>
+                    <th class="adminth" style="width:auto">说明</th>
+                </tr>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <tr style="width:100%;height:30px">
+                    <td class="admincls0" style="text-align:center">
+                        <input type="checkbox" name="chkItem" value="<%#Eval("id") %>" />
+                    </td>
+                    <td class="admincls0" style="text-align:center"><%#Eval("name") %></td>
+                    <td class="admincls0"><%#Eval("explain")%></td>
+                </tr>
+            </ItemTemplate>
+            <AlternatingItemTemplate>
+                <tr style="width:100%;height:30px">
+                    <td class="admincls1" style="text-align:center">
+                        <input type="checkbox" name="chkItem" value="<%#Eval("id") %>" />
+                    </td>
+                    <td class="admincls1" style="text-align:center"><%#Eval("name") %></td>
+                    <td class="admincls1"><%#Eval("explain")%></td>
+                </tr>
+            </AlternatingItemTemplate>
+            <FooterTemplate>
+                </table>
+            </FooterTemplate>
+        </asp:Repeater>
     </div>
     </form>
     </div>
