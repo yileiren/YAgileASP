@@ -70,9 +70,9 @@ CREATE TABLE SYS_MENUS
 GO
 
 --插入系统菜单表基础数据。
-INSERT INTO sys_menus (name,icon) VALUES ('系统设置','icon-systemMenu')
+INSERT INTO sys_menus (name,icon) VALUES ('系统设置','icon-systemSetting')
 INSERT INTO sys_menus (name,icon) VALUES ('系统管理','icon-system');
-INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('系统菜单', 'sys/menu/menu_list.aspx', '1', 'icon-systemSetting');
+INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('系统菜单', 'sys/menu/menu_list.aspx', '1', 'icon-systemMenu');
 INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('角色管理', 'sys/role/role_list.aspx', '2','icon-role');
 GO
 
