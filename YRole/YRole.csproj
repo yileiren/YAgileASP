@@ -46,7 +46,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleInfo.cs" />
+    <Compile Include="RoleMenuInfo.cs" />
     <Compile Include="RoleOperater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YMenu\YMenu.csproj">
+      <Project>{ECDCE1BC-059A-43B5-8862-1C8B0F2E1C4B}</Project>
+      <Name>YMenu</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

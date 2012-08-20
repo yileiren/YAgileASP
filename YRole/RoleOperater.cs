@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using YLR.YAdoNet;
 using System.Data;
+using YLR.YMenu;
 
 namespace YLR.YRole
 {
@@ -412,6 +413,257 @@ namespace YLR.YRole
             }
             finally
             {
+                this._roleDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
+
+        /// <summary>
+        /// 根据角色id获取菜单，并标记选中的菜单。
+        /// 作者：董帅 创建时间：2012-8-20 23:12:49
+        /// </summary>
+        /// <param name="roleId">角色id</param>
+        /// <returns>角色菜单，失败返回null</returns>
+        public List<RoleMenuInfo> getChouseMenus(int roleId)
+        {
+            List<RoleMenuInfo> menus = new List<RoleMenuInfo>();
+
+            try
+            {
+                if (this._roleDataBase != null)
+                {
+                    //连接数据库
+                    if (this._roleDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取所有菜单
+                        string sql = "SELECT * FROM SYS_MENUS WHERE PARENTID IS NULL AND ID <> 1 OR ID <> 1 AND PARENTID <> 1 ORDER BY PARENTID ASC,[ORDER] ASC";
+                        string chouseMenuSql = "SELECT * FROM AUT_ROLE_MENU WHERE ROLEID = " + roleId.ToString();
+                        //获取数据
+                        DataTable dt = this._roleDataBase.executeSqlReturnDt(sql);
+                        DataTable chouseMenuDt = this._roleDataBase.executeSqlReturnDt(chouseMenuSql);
+                        if (dt != null && chouseMenuDt != null)
+                        {
+                            //获取分组
+                            DataRow[] groupMenus = dt.Select("PARENTID is null", "PARENTID ASC,[ORDER] ASC");
+
+                            //获取子菜单
+                            foreach (DataRow row in groupMenus)
+                            {
+                                RoleMenuInfo pMenu = new RoleMenuInfo(); //获取父菜单
+
+                                //设置数据
+                                //菜单id不能为null，否则返回失败。
+                                if (!row.IsNull("ID"))
+                                {
+                                    pMenu.id = Convert.ToInt32(row["ID"]);
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+
+                                if (!row.IsNull("NAME"))
+                                {
+                                    pMenu.name = row["NAME"].ToString();
+                                }
+
+                                if (!row.IsNull("URL"))
+                                {
+                                    pMenu.url = row["URL"].ToString();
+                                }
+
+                                if (!row.IsNull("PARENTID"))
+                                {
+                                    pMenu.parentID = Convert.ToInt32(row["PARENTID"]);
+                                }
+
+                                if (!row.IsNull("ICON"))
+                                {
+                                    pMenu.icon = row["ICON"].ToString();
+                                }
+
+                                if (!row.IsNull("DESKTOPICON"))
+                                {
+                                    pMenu.desktopIcon = row["DESKTOPICON"].ToString();
+                                }
+
+                                if (!row.IsNull("ORDER"))
+                                {
+                                    pMenu.order = Convert.ToInt32(row["ORDER"]);
+                                }
+
+                                if(chouseMenuDt.Select("MENUID = " + pMenu.id.ToString()).Length > 0)
+                                {
+                                    pMenu.choused = true;
+                                }
+
+                                //获取子菜单
+                                DataRow[] childMenus = dt.Select("PARENTID = " + row["ID"], "PARENTID ASC,[ORDER] ASC");
+                                foreach (DataRow cRow in childMenus)
+                                {
+                                    RoleMenuInfo cMenu = new RoleMenuInfo();
+
+                                    //设置数据
+                                    //菜单id不能为null，否则返回失败。
+                                    if (!cRow.IsNull("ID"))
+                                    {
+                                        cMenu.id = Convert.ToInt32(cRow["ID"]);
+                                    }
+                                    else
+                                    {
+                                        return null;
+                                    }
+
+                                    if (!cRow.IsNull("NAME"))
+                                    {
+                                        cMenu.name = cRow["NAME"].ToString();
+                                    }
+
+                                    if (!cRow.IsNull("URL"))
+                                    {
+                                        cMenu.url = cRow["URL"].ToString();
+                                    }
+
+                                    if (!cRow.IsNull("PARENTID"))
+                                    {
+                                        cMenu.parentID = Convert.ToInt32(cRow["PARENTID"]);
+                                    }
+
+                                    if (!cRow.IsNull("ICON"))
+                                    {
+                                        cMenu.icon = cRow["ICON"].ToString();
+                                    }
+
+                                    if (!cRow.IsNull("DESKTOPICON"))
+                                    {
+                                        cMenu.desktopIcon = cRow["DESKTOPICON"].ToString();
+                                    }
+
+                                    if (!cRow.IsNull("ORDER"))
+                                    {
+                                        cMenu.order = Convert.ToInt32(cRow["ORDER"]);
+                                    }
+
+                                    if (chouseMenuDt.Select("MENUID = " + cMenu.id.ToString()).Length > 0)
+                                    {
+                                        cMenu.choused = true;
+                                    }
+
+                                    if (cMenu != null)
+                                    {
+                                        pMenu.childMenus.Add(cMenu);
+                                    }
+                                }
+
+                                menus.Add(pMenu);
+                            }
+
+                            return menus;
+                        }
+
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._roleDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._roleDataBase.disconnectDataBase();
+            }
+
+            return menus;
+        }
+
+        /// <summary>
+        /// 选择权限菜单，将制定id保存到数据库。
+        /// 作者：董帅 创建时间：2012-8-20 23:42:03
+        /// </summary>
+        /// <param name="roleId">角色id。</param>
+        /// <param name="menuIds">选中的菜单id。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool chouseRoleMenus(int roleId,int[] menuIds)
+        {
+            bool bRet = false;
+
+            try
+            {
+                if (this._roleDataBase != null)
+                {
+                    //连接数据库
+                    if (this._roleDataBase.connectDataBase())
+                    {
+                        this._roleDataBase.beginTransaction();
+
+                        string deleteSql = "DELETE AUT_ROLE_MENU WHERE ROLEID = " + roleId.ToString();
+
+                        if (this._roleDataBase.executeSqlWithOutDs(deleteSql) >= 0)
+                        {
+
+                            int count = 0;
+                            foreach (int mId in menuIds)
+                            {
+                                //sql语句
+                                string sql = string.Format("INSERT INTO AUT_ROLE_MENU (ROLEID,MENUID) VALUES ({0},{1})", roleId, mId);
+                                int retCount = this._roleDataBase.executeSqlWithOutDs(sql);
+
+                                if (retCount == 1)
+                                {
+                                    count++;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            if (count == menuIds.Length)
+                            {
+                                bRet = true;
+                            }
+                            else
+                            {
+                                this._errorMessage = "存储数据失败！";
+                                this._errorMessage += "错误信息[" + this._roleDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._roleDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                if(bRet)
+                {
+                    this._roleDataBase.commitTransaction();
+                }
+                else
+                {
+                    this._roleDataBase.rollbackTransaction();
+                }
+
                 this._roleDataBase.disconnectDataBase();
             }
 

@@ -65,11 +65,30 @@
                 return false;
             }
         }
+
+        /*!
+         * \brief
+         * 权限访问菜单设置按钮。
+         * 作者：董帅 创建时间：2012-8-20 21:30:28
+         */
+        function menuSet()
+        {
+            //判断选中
+            if ($("input:checked[type='checkbox'][name='chkItem']").length != 1)
+            {
+                alert("请选中要设置的权限，一次只能选择一个！");
+                return;
+            }
+
+            //打开编辑页面
+            window.parent.popupsWindow("#popups", "选择菜单", 350, 500, "sys/role/chouseMenu.aspx?id=" + $("input:checked[type='checkbox'][name='chkItem']").eq(0).val(), "icon-menu", true, true);
+        }
     </script>
 </head>
 <body class="easyui-layout" style="margin:0px;background-color:#EEF5FD;">
     <div region="north" border="true" style="height:28px;background-color:#EEF5FD">
-        <div style="width:200px;margin-left:auto;margin-top:0px;margin-right:0px">
+        <div style="width:280px;margin-left:auto;margin-top:0px;margin-right:0px">
+            <a id="A2" href="#" class="easyui-linkbutton" iconCls="icon-menu" plain="true" onclick="javascript:menuSet();">访问菜单</a>
             <a id="A1" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addRole();">新增</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editRole();">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteRoles();" runat="server" onserverclick="butDeleteRoles_Click">删除</a>
