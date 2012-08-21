@@ -74,6 +74,7 @@ INSERT INTO sys_menus (name,icon) VALUES ('系统设置','icon-systemSetting')
 INSERT INTO sys_menus (name,icon) VALUES ('系统管理','icon-system');
 INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('系统菜单', 'sys/menu/menu_list.aspx', '1', 'icon-systemMenu');
 INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('角色管理', 'sys/role/role_list.aspx', '2','icon-role');
+INSERT INTO sys_menus (id, name, url, parentID, icon, desktopIcon, order) VALUES ('5', '组织机构管理', 'sys/organization/organization_list.aspx', '2', 'icon-organization', '', '');
 GO
 
 --创建角色表。

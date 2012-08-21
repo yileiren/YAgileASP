@@ -67,6 +67,7 @@
     <Content Include="background\sys\login.aspx" />
     <Content Include="background\sys\menu\menu_edit.aspx" />
     <Content Include="background\sys\menu\menu_list.aspx" />
+    <Content Include="background\sys\organization\organization_list.aspx" />
     <Content Include="background\sys\role\chouseMenu.aspx" />
     <Content Include="background\sys\role\role_edit.aspx" />
     <Content Include="background\sys\role\role_list.aspx" />
@@ -324,13 +325,16 @@
     <Content Include="js\jquery-easyui\themes\icons\mini_refresh.png" />
     <Content Include="js\jquery-easyui\themes\icons\no.png" />
     <Content Include="js\jquery-easyui\themes\icons\ok.png" />
+    <Content Include="js\jquery-easyui\themes\icons\organization.png" />
     <Content Include="js\jquery-easyui\themes\icons\out.png" />
     <Content Include="js\jquery-easyui\themes\icons\pencil.png" />
     <Content Include="js\jquery-easyui\themes\icons\print.png" />
     <Content Include="js\jquery-easyui\themes\icons\redo.png" />
     <Content Include="js\jquery-easyui\themes\icons\reload.png" />
+    <Content Include="js\jquery-easyui\themes\icons\role.png" />
     <Content Include="js\jquery-easyui\themes\icons\search.png" />
     <Content Include="js\jquery-easyui\themes\icons\sum.png" />
+    <Content Include="js\jquery-easyui\themes\icons\system.png" />
     <Content Include="js\jquery-easyui\themes\icons\systemMenu.png" />
     <Content Include="js\jquery-easyui\themes\icons\systemSetting.png" />
     <Content Include="js\jquery-easyui\themes\icons\tip.png" />
@@ -390,6 +394,13 @@
     </Compile>
     <Compile Include="background\sys\menu\menu_list.aspx.designer.cs">
       <DependentUpon>menu_list.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="background\sys\organization\organization_list.aspx.cs">
+      <DependentUpon>organization_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="background\sys\organization\organization_list.aspx.designer.cs">
+      <DependentUpon>organization_list.aspx</DependentUpon>
     </Compile>
     <Compile Include="background\sys\role\chouseMenu.aspx.cs">
       <DependentUpon>chouseMenu.aspx</DependentUpon>
