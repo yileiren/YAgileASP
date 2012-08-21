@@ -29,9 +29,10 @@
         }
     </script>--%>
 </head>
-<body class="easyui-layout" style="margin:0px;background-color:#EEF5FD">
-    <div id="center" region="center" style="padding:3px;background-color:#EEF5FD"">
+<body style="margin:0px;background-color:#EEF5FD">
     <form id="form1" runat="server">
+    <div style="width:330px;height:415px;padding:3px;background-color:#EEF5FD"">
+    <div class="easyui-panel" fit="true"  style="overflow-x:hidden;background-color:#EEF5FD">
     <input type="hidden" id="hidRoleId" name="hidRoleId" runat="server" />
     <div>
         <ul id="tt1" class="easyui-tree" >
@@ -52,13 +53,13 @@
         </ul>
     </div>
     </div>
-    <div id="south" region="south" style="height:35px;padding:3px;background-color:#EEF5FD"">
-        
+    </div>
+    <div style="width:330px;height:30px;padding:3px;background-color:#EEF5FD"">
         <div style="width:170px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a id="A1" href="#" class="easyui-linkbutton" iconCls="icon-ok" runat="server" onserverclick="butChouse_Click" >选择</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:window.parent.closePopupsWindow('#popups')">取消</a>
         </div>
-        </form>
     </div>
+    </form>
 </body>
 </html>
