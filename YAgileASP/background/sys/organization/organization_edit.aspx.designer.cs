@@ -10,7 +10,7 @@
 namespace YAgileASP.background.sys.organization {
     
     
-    public partial class organization_list {
+    public partial class organization_edit {
         
         /// <summary>
         /// form1 控件。
@@ -22,6 +22,15 @@ namespace YAgileASP.background.sys.organization {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// hidOrgId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidOrgId;
+        
+        /// <summary>
         /// hidParentId 控件。
         /// </summary>
         /// <remarks>
@@ -31,12 +40,21 @@ namespace YAgileASP.background.sys.organization {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidParentId;
         
         /// <summary>
-        /// orgList 控件。
+        /// txtOrgName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater orgList;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtOrgName;
+        
+        /// <summary>
+        /// A1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A1;
     }
 }

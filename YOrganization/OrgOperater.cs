@@ -49,6 +49,34 @@ namespace YLR.YOrganization
         }
 
         /// <summary>
+        /// 创建组织机构数据库操作对象。
+        /// 作者：董帅 创建时间：2012-8-22 13:17:48
+        /// </summary>
+        /// <param name="configFilePath">配置文件路径。</param>
+        /// <param name="nodeName">节点名。</param>
+        /// <returns>成功返回操作对象，否则返回null。</returns>
+        public static OrgOperater createOrgOperater(string configFilePath, string nodeName)
+        {
+            OrgOperater orgOper = null;
+
+            //获取数据库实例。
+            YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFilePath, nodeName);
+
+            if (orgDb != null)
+            {
+                orgOper = new OrgOperater();
+                orgOper.orgDataBase = orgDb;
+            }
+            else
+            {
+                Exception ex = new Exception("创建数据库实例失败！");
+                throw ex;
+            }
+
+            return orgOper;
+        }
+
+        /// <summary>
         /// 创建新组织机构。
         /// </summary>
         /// <param name="org">新组织机构，组织机构名称不能为""，切长度不能大于50。</param>
@@ -76,12 +104,12 @@ namespace YLR.YOrganization
                     if (org.parentId == -1)
                     {
 
-                        sql = string.Format("INSERT INTO org_organization (name) VALUES (%s) SELECT SCOPE_IDENTITY() AS id"
+                        sql = string.Format("INSERT INTO org_organization (name) VALUES ('{0}') SELECT SCOPE_IDENTITY() AS id"
                             , org.name);
                     }
                     else
                     {
-                        sql = string.Format("INSERT INTO org_organization (name,parentId) VALUES ('%s',%d) SELECT SCOPE_IDENTITY() AS id"
+                        sql = string.Format("INSERT INTO org_organization (name,parentId) VALUES ('{0}',{1}) SELECT SCOPE_IDENTITY() AS id"
                             , org.name
                             , org.parentId);
                     }
@@ -121,6 +149,67 @@ namespace YLR.YOrganization
             }
 
             return orgId;
+        }
+
+        /// <summary>
+        /// 通过指定的父id获取组织机构列表。
+        /// 作者：董帅 创建时间：2012-8-22 12:57:13
+        /// </summary>
+        /// <param name="pId">父id，如果是顶级机构，父id为-1</param>
+        /// <returns>成功返回组织机构列表，否则返回null。</returns>
+        public List<OrganizationInfo> getOrganizationByParentId(int pId)
+        {
+            List<OrganizationInfo> orgs = null;
+
+            try
+            {
+                if (this._orgDataBase != null)
+                {
+                    //连接数据库
+                    if (this._orgDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取所有权限
+                        string sql = "";
+                        if (pId == -1)
+                        {
+                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE PARENTID IS NULL";
+                        }
+                        else
+                        {
+                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE PARENTID = " + pId.ToString(); ; sql = "SELECT * FROM ORG_ORGANIZATION WHERE PARENTID IS NULL ";
+                        }
+                        //获取数据
+                        DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                        if (dt != null)
+                        {
+                            //role = this.getRoleFormDataRow(dt.Rows[0]);
+                        }
+                        else
+                        {
+                            this._errorMessage = "获取数据失败！错误信息：[" + this._orgDataBase.errorText + "]";
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._orgDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._orgDataBase.disconnectDataBase();
+            }
+
+            return orgs;
         }
 
         /// <summary>
