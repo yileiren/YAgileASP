@@ -41,6 +41,10 @@
             <th class="adminth_s2" style="width:120px;text-align:right">名称：</th>
             <td bgcolor="#FFFFFF"><input type="text" id="txtOrgName" name="txtOrgName" class="easyui-validatebox" required="true" maxlength="50" runat="server" style="width:200px" /></td>
         </tr>
+        <tr style="height:30px">
+            <th class="adminth_s2" style="width:120px;text-align:right">序号：</th>
+            <td bgcolor="#FFFFFF"><input type="text" id="txtOrgOrder" name="txtOrgOrder" class="easyui-numberbox" min="0" max="50000" precision="0" value="0" runat="server" style="width:200px" /></td>
+        </tr>
     </table>
     <div style="width:170px;margin-left:auto;margin-top:5px;margin-right:5px">
             <a id="A1" href="#" class="easyui-linkbutton" iconCls="icon-save" runat="server" onclick="javascript:return checkForms();" onserverclick="butSave_Click" >保存</a>

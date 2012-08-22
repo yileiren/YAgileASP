@@ -11,6 +11,8 @@ CREATE TABLE ORG_ORGANIZATION
 	CREATETIME DATETIME DEFAULT GETDATE() NOT NULL,
 	-- 标识该机构是否已经删除，系统中的机构不允许进行物理删除。
 	ISDELETE NCHAR DEFAULT 'N' NOT NULL,
+	-- 排序序号，控制显示顺序。
+	[ORDER] INT,
 	PRIMARY KEY (ID)
 );
 GO
@@ -30,6 +32,8 @@ CREATE TABLE ORG_USER
 	ORGANIZATIONID INT,
 	-- 用户是否被删除。和组织机构一样，用户不允许物理删除。
 	ISDELETE NCHAR DEFAULT 'N',
+	-- 排序序号，用来控制显示顺序。
+	[ORDER] INT,
 	PRIMARY KEY (ID)
 );
 GO
@@ -74,7 +78,7 @@ INSERT INTO sys_menus (name,icon) VALUES ('系统设置','icon-systemSetting')
 INSERT INTO sys_menus (name,icon) VALUES ('系统管理','icon-system');
 INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('系统菜单', 'sys/menu/menu_list.aspx', '1', 'icon-systemMenu');
 INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('角色管理', 'sys/role/role_list.aspx', '2','icon-role');
-INSERT INTO sys_menus (id, name, url, parentID, icon, desktopIcon, order) VALUES ('5', '组织机构管理', 'sys/organization/organization_list.aspx', '2', 'icon-organization', '', '');
+INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('组织机构管理', 'sys/organization/organization_list.aspx', '2', 'icon-organization');
 GO
 
 --创建角色表。

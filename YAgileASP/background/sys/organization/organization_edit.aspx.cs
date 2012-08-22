@@ -27,6 +27,40 @@ namespace YAgileASP.background.sys.organization
                     {
                         YMessageBox.show(this, "未设置父菜单id失败！");
                     }
+
+                    //获取id
+                    string strId = Request.QueryString["id"];
+                    if (!string.IsNullOrEmpty(strId))
+                    {
+                        this.hidOrgId.Value = strId;
+
+                        
+                        //获取配置文件路径。
+                        string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+
+                        //创建操作对象
+                        OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
+                        if (orgOper != null)
+                        {
+                            //获取机构信息
+                            OrganizationInfo org = orgOper.getOrganization(Convert.ToInt32(strId));
+                            if (org != null)
+                            {
+                                this.txtOrgName.Value = org.name;
+                                this.txtOrgOrder.Value = org.order.ToString();
+                            }
+                            else
+                            {
+                                YMessageBox.show(this, "获取机构信息失败！错误信息[" + orgOper.errorMessage + "]");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "创建数据库操作对象失败！");
+                            return;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -53,6 +87,8 @@ namespace YAgileASP.background.sys.organization
                     return;
                 }
 
+                orgInfo.order = Convert.ToInt32(this.txtOrgOrder.Value);
+
                 orgInfo.parentId = Convert.ToInt32(this.hidParentId.Value);
 
                 //获取配置文件路径。
@@ -78,6 +114,16 @@ namespace YAgileASP.background.sys.organization
                     else
                     {
                         //修改
+                        orgInfo.id = Convert.ToInt32(this.hidOrgId.Value);
+                        if (orgOper.changeOrganization(orgInfo))
+                        {
+                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('组织机构管理','icon-organization','sys/organization/organization_list.aspx')");
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "创建机构失败！错误信息：[" + orgOper.errorMessage + "]");
+                            return;
+                        }
                     }
                 }
                 else

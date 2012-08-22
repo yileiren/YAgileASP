@@ -104,14 +104,16 @@ namespace YLR.YOrganization
                     if (org.parentId == -1)
                     {
 
-                        sql = string.Format("INSERT INTO org_organization (name) VALUES ('{0}') SELECT SCOPE_IDENTITY() AS id"
-                            , org.name);
+                        sql = string.Format("INSERT INTO org_organization (name,[ORDER]) VALUES ('{0}',{1}) SELECT SCOPE_IDENTITY() AS id"
+                            , org.name
+                            , org.order);
                     }
                     else
                     {
-                        sql = string.Format("INSERT INTO org_organization (name,parentId) VALUES ('{0}',{1}) SELECT SCOPE_IDENTITY() AS id"
+                        sql = string.Format("INSERT INTO org_organization (name,parentId,[ORDER]) VALUES ('{0}',{1},{2}) SELECT SCOPE_IDENTITY() AS id"
                             , org.name
-                            , org.parentId);
+                            , org.parentId
+                            , org.order);
                     }
 
                     //存入数据库
@@ -204,12 +206,154 @@ namespace YLR.YOrganization
                     }
                 }
 
+                if (!r.IsNull("ORDER"))
+                {
+                    org.order = Convert.ToInt32(r["ORDER"]);
+                }
+                else
+                {
+                    org.order = 0;
+                }
+
                 return org;
             }
             else
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// 获取组织机构。
+        /// 作者：董帅 创建时间：2012-8-22 22:22:47
+        /// </summary>
+        /// <param name="id">机构id。</param>
+        /// <returns>机构，失败返回null。</returns>
+        public OrganizationInfo getOrganization(int id)
+        {
+            OrganizationInfo orgInfo = null;
+
+            try
+            {
+                if (this._orgDataBase != null)
+                {
+                    //连接数据库
+                    if (this._orgDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取所有权限
+                        string sql = "SELECT * FROM ORG_ORGANIZATION WHERE ID = " + id.ToString();
+                        
+                        //获取数据
+                        DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                        if (dt != null && dt.Rows.Count == 1)
+                        {
+                            orgInfo = this.getOrganizationFormDataRow(dt.Rows[0]);
+                        }
+                        else
+                        {
+                            if(dt != null)
+                            {
+                                this._errorMessage = "获取数据失败！";
+                            }
+                            else
+                            {
+                                this._errorMessage = "获取数据失败！错误信息：[" + this._orgDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._orgDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._orgDataBase.disconnectDataBase();
+            }
+
+            return orgInfo;
+        }
+
+        /// <summary>
+        /// 修改指定组织机构的内容，通过组织机构id匹配。
+        /// </summary>
+        /// <param name="org">要修改的组织机构。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool changeOrganization(OrganizationInfo org)
+        {
+            bool bRet = false; //返回值
+
+            try
+            {
+                if (this._orgDataBase != null)
+                {
+                    //连接数据库
+                    if (this._orgDataBase.connectDataBase())
+                    {
+                        //sql语句
+                        string sql = "";
+                        if (org.parentId == -1)
+                        {
+                            //顶级菜单
+                            sql = string.Format("UPDATE ORG_ORGANIZATION SET NAME = '{0}',[ORDER] = {1} WHERE ID = {2}"
+                                , org.name
+                                , org.order
+                                , org.id);
+                        }
+                        else
+                        {
+                            sql = string.Format("UPDATE ORG_ORGANIZATION SET NAME = '{0}',PARENTID = {1},[ORDER] = {2} WHERE ID = {3}"
+                                , org.name
+                                , org.parentId
+                                , org.order
+                                , org.id);
+                        }
+
+                        int retCount = this._orgDataBase.executeSqlWithOutDs(sql);
+                        if (retCount == 1)
+                        {
+                            bRet = true;
+                        }
+                        else
+                        {
+                            this._errorMessage = "更新数据失败！";
+                            if (retCount != 1)
+                            {
+                                this._errorMessage += "错误信息[" + this._orgDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._orgDataBase.errorText + "]";
+                    }
+
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._orgDataBase.disconnectDataBase();
+            }
+
+            return bRet;
         }
 
         /// <summary>
@@ -234,11 +378,11 @@ namespace YLR.YOrganization
                         string sql = "";
                         if (pId == -1)
                         {
-                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE PARENTID IS NULL";
+                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE PARENTID IS NULL ORDER BY [ORDER] ASC";
                         }
                         else
                         {
-                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE PARENTID = " + pId.ToString(); ; sql = "SELECT * FROM ORG_ORGANIZATION WHERE PARENTID IS NULL ";
+                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE PARENTID = " + pId.ToString() + " ORDER BY [ORDER] ASC";
                         }
                         //获取数据
                         DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);

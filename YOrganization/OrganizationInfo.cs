@@ -109,5 +109,19 @@ namespace YLR.YOrganization
                 this._isDelete = value;
             }
         }
+
+        /// <summary>
+        /// 序号。
+        /// </summary>
+        protected int _order = 0;
+
+        /// <summary>
+        /// 序号。
+        /// </summary>
+        public int order
+        {
+            get { return this._order; }
+            set { this._order = value; }
+        }
     }
 }
