@@ -152,6 +152,67 @@ namespace YLR.YOrganization
         }
 
         /// <summary>
+        /// 根据DataRow获取组织机构对象。
+        /// </summary>
+        /// <param name="r">组织机构数据</param>
+        /// <returns>组织机构，失败返回null。</returns>
+        private OrganizationInfo getOrganizationFormDataRow(DataRow r)
+        {
+            if (r != null)
+            {
+                //分组对象
+                OrganizationInfo org = new OrganizationInfo();
+
+                //菜单id不能为null，否则返回失败。
+                if (!r.IsNull("ID"))
+                {
+                    org.id = Convert.ToInt32(r["ID"]);
+                }
+                else
+                {
+                    return null;
+                }
+
+                if (!r.IsNull("NAME"))
+                {
+                    org.name = r["NAME"].ToString();
+                }
+
+                if (!r.IsNull("PARENTID"))
+                {
+                    org.parentId = Convert.ToInt32(r["PARENTID"]);
+                }
+                else
+                {
+                    org.parentId = -1;
+                }
+
+                if (!r.IsNull("CREATETIME"))
+                {
+                    org.createTime = Convert.ToDateTime(r["CREATETIME"]);
+                }
+
+                if (!r.IsNull("ISDELETE"))
+                {
+                    if (r["ISDELETE"].ToString() == "N")
+                    {
+                        org.isDelete = false;
+                    }
+                    else
+                    {
+                        org.isDelete = true;
+                    }
+                }
+
+                return org;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 通过指定的父id获取组织机构列表。
         /// 作者：董帅 创建时间：2012-8-22 12:57:13
         /// </summary>
@@ -183,7 +244,15 @@ namespace YLR.YOrganization
                         DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
                         if (dt != null)
                         {
-                            //role = this.getRoleFormDataRow(dt.Rows[0]);
+                            orgs = new List<OrganizationInfo>();
+                            foreach (DataRow r in dt.Rows)
+                            {
+                                OrganizationInfo o = this.getOrganizationFormDataRow(r);
+                                if (o != null)
+                                {
+                                    orgs.Add(o);
+                                }
+                            }
                         }
                         else
                         {

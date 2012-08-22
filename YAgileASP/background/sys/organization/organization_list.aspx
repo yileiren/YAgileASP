@@ -47,12 +47,20 @@
         <asp:Repeater ID="orgList" runat="server">
         <ItemTemplate>
             <tr style="width:100%;height:30px">
-                <td class="admincls0" style="text-align:center;width:30px"><input type="checkbox" value="<%#Eval("ID") %>" name="chkGroup" /></td>
-                <td class="admincls0" style="width:220px">
-                    <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="<%#Eval("ICON") %>" plain="true" style="width:215px" onclick="javascript:href='menu_list.aspx?id=<%#Eval("ID") %>'"><%#Eval("NAME").ToString().Length > 16 ? Eval("NAME").ToString().Substring(0, 15) + "..." : Eval("NAME")%></a>
+                <td class="admincls0" style="text-align:center;width:30px"><input type="checkbox" value="<%#Eval("ID") %>" name="chkOrgs" /></td>
+                <td class="admincls0" style="width:auto">
+                    <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="icon-organization" plain="true" style="width:95%" ><%#Eval("NAME")%></a>
                 </td>
             </tr>
         </ItemTemplate>
+        <AlternatingItemTemplate>
+            <tr style="width:100%;height:30px">
+                <td class="admincls1" style="text-align:center;width:30px"><input type="checkbox" value="<%#Eval("ID") %>" name="chkOrgs" /></td>
+                <td class="admincls1" style="width:auto">
+                    <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="icon-organization" plain="true" style="width:95%" ><%#Eval("NAME")%></a>
+                </td>
+            </tr>
+        </AlternatingItemTemplate>
         </asp:Repeater>
         </table>
     </div>
