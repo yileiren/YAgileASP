@@ -21,11 +21,10 @@ td.admintd{
 th.adminth {
     width: 671px;
     color: #0066cc;
-    background-color: #eef6fe;
+    background-color: #AEDEF2;
     font-size:14px;
     color:#05B;
-    border:1px solid #AEDEF2;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#AEDEF2,endColorStr=ghostwhite);
+    border:1px solid #67C1E6;
 }
 th.adminth_s2 {
     width: 671px;

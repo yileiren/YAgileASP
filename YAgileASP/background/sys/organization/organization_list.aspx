@@ -90,7 +90,7 @@
                 <td class="admincls1" style="width:auto">
                     <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="icon-organization" plain="true" style="width:523px" ><%#Eval("NAME")%></a>
                 </td>
-                <td class="admincls0" style="text-align:center">
+                <td class="admincls1" style="text-align:center">
                     <%#Eval("order") %>
                 </td>
             </tr>
