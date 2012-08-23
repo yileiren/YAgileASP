@@ -601,6 +601,151 @@ namespace YLR.YOrganization
         }
 
         /// <summary>
+        /// 根据DataRow获取用户对象。
+        /// 作者：董帅 创建时间：2012-8-23 21:34:04
+        /// </summary>
+        /// <param name="r">用户数据</param>
+        /// <returns>用户，失败返回null。</returns>
+        private UserInfo getUserFormDataRow(DataRow r)
+        {
+            if (r != null)
+            {
+                //分组对象
+                UserInfo user = new UserInfo();
+
+                //菜单id不能为null，否则返回失败。
+                if (!r.IsNull("ID"))
+                {
+                    user.id = Convert.ToInt32(r["ID"]);
+                }
+                else
+                {
+                    return null;
+                }
+
+                if (!r.IsNull("LOGNAME"))
+                {
+                    user.logName = r["LOGNAME"].ToString();
+                }
+
+                if (!r.IsNull("LOGPASSWORD"))
+                {
+                    user.logPassword = r["LOGPASSWORD"].ToString();
+                }
+
+                if (!r.IsNull("NAME"))
+                {
+                    user.name = r["NAME"].ToString();
+                }
+
+                if (!r.IsNull("ORGANIZATIONID"))
+                {
+                    user.organizationId = Convert.ToInt32(r["ORGANIZATIONID"]);
+                }
+                else
+                {
+                    user.organizationId = -1;
+                }
+
+                if (!r.IsNull("ISDELETE"))
+                {
+                    if (r["ISDELETE"].ToString() == "N")
+                    {
+                        user.isDelete = false;
+                    }
+                    else
+                    {
+                        user.isDelete = true;
+                    }
+                }
+
+                if (!r.IsNull("ORDER"))
+                {
+                    user.order = Convert.ToInt32(r["ORDER"]);
+                }
+                else
+                {
+                    user.order = 0;
+                }
+
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 通过指定的组织机构id获取该机构下的所有用户。
+        /// 作者：董帅 创建时间：2012-8-23 21:27:07
+        /// </summary>
+        /// <param name="orgId">机构id</param>
+        /// <returns>用户列表，失败返回null。</returns>
+        public List<UserInfo> getUserByOrganizationId(int orgId)
+        {
+            List<UserInfo> users = null;
+
+            try
+            {
+                if (this._orgDataBase != null)
+                {
+                    //连接数据库
+                    if (this._orgDataBase.connectDataBase())
+                    {
+
+                        //sql语句
+                        string sql = "";
+                        if (orgId == -1)
+                        {
+                            sql = "SELECT * FROM ORG_USER WHERE ORGANIZATIONID IS NULL ORDER BY [ORDER] ASC";
+                        }
+                        else
+                        {
+                            sql = "SELECT * FROM ORG_USER WHERE ORGANIZATIONID = " + orgId.ToString() + " ORDER BY [ORDER] ASC";
+                        }
+                        //获取数据
+                        DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                        if (dt != null)
+                        {
+                            users = new List<UserInfo>();
+                            foreach (DataRow r in dt.Rows)
+                            {
+                                UserInfo u = this.getUserFormDataRow(r);
+                                if (u != null)
+                                {
+                                    users.Add(u);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this._errorMessage = "获取数据失败！错误信息：[" + this._orgDataBase.errorText + "]";
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._orgDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._orgDataBase.disconnectDataBase();
+            }
+
+            return users;
+        }
+
+        /// <summary>
         /// 判断用户是否存在。
         /// </summary>
         /// <param name="logName">登陆名</param>

@@ -47,13 +47,13 @@
         function editItem()
         {
             //判断选中
-            if ($("input:checked[type='checkbox'][name='chkOrgs']").length != 1)
+            if ($("input:checked[type='checkbox'][name='chkOrg']").length != 1)
             {
                 alert("请选中要编辑的机构或用户，一次只能选择一个！");
                 return;
             }
 
-            if ($("input:checked[type='checkbox'][name='chkOrgs']").length == 1)
+            if ($("input:checked[type='checkbox'][name='chkOrg']").length == 1)
             {
                 window.parent.popupsWindow("#popups", "修改组织机构", 600, 140, "sys/organization/organization_edit.aspx?parentId=" + $("#hidParentId").val() + "&id=" + $("input:checked[type='checkbox'][name='chkOrgs']").eq(0).val(), "icon-edit", true, true);
             }
@@ -85,7 +85,7 @@
         <asp:Repeater ID="orgList" runat="server">
         <ItemTemplate>
             <tr style="width:100%;height:30px">
-                <td class="admincls0" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkOrgs" /></td>
+                <td class="admincls0" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkOrg" /></td>
                 <td class="admincls0" style="width:auto">
                     <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="icon-organization" plain="true" style="width:523px" ><%#Eval("NAME")%></a>
                 </td>
@@ -96,9 +96,34 @@
         </ItemTemplate>
         <AlternatingItemTemplate>
             <tr style="width:100%;height:30px">
-                <td class="admincls1" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkOrgs" /></td>
+                <td class="admincls1" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkOrg" /></td>
                 <td class="admincls1" style="width:auto">
                     <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="icon-organization" plain="true" style="width:523px" ><%#Eval("NAME")%></a>
+                </td>
+                <td class="admincls1" style="text-align:center">
+                    <%#Eval("order") %>
+                </td>
+            </tr>
+        </AlternatingItemTemplate>
+        </asp:Repeater>
+        <tr style="width:100%;height:5px"><td  style="background-color:#AEDEF2" colspan="3"></td></tr>
+        <asp:Repeater ID="userList" runat="server">
+        <ItemTemplate>
+            <tr style="width:100%;height:30px">
+                <td class="admincls0" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkUser" /></td>
+                <td class="admincls0" style="width:auto">
+                    <%#Eval("NAME")%>
+                </td>
+                <td class="admincls0" style="text-align:center">
+                    <%#Eval("order") %>
+                </td>
+            </tr>
+        </ItemTemplate>
+        <AlternatingItemTemplate>
+            <tr style="width:100%;height:30px">
+                <td class="admincls1" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkUser" /></td>
+                <td class="admincls1" style="width:auto">
+                    <%#Eval("NAME")%>
                 </td>
                 <td class="admincls1" style="text-align:center">
                     <%#Eval("order") %>

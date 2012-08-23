@@ -30,6 +30,9 @@ namespace YAgileASP.background.sys.organization
 
                     //获取组织机构
                     this.bindOrgInfos();
+
+                    //获取用户
+                    this.bindUserInfos();
                 }
             }
             catch (Exception ex)
@@ -72,6 +75,43 @@ namespace YAgileASP.background.sys.organization
             catch (Exception ex)
             {
                 YMessageBox.show(this,"运行错误！错误信息[" + ex.Message + "]");
+            }
+        }
+
+        /// <summary>
+        /// 绑定用户。
+        /// 作者：董帅 创建时间：2012-8-23 21:40:38
+        /// </summary>
+        public void bindUserInfos()
+        {
+            try
+            {
+                //获取配置文件路径。
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+
+                //获取数据库操作对象
+                OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
+                if (orgOper != null)
+                {
+                    List<UserInfo> users = orgOper.getUserByOrganizationId(Convert.ToInt32(this.hidParentId.Value));
+                    if (users != null)
+                    {
+                        this.userList.DataSource = users;
+                        this.userList.DataBind();
+                    }
+                    else
+                    {
+                        YMessageBox.show(this, "获取用户数据失败！错误信息[" + orgOper.errorMessage + "]");
+                    }
+                }
+                else
+                {
+                    YMessageBox.show(this, "获取数据库操作对象失败！");
+                }
+            }
+            catch (Exception ex)
+            {
+                YMessageBox.show(this, "运行错误！错误信息[" + ex.Message + "]");
             }
         }
     }
