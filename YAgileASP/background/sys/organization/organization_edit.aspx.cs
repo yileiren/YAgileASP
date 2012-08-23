@@ -121,7 +121,7 @@ namespace YAgileASP.background.sys.organization
                         }
                         else
                         {
-                            YMessageBox.show(this, "创建机构失败！错误信息：[" + orgOper.errorMessage + "]");
+                            YMessageBox.show(this, "修改机构失败！错误信息：[" + orgOper.errorMessage + "]");
                             return;
                         }
                     }

@@ -47,7 +47,7 @@
         function editItem()
         {
             //判断选中
-            if ($("input:checked[type='checkbox'][name='chkOrg']").length != 1)
+            if (($("input:checked[type='checkbox'][name='chkOrg']").length + $("input:checked[type='checkbox'][name='chkUser']").length) != 1)
             {
                 alert("请选中要编辑的机构或用户，一次只能选择一个！");
                 return;
@@ -55,7 +55,11 @@
 
             if ($("input:checked[type='checkbox'][name='chkOrg']").length == 1)
             {
-                window.parent.popupsWindow("#popups", "修改组织机构", 600, 140, "sys/organization/organization_edit.aspx?parentId=" + $("#hidParentId").val() + "&id=" + $("input:checked[type='checkbox'][name='chkOrgs']").eq(0).val(), "icon-edit", true, true);
+                window.parent.popupsWindow("#popups", "修改组织机构", 600, 140, "sys/organization/organization_edit.aspx?parentId=" + $("#hidParentId").val() + "&id=" + $("input:checked[type='checkbox'][name='chkOrg']").eq(0).val(), "icon-edit", true, true);
+            }
+            else
+            {
+                window.parent.popupsWindow("#popups", "修改用户", 600, 230, "sys/organization/user_edit.aspx?orgId=" + $("#hidParentId").val() + "&id=" + $("input:checked[type='checkbox'][name='chkUser']").eq(0).val(), "icon-edit", true, true);
             }
         }
     </script>

@@ -33,7 +33,7 @@ namespace YAgileASP.background.sys.organization
                 {
                     this.hidUserId.Value = strId;
 
-
+                    this.txtUserLogName.Disabled = true;
                     //获取配置文件路径。
                     string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
 
@@ -41,18 +41,19 @@ namespace YAgileASP.background.sys.organization
                     OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
                     if (orgOper != null)
                     {
-                        ////获取机构信息
-                        //OrganizationInfo org = orgOper.getOrganization(Convert.ToInt32(strId));
-                        //if (org != null)
-                        //{
-                        //    this.txtOrgName.Value = org.name;
-                        //    this.txtOrgOrder.Value = org.order.ToString();
-                        //}
-                        //else
-                        //{
-                        //    YMessageBox.show(this, "获取机构信息失败！错误信息[" + orgOper.errorMessage + "]");
-                        //    return;
-                        //}
+                        ////获取用户信息
+                        UserInfo user = orgOper.getUser(Convert.ToInt32(strId));
+                        if (user != null)
+                        {
+                            this.txtUserLogName.Value = user.logName;
+                            this.txtUserName.Value = user.name;
+                            this.txtUserOrder.Value = user.order.ToString();
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "获取机构信息失败！错误信息[" + orgOper.errorMessage + "]");
+                            return;
+                        }
                     }
                     else
                     {
@@ -84,14 +85,21 @@ namespace YAgileASP.background.sys.organization
                 user.logPassword = this.txtUserLogPassword1.Value;
                 if (string.IsNullOrEmpty(user.logPassword) || user.logPassword.Length > 40)
                 {
-                    YMessageBox.show(this, "用户登陆密码不合法！");
-                    return;
+                    //新增时报错
+                    if (string.IsNullOrEmpty(this.hidUserId.Value))
+                    {
+                        YMessageBox.show(this, "用户登陆密码不合法！");
+                        return;
+                    }
                 }
 
-                //用户密码二次加密
-                MD5Encrypt md5Encrypt = new MD5Encrypt();
-                user.logPassword = md5Encrypt.GetMD5(user.logPassword);
-                
+                if (!string.IsNullOrEmpty(user.logPassword))
+                {
+                    //用户密码二次加密
+                    MD5Encrypt md5Encrypt = new MD5Encrypt();
+                    user.logPassword = md5Encrypt.GetMD5(user.logPassword);
+                }
+
                 user.name = this.txtUserName.Value;
                 if (string.IsNullOrEmpty(user.name) || user.name.Length > 20)
                 {
@@ -133,16 +141,30 @@ namespace YAgileASP.background.sys.organization
                     else
                     {
                         //修改
-                        //orgInfo.id = Convert.ToInt32(this.hidOrgId.Value);
-                        //if (orgOper.changeOrganization(orgInfo))
-                        //{
-                        //    YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('组织机构管理','icon-organization','sys/organization/organization_list.aspx')");
-                        //}
-                        //else
-                        //{
-                        //    YMessageBox.show(this, "创建机构失败！错误信息：[" + orgOper.errorMessage + "]");
-                        //    return;
-                        //}
+                        user.id = Convert.ToInt32(this.hidUserId.Value);
+                        if (orgOper.changeUser(user))
+                        {
+                            bool bRet = true;
+                            if (!string.IsNullOrEmpty(user.logPassword))
+                            { 
+                                //修改密码
+                                bRet = orgOper.changePassword(user);
+
+                            }
+                            if (bRet)
+                            {
+                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('组织机构管理','icon-organization','sys/organization/organization_list.aspx')");
+                            }
+                            else
+                            {
+                                YMessageBox.show(this, "修改密码失败！错误信息：[" + orgOper.errorMessage + "]");
+                            }
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "修改用户失败！错误信息：[" + orgOper.errorMessage + "]");
+                            return;
+                        }
                     }
                 }
                 else
