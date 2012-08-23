@@ -26,6 +26,7 @@ namespace YAgileASP.background.sys.organization
                     else
                     {
                         this.hidParentId.Value = "-1";
+                        this.returnButton.Disabled = true;
                     }
 
                     //获取组织机构

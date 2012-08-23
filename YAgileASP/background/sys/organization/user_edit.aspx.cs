@@ -130,7 +130,7 @@ namespace YAgileASP.background.sys.organization
                         //新增
                         if (orgOper.createNewUser(user) > 0)
                         {
-                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('组织机构管理','icon-organization','sys/organization/organization_list.aspx')");
+                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('组织机构管理','icon-organization','sys/organization/organization_list.aspx?parentId=" + this.hidOrgId.Value + "')");
                         }
                         else
                         {
@@ -153,7 +153,7 @@ namespace YAgileASP.background.sys.organization
                             }
                             if (bRet)
                             {
-                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('组织机构管理','icon-organization','sys/organization/organization_list.aspx')");
+                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('组织机构管理','icon-organization','sys/organization/organization_list.aspx?parentId=" + this.hidOrgId.Value + "')");
                             }
                             else
                             {
