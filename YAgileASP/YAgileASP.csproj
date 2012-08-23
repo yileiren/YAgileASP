@@ -69,6 +69,7 @@
     <Content Include="background\sys\menu\menu_list.aspx" />
     <Content Include="background\sys\organization\organization_edit.aspx" />
     <Content Include="background\sys\organization\organization_list.aspx" />
+    <Content Include="background\sys\organization\user_edit.aspx" />
     <Content Include="background\sys\role\chouseMenu.aspx" />
     <Content Include="background\sys\role\role_edit.aspx" />
     <Content Include="background\sys\role\role_list.aspx" />
@@ -409,6 +410,13 @@
     </Compile>
     <Compile Include="background\sys\organization\organization_list.aspx.designer.cs">
       <DependentUpon>organization_list.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="background\sys\organization\user_edit.aspx.cs">
+      <DependentUpon>user_edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="background\sys\organization\user_edit.aspx.designer.cs">
+      <DependentUpon>user_edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="background\sys\role\chouseMenu.aspx.cs">
       <DependentUpon>chouseMenu.aspx</DependentUpon>

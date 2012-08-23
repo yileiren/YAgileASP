@@ -30,6 +30,16 @@
         }
 
         /*!
+        * \brief
+        * 新增组织机构。
+        * 作者：董帅 创建时间：2012-8-23 13:19:07。
+        */
+        function addUser()
+        {
+            window.parent.popupsWindow("#popups", "新增用户", 600, 230, "sys/organization/user_edit.aspx?orgId=" + $("#hidParentId").val(), "icon-add", true, true);
+        }
+
+        /*!
          * \brief
          * 修改项目。
          * 作者：董帅 创建时间：2012-8-22 22:16:52
@@ -45,16 +55,16 @@
 
             if ($("input:checked[type='checkbox'][name='chkOrgs']").length == 1)
             {
-                window.parent.popupsWindow("#popups", "编辑组织机构", 600, 140, "sys/organization/organization_edit.aspx?parentId=" + $("#hidParentId").val() + "&id=" + $("input:checked[type='checkbox'][name='chkOrgs']").eq(0).val(), "icon-add", true, true);
+                window.parent.popupsWindow("#popups", "修改组织机构", 600, 140, "sys/organization/organization_edit.aspx?parentId=" + $("#hidParentId").val() + "&id=" + $("input:checked[type='checkbox'][name='chkOrgs']").eq(0).val(), "icon-edit", true, true);
             }
         }
     </script>
 </head>
 <body class="easyui-layout" style="margin:0px;background-color:#EEF5FD;">
     <div region="north" border="true" style="height:28px;background-color:#EEF5FD">
-        <div style="width:280px;margin-left:auto;margin-top:0px;margin-right:0px">
+        <div style="width:300px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addOrganization();">新增机构</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addRole();">新增</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addUser();">新增用户</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editItem();">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteRoles();" runat="server">删除</a>
         </div>

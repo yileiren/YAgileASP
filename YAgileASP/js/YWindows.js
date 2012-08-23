@@ -48,6 +48,5 @@ function popupsWindow(windowId,titleName,windowWidth,windowHeight,pageUrl,window
  */
 function closePopupsWindow(windowId)
 {
-    
     $(windowId).dialog('close');
 }

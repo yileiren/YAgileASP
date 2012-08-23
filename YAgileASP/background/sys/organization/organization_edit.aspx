@@ -27,6 +27,11 @@
                 return false;
             }
 
+            if (!$("#txtOrgOrder").validatebox("isValid"))
+            {
+                return false;
+            }
+
             return true;
         }
     </script>
@@ -43,7 +48,7 @@
         </tr>
         <tr style="height:30px">
             <th class="adminth_s2" style="width:120px;text-align:right">序号：</th>
-            <td bgcolor="#FFFFFF"><input type="text" id="txtOrgOrder" name="txtOrgOrder" class="easyui-numberbox" min="0" max="50000" precision="0" value="0" runat="server" style="width:200px" /></td>
+            <td bgcolor="#FFFFFF"><input type="text" id="txtOrgOrder" name="txtOrgOrder" class="easyui-numberbox" required="true" min="0" max="50000" precision="0" value="0" runat="server" style="width:200px" /></td>
         </tr>
     </table>
     <div style="width:170px;margin-left:auto;margin-top:5px;margin-right:5px">

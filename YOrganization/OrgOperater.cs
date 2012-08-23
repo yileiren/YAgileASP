@@ -426,6 +426,95 @@ namespace YLR.YOrganization
         }
 
         /// <summary>
+        /// 创建新用户。
+        /// 作者：董帅 创建时间：2012-8-23 13:23:45
+        /// </summary>
+        /// <param name="user">新用户。</param>
+        /// <returns>成功返回用户id，失败返回-1。</returns>
+        public int createNewUser(UserInfo user)
+        {
+            int userId = -1; //创建的组织机构id。
+
+            try
+            {
+                if (user == null)
+                {
+                    this._errorMessage = "不能插入空用户！";
+                }
+                else if (string.IsNullOrEmpty(user.name) || user.name.Length > 20)
+                {
+                    this._errorMessage = "用户名称不合法！";
+                }
+                else if (string.IsNullOrEmpty(user.logName) || user.logName.Length > 20)
+                {
+                    this._errorMessage = "用户登陆名称不合法！";
+                }
+                else if (string.IsNullOrEmpty(user.logPassword) || user.logPassword.Length > 40)
+                {
+                    this._errorMessage = "用户登陆密码不合法！";
+                }
+                else
+                {
+                    //新增数据
+                    string sql = "";
+                    if (user.organizationId > 0)
+                    {
+                        sql = string.Format("INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,ORGANIZATIONID,[ORDER]) VALUES ('{0}','{1}','{2}',{3},{4}) SELECT SCOPE_IDENTITY() AS id"
+                            , user.logName
+                            , user.logPassword
+                            , user.name
+                            , user.organizationId
+                            , user.order);
+                        
+                    }
+                    else
+                    {
+                        //顶级用户
+                        sql = string.Format("INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,[ORDER]) VALUES ('{0}','{1}','{2}',{3}) SELECT SCOPE_IDENTITY() AS id"
+                            , user.logName
+                            , user.logPassword
+                            , user.name
+                            , user.order);
+                    }
+
+                    //存入数据库
+                    if (this._orgDataBase.connectDataBase())
+                    {
+                        DataTable retDt = this._orgDataBase.executeSqlReturnDt(sql);
+                        if (retDt != null && retDt.Rows.Count > 0)
+                        {
+                            //获取组织机构id
+                            userId = Convert.ToInt32(retDt.Rows[0]["id"]);
+                        }
+                        else
+                        {
+                            this._errorMessage = "创建用户失败！";
+                            if (retDt == null)
+                            {
+                                this._errorMessage += "错误信息[" + this._orgDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._orgDataBase.errorText + "]";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                //断开数据库连接。
+                this._orgDataBase.disconnectDataBase();
+            }
+
+            return userId;
+        }
+
+        /// <summary>
         /// 根据登录名和密码获取用户信息，如果存在多个用户则返回id小的。
         /// </summary>
         /// <param name="logName">登陆名</param>
@@ -509,6 +598,57 @@ namespace YLR.YOrganization
             }
 
             return user;
+        }
+
+        /// <summary>
+        /// 判断用户是否存在。
+        /// </summary>
+        /// <param name="logName">登陆名</param>
+        /// <returns>存在返回true，否则返回false。</returns>
+        public bool existUser(string logName)
+        {
+            bool bRet = false;
+            try
+            {
+                //构建SQL语句
+                string sql = string.Format("SELECT TOP(1) * FROM ORG_USER WHERE LOGNAME = '{0}'", logName);
+
+                //连接数据库
+                if (this._orgDataBase.connectDataBase())
+                {
+                    //获取用户
+                    DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+
+                    //构建用户
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        bRet = true;
+                    }
+                    else
+                    {
+                        this._errorMessage = "获取用户信息出错！";
+
+                        if (dt == null)
+                        {
+                            this._errorMessage += "错误信息[" + this._orgDataBase.errorText + "]";
+                        }
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "连接数据库出错！错误信息[" + this._orgDataBase.errorText + "]";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                this._orgDataBase.disconnectDataBase();
+            }
+
+            return bRet;
         }
 
         /// <summary>
