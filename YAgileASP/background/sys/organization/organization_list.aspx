@@ -64,14 +64,22 @@
         }
 
         /*!
-         * \brief 
-         * 返回上级机构.
-         * 作者：董帅 创建时间：2012-8-23 23:43:15
+         * \brief
+         * 删除用户和机构。
+         * 作者：董帅 创建时间：2012-8-24 16:56:42
          */
-        function returnParent()
+        function deleteItem()
         {
-            alert($("#hidParentId").val());
-            window.parent.menuButtonOnClick('组织机构管理', 'icon-organization', 'sys/organization/organization_list.aspx?=parentId' + $("#hidParentId").val());
+            //判断选中
+            if (($("input:checked[type='checkbox'][name='chkOrg']").length + $("input:checked[type='checkbox'][name='chkUser']").length) > 0)
+            {
+                return confirm("确认要删除选中的机构或用户？删除后将连同子机构和用户一并删除，且不可恢复！");
+            }
+            else
+            {
+                alert("请选中要删除的机构或用户！");
+                return false;
+            }
         }
     </script>
 </head>
@@ -81,14 +89,14 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addOrganization();">新增机构</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addUser();">新增用户</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editItem();">修改</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteRoles();" runat="server">删除</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteItem();" runat="server" onserverclick="butDeleteItems_Click">删除</a>
         </div>
     </div>
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD"">
     <form id="form1" runat="server">
     <input type="hidden" id="hidParentId" name="hidParentId" runat="server" />
     <div style="width:600px;height:28px;margin:0px auto">
-        <a id="returnButton" href="#" class="easyui-linkbutton" iconCls="icon-back" plain="true" onclick="javascript:returnParent();" runat="server">返回</a>
+        <a id="returnButton" href="#" class="easyui-linkbutton" iconCls="icon-back" plain="true" onclick="javascript:addOrganization();" runat="server">返回</a>
     </div>
     <div style="width:600px;margin:0px auto">
         <table class="admintable" style="width:100%">
@@ -102,7 +110,7 @@
             <tr style="width:100%;height:30px">
                 <td class="admincls0" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkOrg" /></td>
                 <td class="admincls0" style="width:auto">
-                    <a href="organization_list.aspx?parentId=<%#Eval("ID") %>" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="icon-organization" plain="true" style="width:523px" ><%#Eval("NAME")%></a>
+                    <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="icon-organization" plain="true" style="width:523px" ><%#Eval("NAME")%></a>
                 </td>
                 <td class="admincls0" style="text-align:center">
                     <%#Eval("order") %>
@@ -113,7 +121,7 @@
             <tr style="width:100%;height:30px">
                 <td class="admincls1" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkOrg" /></td>
                 <td class="admincls1" style="width:auto">
-                    <a href="organization_list.aspx?parentId=<%#Eval("ID") %>" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="icon-organization" plain="true" style="width:523px" ><%#Eval("NAME")%></a>
+                    <a href="#" class="easyui-linkbutton" id="<%#Eval("ID") %>" iconCls="icon-organization" plain="true" style="width:523px" ><%#Eval("NAME")%></a>
                 </td>
                 <td class="admincls1" style="text-align:center">
                     <%#Eval("order") %>

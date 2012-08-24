@@ -62,6 +62,7 @@
     <Content Include="background\images\login\userPassword.png" />
     <Content Include="background\images\mainPage\title_01.gif" />
     <Content Include="background\images\mainPage\title_02.gif" />
+    <Content Include="background\images\organization\userIcon.png" />
     <Content Include="background\mainPage.aspx" />
     <Content Include="background\sys\changePassword.aspx" />
     <Content Include="background\sys\login.aspx" />
