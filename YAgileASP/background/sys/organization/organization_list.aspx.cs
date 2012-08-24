@@ -114,5 +114,76 @@ namespace YAgileASP.background.sys.organization
                 YMessageBox.show(this, "运行错误！错误信息[" + ex.Message + "]");
             }
         }
+
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void butDeleteItems_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string s = Request["chkOrg"];
+                string[] orgIds = new string[0];
+                string[] userIds = new string[0];
+                if(!string.IsNullOrEmpty(s))
+                {
+                    orgIds = s.Split(','); //要删除的机构id
+                }
+
+                s = Request["chkUser"];
+                if(!string.IsNullOrEmpty(s))
+                {
+                    userIds = s.Split(','); //要删除的用户id
+                }
+
+                if ((orgIds.Length + userIds.Length) > 0)
+                {
+                    //获取配置文件路径。
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+
+                    //创建数据库操作对象。
+                    OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
+                    if (orgOper != null)
+                    {
+
+                        //删除机构和用户
+                        int[] orgIntIds = new int[orgIds.Length];
+                        for (int i = 0; i < orgIds.Length; i++)
+                        {
+                            orgIntIds[i] = Convert.ToInt32(orgIds[i]);
+                        }
+
+                        int[] userIntIds = new int[userIds.Length];
+                        for (int i = 0; i < userIds.Length; i++)
+                        {
+                            userIntIds[i] = Convert.ToInt32(userIds[i]);
+                        }
+
+                        if (orgOper.deleteOrganizationAndUser(orgIntIds, userIntIds))
+                        {
+                            YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/organization/organization_list.aspx')");
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "删除数据失败！错误信息[" + orgOper.errorMessage + "]");
+                        }
+                    }
+                    else
+                    {
+                        YMessageBox.show(this, "获取数据库实例失败！");
+                    }
+                }
+                else
+                {
+                    YMessageBox.show(this, "没有选择要删除的角色！");
+                }
+            }
+            catch (Exception ex)
+            {
+                YMessageBox.show(this, "系统运行异常！异常信息[" + ex.Message + "]");
+            }
+        }
     }
 }

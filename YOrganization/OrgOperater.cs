@@ -242,7 +242,7 @@ namespace YLR.YOrganization
                     {
 
                         //sql语句，获取所有权限
-                        string sql = "SELECT * FROM ORG_ORGANIZATION WHERE ID = " + id.ToString();
+                        string sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND ID = " + id.ToString();
                         
                         //获取数据
                         DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
@@ -378,11 +378,11 @@ namespace YLR.YOrganization
                         string sql = "";
                         if (pId == -1)
                         {
-                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE PARENTID IS NULL ORDER BY [ORDER] ASC";
+                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND PARENTID IS NULL ORDER BY [ORDER] ASC";
                         }
                         else
                         {
-                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE PARENTID = " + pId.ToString() + " ORDER BY [ORDER] ASC";
+                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND PARENTID = " + pId.ToString() + " ORDER BY [ORDER] ASC";
                         }
                         //获取数据
                         DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
@@ -526,7 +526,7 @@ namespace YLR.YOrganization
             try
             {
                 //构建SQL语句
-                string sql = string.Format("SELECT TOP(1) * FROM ORG_USER WHERE ID = {0}", id);
+                string sql = string.Format("SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND ID = {0}", id);
 
                 //连接数据库
                 if (this._orgDataBase.connectDataBase())
@@ -626,7 +626,7 @@ namespace YLR.YOrganization
             try
             {
                 //构建SQL语句
-                string sql = string.Format("SELECT TOP(1) * FROM ORG_USER WHERE LOGNAME = '{0}' AND LOGPASSWORD = '{1}'",logName,logPassword);
+                string sql = string.Format("SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = '{0}' AND LOGPASSWORD = '{1}'",logName,logPassword);
 
                 //连接数据库
                 if (this._orgDataBase.connectDataBase())
@@ -798,11 +798,11 @@ namespace YLR.YOrganization
                         string sql = "";
                         if (orgId == -1)
                         {
-                            sql = "SELECT * FROM ORG_USER WHERE ORGANIZATIONID IS NULL ORDER BY [ORDER] ASC";
+                            sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND ORGANIZATIONID IS NULL AND ID <> 1 ORDER BY [ORDER] ASC";
                         }
                         else
                         {
-                            sql = "SELECT * FROM ORG_USER WHERE ORGANIZATIONID = " + orgId.ToString() + " ORDER BY [ORDER] ASC";
+                            sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND ORGANIZATIONID = " + orgId.ToString() + " AND ID <> 1 ORDER BY [ORDER] ASC";
                         }
                         //获取数据
                         DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
@@ -1019,6 +1019,157 @@ namespace YLR.YOrganization
             }
 
             return retVal;
+        }
+
+        /// <summary>
+        /// 删除指定的机构和用户，数据删除只做逻辑删除不做物理删除，机构数据删除时，连同子机构和用户一并删除。
+        /// 作者：董帅 创建时间：2012-8-24 16:19:02
+        /// </summary>
+        /// <param name="orgIds">组织机构id</param>
+        /// <param name="userIds">用户id</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool deleteOrganizationAndUser(int[] orgIds,int[] userIds)
+        {
+            bool bRet = true;
+            try
+            {
+                //连接数据库
+                if (this._orgDataBase.connectDataBase())
+                {
+                    this._orgDataBase.beginTransaction(); //开启事务
+
+                    //删除机构
+                    foreach(int i in orgIds)
+                    {
+                        if (this.deleteChildOrgaizationAndUser(i))
+                        { 
+                            //删除当前机构
+                            string sql = "UPDATE ORG_ORGANIZATION SET ISDELETE = 'Y' WHERE ID = " + i.ToString();
+                            if (this._orgDataBase.executeSqlWithOutDs(sql) != 1)
+                            {
+                                bRet = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            bRet = false;
+                            break;
+                        }
+                    }
+
+                    //删除用户
+                    if (bRet)
+                    {
+                        foreach (int i in userIds)
+                        {
+                            string sql = "UPDATE ORG_USER SET ISDELETE = 'Y' WHERE ID = " + i.ToString();
+                            if (this._orgDataBase.executeSqlWithOutDs(sql) != 1)
+                            {
+                                bRet = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "连接数据库出错！错误信息[" + this._orgDataBase.errorText + "]";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (bRet)
+                {
+                    //提交
+                    this._orgDataBase.commitTransaction();
+                }
+                else 
+                {
+                    //回滚
+                    this._orgDataBase.rollbackTransaction();
+                }
+                this._orgDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
+
+        /// <summary>
+        /// 删除指定机构的子机构和用户。调用前需要连接数据库，调用后关闭。
+        /// 作者：董帅 创建时间：2012-8-24 17:19:17
+        /// </summary>
+        /// <param name="orgId">机构id</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        private bool deleteChildOrgaizationAndUser(int orgId)
+        {
+            bool bRet = true;
+
+            try
+            {
+                //获取下级机构和用户
+                List<OrganizationInfo> cOrgs = this.getOrganizationByParentId(orgId);
+
+                if (cOrgs != null)
+                {
+                    for (int j = 0; j < cOrgs.Count; j++)
+                    {
+                        //删除下级机构和用户
+                        if (this.deleteChildOrgaizationAndUser(cOrgs[j].id))
+                        {
+                            //删除当前机构
+                            string sql = "UPDATE ORG_ORGANIZATION SET ISDELETE = 'Y' WHERE ID = " + cOrgs[j].id.ToString();
+                            if (this._orgDataBase.executeSqlWithOutDs(sql) != 1)
+                            {
+                                bRet = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            bRet = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    bRet = false;
+                }
+
+                //获取下级用户
+                if (bRet)
+                {
+                    List<UserInfo> cUsers = this.getUserByOrganizationId(orgId);
+
+                    if (cUsers != null)
+                    {
+                        for (int j = 0; j < cUsers.Count; j++)
+                        {
+                            string sql = "UPDATE ORG_USER SET ISDELETE = 'Y' WHERE ID = " + cUsers[j].id.ToString();
+                            if (this._orgDataBase.executeSqlWithOutDs(sql) != 1)
+                            {
+                                bRet = false;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        bRet = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return bRet;
         }
     }
 }
