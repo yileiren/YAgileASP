@@ -71,8 +71,7 @@
          
         function returnParent()
         {
-           alert($("#hidParentId").val());
-           window.parent.menuButtonOnClick('组织机构管理', 'icon-organization', 'sys/organization/organization_list.aspx?=parentId' + $("#hidParentId").val());
+           window.parent.menuButtonOnClick('组织机构管理', 'icon-organization', 'sys/organization/organization_list.aspx?parentId=' + $("#hidReturnId").val());
         }
 
         /*!
@@ -108,8 +107,11 @@
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD"">
     <form id="form1" runat="server">
     <input type="hidden" id="hidParentId" name="hidParentId" runat="server" />
+    <input type="hidden" id="hidReturnId" name="hidReturnId" runat="server" />
     <div style="width:600px;height:28px;margin:0px auto">
         <a id="returnButton" href="#" class="easyui-linkbutton" iconCls="icon-back" plain="true" onclick="javascript:returnParent();" runat="server">返回</a>
+        <span>当前机构：</span>
+        <span id="spanParentName" runat="server" style="font-size:16px;font-weight:bold"></span>
     </div>
     <div style="width:600px;margin:0px auto">
         <table class="admintable" style="width:100%">

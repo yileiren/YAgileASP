@@ -26,7 +26,6 @@ namespace YAgileASP.background.sys.organization
                     else
                     {
                         this.hidParentId.Value = "-1";
-                        this.returnButton.Disabled = true;
                     }
 
                     //获取组织机构
@@ -57,6 +56,21 @@ namespace YAgileASP.background.sys.organization
                 OrgOperater orgOper = OrgOperater.createOrgOperater(configFile,"SQLServer");
                 if(orgOper != null)
                 {
+                    //获取父机构信息
+                    if (this.hidParentId.Value == "-1")
+                    {
+                        this.spanParentName.InnerText = "顶级机构";
+                        this.returnButton.Disabled = true;
+                        this.hidReturnId.Value = "";
+                    }
+                    else
+                    {
+                        OrganizationInfo org = orgOper.getOrganization(Convert.ToInt32(this.hidParentId.Value));
+                        this.spanParentName.InnerText = org.name;
+                        this.hidReturnId.Value = org.parentId.ToString();
+                    }
+
+                    //获取组织机构列表
                     List<OrganizationInfo> orgs = orgOper.getOrganizationByParentId(Convert.ToInt32(this.hidParentId.Value));
                     if(orgs != null)
                     {
