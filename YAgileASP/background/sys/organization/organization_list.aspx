@@ -93,15 +93,33 @@
                 return false;
             }
         }
+
+        /*!
+         * \brief
+         * 设置角色。
+         * 作者：董帅 创建时间：2012-8-27 17:29:58
+         */
+        function setRole()
+        {
+            //判断选中
+            if ($("input:checked[type='checkbox'][name='chkUser']").length != 1)
+            {
+                alert("请选中要设置的用户，一次只能选择一个！");
+                return;
+            }
+
+            window.parent.popupsWindow("#popups", "设置角色", 270, 500, "sys/organization/chouseRole.aspx?userId=" + $("input:checked[type='checkbox'][name='chkUser']").eq(0).val(), "icon-role", true, true);
+        }
     </script>
 </head>
 <body class="easyui-layout" style="margin:0px;background-color:#EEF5FD;">
     <div region="north" border="true" style="height:28px;background-color:#EEF5FD">
-        <div style="width:300px;margin-left:auto;margin-top:0px;margin-right:0px">
+        <div style="width:380px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addOrganization();">新增机构</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addUser();">新增用户</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editItem();">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteItem();" runat="server" onserverclick="butDeleteItems_Click">删除</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-role" plain="true" onclick="javascript:setRole();">设置角色</a>
         </div>
     </div>
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD"">

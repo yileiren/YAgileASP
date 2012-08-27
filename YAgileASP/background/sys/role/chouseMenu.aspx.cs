@@ -71,47 +71,39 @@ namespace YAgileASP.background.sys.role
             try
             {
                 string strIds = Request["chkItem"];
-                if (string.IsNullOrEmpty(strIds))
+                string[] ids = new string[0];
+                if (!string.IsNullOrEmpty(strIds))
                 {
-                    return;
+                    ids = strIds.Split(',');
                 }
 
-                string[] ids = strIds.Split(',');
+                //获取配置文件路径。
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
 
-                if (ids.Length > 0)
+                //创建数据库操作对象。
+                RoleOperater roleOper = RoleOperater.createRoleOperater(configFile, "SQLServer");
+                if (roleOper != null)
                 {
-                    //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
 
-                    //创建数据库操作对象。
-                    RoleOperater roleOper = RoleOperater.createRoleOperater(configFile, "SQLServer");
-                    if (roleOper != null)
+                    //删除数据
+                    int[] intIds = new int[ids.Length];
+                    for (int i = 0; i < intIds.Length; i++)
                     {
+                        intIds[i] = Convert.ToInt32(ids[i]);
+                    }
 
-                        //删除数据
-                        int[] intIds = new int[ids.Length];
-                        for (int i = 0; i < intIds.Length; i++)
-                        {
-                            intIds[i] = Convert.ToInt32(ids[i]);
-                        }
-
-                        if (roleOper.chouseRoleMenus(Convert.ToInt32(this.hidRoleId.Value),intIds))
-                        {
-                            YMessageBox.showAndResponseScript(this, "选择菜单成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx')");
-                        }
-                        else
-                        {
-                            YMessageBox.show(this, "选择菜单失败！错误信息[" + roleOper.errorMessage + "]");
-                        }
+                    if (roleOper.chouseRoleMenus(Convert.ToInt32(this.hidRoleId.Value),intIds))
+                    {
+                        YMessageBox.showAndResponseScript(this, "选择菜单成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx')");
                     }
                     else
                     {
-                        YMessageBox.show(this, "获取数据库实例失败！");
+                        YMessageBox.show(this, "选择菜单失败！错误信息[" + roleOper.errorMessage + "]");
                     }
                 }
                 else
                 {
-                    YMessageBox.show(this, "没有选择要删除的角色！");
+                    YMessageBox.show(this, "获取数据库实例失败！");
                 }
             }
             catch (Exception ex)

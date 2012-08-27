@@ -669,5 +669,89 @@ namespace YLR.YRole
 
             return bRet;
         }
+
+        /// <summary>
+        /// 选择用户角色，将指定id保存到数据库。
+        /// 作者：董帅 创建时间：时间
+        /// </summary>
+        /// <param name="userId">用户id。</param>
+        /// <param name="roleIds">选中的角色id。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool chouseUserRoles(int userId, int[] roleIds)
+        {
+            bool bRet = false;
+
+            try
+            {
+                if (this._roleDataBase != null)
+                {
+                    //连接数据库
+                    if (this._roleDataBase.connectDataBase())
+                    {
+                        this._roleDataBase.beginTransaction();
+
+                        string deleteSql = "DELETE AUT_USER_ROLE WHERE USERID = " + userId.ToString();
+
+                        if (this._roleDataBase.executeSqlWithOutDs(deleteSql) >= 0)
+                        {
+
+                            int count = 0;
+                            foreach (int rId in roleIds)
+                            {
+                                //sql语句
+                                string sql = string.Format("INSERT INTO AUT_USER_ROLE (ROLEID,USERID) VALUES ({0},{1})", rId, userId);
+                                int retCount = this._roleDataBase.executeSqlWithOutDs(sql);
+
+                                if (retCount == 1)
+                                {
+                                    count++;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            if (count == roleIds.Length)
+                            {
+                                bRet = true;
+                            }
+                            else
+                            {
+                                this._errorMessage = "存储数据失败！";
+                                this._errorMessage += "错误信息[" + this._roleDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._roleDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                if (bRet)
+                {
+                    this._roleDataBase.commitTransaction();
+                }
+                else
+                {
+                    this._roleDataBase.rollbackTransaction();
+                }
+
+                this._roleDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
     }
 }
