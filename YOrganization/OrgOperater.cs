@@ -1112,7 +1112,36 @@ namespace YLR.YOrganization
             try
             {
                 //获取下级机构和用户
-                List<OrganizationInfo> cOrgs = this.getOrganizationByParentId(orgId);
+                List<OrganizationInfo> cOrgs = null;
+
+                //sql语句，获取所有权限
+                string sql = "";
+                if (orgId == -1)
+                {
+                    sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND PARENTID IS NULL ORDER BY [ORDER] ASC";
+                }
+                else
+                {
+                    sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND PARENTID = " + orgId.ToString() + " ORDER BY [ORDER] ASC";
+                }
+                //获取数据
+                DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                if (dt != null)
+                {
+                    cOrgs = new List<OrganizationInfo>();
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        OrganizationInfo o = this.getOrganizationFormDataRow(r);
+                        if (o != null)
+                        {
+                            cOrgs.Add(o);
+                        }
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "获取数据失败！错误信息：[" + this._orgDataBase.errorText + "]";
+                }
 
                 if (cOrgs != null)
                 {
@@ -1122,7 +1151,7 @@ namespace YLR.YOrganization
                         if (this.deleteChildOrgaizationAndUser(cOrgs[j].id))
                         {
                             //删除当前机构
-                            string sql = "UPDATE ORG_ORGANIZATION SET ISDELETE = 'Y' WHERE ID = " + cOrgs[j].id.ToString();
+                            sql = "UPDATE ORG_ORGANIZATION SET ISDELETE = 'Y' WHERE ID = " + cOrgs[j].id.ToString();
                             if (this._orgDataBase.executeSqlWithOutDs(sql) != 1)
                             {
                                 bRet = false;
@@ -1144,13 +1173,41 @@ namespace YLR.YOrganization
                 //获取下级用户
                 if (bRet)
                 {
-                    List<UserInfo> cUsers = this.getUserByOrganizationId(orgId);
+                    List<UserInfo> cUsers = null;
+                    //sql语句
+                    sql = "";
+                    if (orgId == -1)
+                    {
+                        sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND ORGANIZATIONID IS NULL AND ID <> 1 ORDER BY [ORDER] ASC";
+                    }
+                    else
+                    {
+                        sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND ORGANIZATIONID = " + orgId.ToString() + " AND ID <> 1 ORDER BY [ORDER] ASC";
+                    }
+                    //获取数据
+                    dt = this._orgDataBase.executeSqlReturnDt(sql);
+                    if (dt != null)
+                    {
+                        cUsers = new List<UserInfo>();
+                        foreach (DataRow r in dt.Rows)
+                        {
+                            UserInfo u = this.getUserFormDataRow(r);
+                            if (u != null)
+                            {
+                                cUsers.Add(u);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "获取数据失败！错误信息：[" + this._orgDataBase.errorText + "]";
+                    }
 
                     if (cUsers != null)
                     {
                         for (int j = 0; j < cUsers.Count; j++)
                         {
-                            string sql = "UPDATE ORG_USER SET ISDELETE = 'Y' WHERE ID = " + cUsers[j].id.ToString();
+                            sql = "UPDATE ORG_USER SET ISDELETE = 'Y' WHERE ID = " + cUsers[j].id.ToString();
                             if (this._orgDataBase.executeSqlWithOutDs(sql) != 1)
                             {
                                 bRet = false;
