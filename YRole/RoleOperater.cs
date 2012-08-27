@@ -91,7 +91,7 @@ namespace YLR.YRole
                 {
                     this._errorMessage = "角色名称不合法！";
                 }
-                else if (string.IsNullOrEmpty(role.explain) || role.explain.Length > 50)
+                else if (role.explain.Length > 50)
                 {
                     this._errorMessage = "角色说明不合法！";
                 }
