@@ -33,6 +33,31 @@ namespace YLR.YMessage
         }
 
         /// <summary>
+        /// 使用EasyLayout布局的页面显示消息提示框，并执行脚本，处理消息重复加载的bug。
+        /// </summary>
+        /// <param name="page">当前页面指针，一般为this</param>
+        /// <param name="msg">提示信息。</param>
+        /// <param name="beginScript">提示信息前执行的脚本。</param>
+        /// <param name="endScript">提示信息后执行的脚本</param>
+        public static void easyLayoutShowAndResponseScript(System.Web.UI.Page page, string msg, string beginScript, string endScript)
+        {
+            page.ClientScript.RegisterStartupScript(page.GetType(), "message", @"<script language='javascript' defer>
+                                                                                    if(window.__yltlClientScriptRegistKey == null 
+                                                                                        || window.__yltlClientScriptRegistKey == undefined 
+                                                                                        || window.__yltlClientScriptRegistKey !='somekey') 
+                                                                                    { 
+                                                                                        window.__yltlClientScriptRegistKey = 'somekey';
+                                                                                    }
+                                                                                    else if(window.__yltlClientScriptRegistKey =='somekey')
+                                                                                    {
+                                                                                        " + beginScript + @";
+                                                                                        alert('" + msg.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\"", "\\\"") + @"');
+                                                                                        " + endScript + @"
+                                                                                    }
+                                                                                  </script>");
+        }
+
+        /// <summary>
         /// 控件点击 消息确认提示框
         /// </summary>
         /// <param name="page">当前页面指针，一般为this</param>
