@@ -155,5 +155,198 @@ namespace YLR.YDataDictionary
 
             return dataDicId;
         }
+
+        /// <summary>
+        /// 根据DataRow获取数据字典项对象。
+        /// </summary>
+        /// <param name="r">字典项数据</param>
+        /// <returns>字典项，失败返回null。</returns>
+        private DataDictionaryInfo getDataDictionaryFormDataRow(DataRow r)
+        {
+            if (r != null)
+            {
+                //分组对象
+                DataDictionaryInfo dic = new DataDictionaryInfo();
+
+                //菜单id不能为null，否则返回失败。
+                if (!r.IsNull("ID"))
+                {
+                    dic.id = Convert.ToInt32(r["ID"]);
+                }
+                else
+                {
+                    return null;
+                }
+
+                if (!r.IsNull("NAME"))
+                {
+                    dic.name = r["NAME"].ToString();
+                }
+
+                if (!r.IsNull("PARENTID"))
+                {
+                    dic.parentId = Convert.ToInt32(r["PARENTID"]);
+                }
+                else
+                {
+                    dic.parentId = -1;
+                }
+
+                if (!r.IsNull("VALUE"))
+                {
+                    dic.value = Convert.ToInt32(r["VALUE"]);
+                }
+
+                if (!r.IsNull("CODE"))
+                {
+                    dic.code = r["CODE"].ToString();
+                }
+
+                if (!r.IsNull("ORDER"))
+                {
+                    dic.order = Convert.ToInt32(r["ORDER"]);
+                }
+                else
+                {
+                    dic.order = 0;
+                }
+
+                return dic;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 根据字典id，获取字典项。
+        /// 作者：董帅 创建时间：2012-8-28 21:39:05
+        /// </summary>
+        /// <param name="id">字典id。</param>
+        /// <returns>字典，失败返回null。</returns>
+        public DataDictionaryInfo getDataDictionary(int id)
+        {
+            DataDictionaryInfo dicInfo = null;
+
+            try
+            {
+                if (this._dicDataBase != null)
+                {
+                    //连接数据库
+                    if (this._dicDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取字典项
+                        string sql = "SELECT * FROM SYS_DATADICTIONARY WHERE ID = " + id.ToString();
+
+                        //获取数据
+                        DataTable dt = this._dicDataBase.executeSqlReturnDt(sql);
+                        if (dt != null && dt.Rows.Count == 1)
+                        {
+                            dicInfo = this.getDataDictionaryFormDataRow(dt.Rows[0]);
+                        }
+                        else
+                        {
+                            if (dt != null)
+                            {
+                                this._errorMessage = "获取数据失败！";
+                            }
+                            else
+                            {
+                                this._errorMessage = "获取数据失败！错误信息：[" + this._dicDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._dicDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._dicDataBase.disconnectDataBase();
+            }
+
+            return dicInfo;
+        }
+
+        /// <summary>
+        /// 通过指定的父id获取字典项列表。
+        /// 作者：董帅 创建时间：2012-8-28 21:27:19
+        /// </summary>
+        /// <param name="pId">父id，如果是顶级字典，父id为-1</param>
+        /// <returns>成功返回字典项列表，否则返回null。</returns>
+        public List<DataDictionaryInfo> getDataDictionaryByParentId(int pId)
+        {
+            List<DataDictionaryInfo> dics = null;
+
+            try
+            {
+                if (this._dicDataBase != null)
+                {
+                    //连接数据库
+                    if (this._dicDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取所有字典
+                        string sql = "";
+                        if (pId == -1)
+                        {
+                            sql = "SELECT * FROM SYS_DATADICTIONARY WHERE PARENTID IS NULL ORDER BY [ORDER] ASC";
+                        }
+                        else
+                        {
+                            sql = "SELECT * FROM SYS_DATADICTIONARY WHERE PARENTID = " + pId.ToString() + " ORDER BY [ORDER] ASC";
+                        }
+                        //获取数据
+                        DataTable dt = this._dicDataBase.executeSqlReturnDt(sql);
+                        if (dt != null)
+                        {
+                            dics = new List<DataDictionaryInfo>();
+                            foreach (DataRow r in dt.Rows)
+                            {
+                                DataDictionaryInfo d = this.getDataDictionaryFormDataRow(r);
+                                if (d != null)
+                                {
+                                    dics.Add(d);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this._errorMessage = "获取数据失败！错误信息：[" + this._dicDataBase.errorText + "]";
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._dicDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._dicDataBase.disconnectDataBase();
+            }
+
+            return dics;
+        }
     }
 }

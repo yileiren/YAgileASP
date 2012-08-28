@@ -62,7 +62,7 @@
         </tr>
         <tr style="height:30px">
             <th class="adminth_s2" style="width:120px;text-align:right">数值：</th>
-            <td bgcolor="#FFFFFF"><input type="text" id="txtDicValue" name="txtDicValue" class="easyui-numberbox" required="true" min="0" max="80000" runat="server" style="width:200px" /></td>
+            <td bgcolor="#FFFFFF"><input type="text" id="txtDicValue" name="txtDicValue" value="0" class="easyui-numberbox" required="true" min="0" max="80000" runat="server" style="width:200px" /></td>
         </tr>
         <tr style="height:30px">
             <th class="adminth_s2" style="width:120px;text-align:right">代码：</th>

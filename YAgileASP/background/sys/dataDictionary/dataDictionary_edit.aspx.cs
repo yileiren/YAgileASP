@@ -23,7 +23,7 @@ namespace YAgileASP.background.sys.dataDictionary
                 }
                 else
                 {
-                    YMessageBox.show(this, "未设置父字典项id！");
+                    this.hidParentId.Value = "-1";
                 }
 
                 //获取id
