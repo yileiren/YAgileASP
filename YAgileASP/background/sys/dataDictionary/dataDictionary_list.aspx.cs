@@ -88,5 +88,64 @@ namespace YAgileASP.background.sys.dataDictionary
                 YMessageBox.show(this, "运行错误！错误信息[" + ex.Message + "]");
             }
         }
+
+        /// <summary>
+        /// 删除数据
+        /// 作者：董帅 创建时间：2012-8-28 22:17:10
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void butDeleteItems_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string s = Request["chkDic"];
+                string[] dicIds = new string[0];
+                if (!string.IsNullOrEmpty(s))
+                {
+                    dicIds = s.Split(','); //要删除的字典id
+                }
+
+                if (dicIds.Length > 0)
+                {
+                    //获取配置文件路径。
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+
+                    //创建数据库操作对象。
+                    DataDicOperater dicOper = DataDicOperater.createDataDicOperater(configFile, "SQLServer");
+                    if (dicOper != null)
+                    {
+
+                        //删除字典项
+                        int[] dicIntIds = new int[dicIds.Length];
+                        for (int i = 0; i < dicIds.Length; i++)
+                        {
+                            dicIntIds[i] = Convert.ToInt32(dicIds[i]);
+                        }
+
+                        if (dicOper.deleteDataDictionarys(dicIntIds))
+                        {
+                            YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.parent.menuButtonOnClick('数据字典','icon-dictionary','sys/dataDictionary/dataDictionary_list.aspx?parentId=" + this.hidParentId.Value + "')");
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "删除数据失败！错误信息[" + dicOper.errorMessage + "]");
+                        }
+                    }
+                    else
+                    {
+                        YMessageBox.show(this, "获取数据库实例失败！");
+                    }
+                }
+                else
+                {
+                    YMessageBox.show(this, "没有选择要删除的角色！");
+                }
+            }
+            catch (Exception ex)
+            {
+                YMessageBox.show(this, "系统运行异常！异常信息[" + ex.Message + "]");
+            }
+        }
     }
 }

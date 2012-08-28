@@ -424,5 +424,147 @@ namespace YLR.YDataDictionary
 
             return bRet;
         }
+
+        /// <summary>
+        /// 删除指定的字典项，删除时，连同子字典项一并删除。
+        /// 作者：董帅 创建时间：2012-8-28 22:20:05
+        /// </summary>
+        /// <param name="dicIds">字典项id</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool deleteDataDictionarys(int[] dicIds)
+        {
+            bool bRet = true;
+            try
+            {
+                //连接数据库
+                if (this._dicDataBase.connectDataBase())
+                {
+                    this._dicDataBase.beginTransaction(); //开启事务
+
+                    //删除字典项
+                    foreach (int i in dicIds)
+                    {
+                        if (this.deleteChildDataDictionarys(i))
+                        {
+                            //删除当前机构
+                            string sql = "DELETE SYS_DATADICTIONARY WHERE ID = " + i.ToString();
+                            if (this._dicDataBase.executeSqlWithOutDs(sql) != 1)
+                            {
+                                bRet = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            bRet = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "连接数据库出错！错误信息[" + this._dicDataBase.errorText + "]";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (bRet)
+                {
+                    //提交
+                    this._dicDataBase.commitTransaction();
+                }
+                else
+                {
+                    //回滚
+                    this._dicDataBase.rollbackTransaction();
+                }
+                this._dicDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
+
+        /// <summary>
+        /// 删除指定字典项。调用前需要连接数据库，调用后关闭。
+        /// 作者：董帅 创建时间：2012-8-28 22:21:50
+        /// </summary>
+        /// <param name="dicId">字典项id</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        private bool deleteChildDataDictionarys(int dicId)
+        {
+            bool bRet = true;
+
+            try
+            {
+                //获取下字典项
+                List<DataDictionaryInfo> cDics = null;
+
+                //sql语句，获取所有字典项
+                string sql = "";
+                if (dicId == -1)
+                {
+                    sql = "SELECT * FROM SYS_DATADICTIONARY WHERE PARENTID IS NULL ORDER BY [ORDER] ASC";
+                }
+                else
+                {
+                    sql = "SELECT * FROM SYS_DATADICTIONARY WHERE PARENTID = " + dicId.ToString() + " ORDER BY [ORDER] ASC";
+                }
+                //获取数据
+                DataTable dt = this._dicDataBase.executeSqlReturnDt(sql);
+                if (dt != null)
+                {
+                    cDics = new List<DataDictionaryInfo>();
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        DataDictionaryInfo d = this.getDataDictionaryFormDataRow(r);
+                        if (d != null)
+                        {
+                            cDics.Add(d);
+                        }
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "获取数据失败！错误信息：[" + this._dicDataBase.errorText + "]";
+                }
+
+                if (cDics != null)
+                {
+                    for (int j = 0; j < cDics.Count; j++)
+                    {
+                        //删除下级字典项
+                        if (this.deleteChildDataDictionarys(cDics[j].id))
+                        {
+                            //删除当前字典项
+                            sql = "DELETE SYS_DATADICTIONARY WHERE ID = " + cDics[j].id.ToString();
+                            if (this._dicDataBase.executeSqlWithOutDs(sql) != 1)
+                            {
+                                bRet = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            bRet = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    bRet = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return bRet;
+        }
     }
 }
