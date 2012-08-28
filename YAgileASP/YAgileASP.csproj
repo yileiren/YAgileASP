@@ -65,6 +65,7 @@
     <Content Include="background\images\organization\userIcon.png" />
     <Content Include="background\mainPage.aspx" />
     <Content Include="background\sys\changePassword.aspx" />
+    <Content Include="background\sys\dataDictionary\dataDictionary.aspx" />
     <Content Include="background\sys\login.aspx" />
     <Content Include="background\sys\menu\menu_edit.aspx" />
     <Content Include="background\sys\menu\menu_list.aspx" />
@@ -377,6 +378,13 @@
     </Compile>
     <Compile Include="background\sys\changePassword.aspx.designer.cs">
       <DependentUpon>changePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="background\sys\dataDictionary\dataDictionary.aspx.cs">
+      <DependentUpon>dataDictionary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="background\sys\dataDictionary\dataDictionary.aspx.designer.cs">
+      <DependentUpon>dataDictionary.aspx</DependentUpon>
     </Compile>
     <Compile Include="background\sys\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
