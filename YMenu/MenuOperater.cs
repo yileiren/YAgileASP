@@ -109,10 +109,12 @@ namespace YLR.YMenu
         }
 
         /// <summary>
-        /// 获取主页菜单。
+        /// 根据用户id，获取主页菜单。
+        /// 作者：董帅 创建时间：2012-8-27 23:24:28
         /// </summary>
+        /// <param name="userId">用户id</param>
         /// <returns>主页菜单。</returns>
-        public List<MenuInfo> getMainPageMunus()
+        public List<MenuInfo> getMainPageMunus(int userId)
         {
             List<MenuInfo> menus = new List<MenuInfo>();
 
@@ -125,7 +127,20 @@ namespace YLR.YMenu
                     {
 
                         //sql语句，获取所有菜单
-                        string sql = "SELECT * FROM SYS_MENUS ORDER BY PARENTID ASC,[ORDER] ASC";
+                        string sql = "";
+                        if (userId == 1)
+                        {
+                            sql = "SELECT * FROM SYS_MENUS ORDER BY PARENTID ASC,[ORDER] ASC";
+                        }
+                        else
+                        {
+                            sql = string.Format(@"SELECT DISTINCT SYS_MENUS.* 
+                                                FROM SYS_MENUS,AUT_USER_ROLE,AUT_ROLE_MENU 
+                                                WHERE AUT_USER_ROLE.USERID = {0} 
+	                                                AND AUT_USER_ROLE.ROLEID = AUT_ROLE_MENU.ROLEID
+	                                                AND AUT_ROLE_MENU.MENUID = SYS_MENUS.ID
+                                                ORDER BY PARENTID ASC,[ORDER] ASC",userId);
+                        }
 
                         //获取数据
                         DataTable dt = this._menuDataBase.executeSqlReturnDt(sql);

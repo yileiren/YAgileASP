@@ -500,7 +500,7 @@ namespace YLR.YRole
                                 }
 
                                 //获取子菜单
-                                DataRow[] childMenus = dt.Select("PARENTID = " + row["ID"], "PARENTID ASC,[ORDER] ASC");
+                                DataRow[] childMenus = dt.Select("PARENTID = " + row["ID"].ToString(), "PARENTID ASC,[ORDER] ASC");
                                 foreach (DataRow cRow in childMenus)
                                 {
                                     RoleMenuInfo cMenu = new RoleMenuInfo();
@@ -559,8 +559,6 @@ namespace YLR.YRole
 
                                 menus.Add(pMenu);
                             }
-
-                            return menus;
                         }
 
                     }
@@ -752,6 +750,91 @@ namespace YLR.YRole
             }
 
             return bRet;
+        }
+
+        /// <summary>
+        /// 根据用户id获取角色，并标记选中的角色。
+        /// 作者：董帅 创建时间：2012-8-20 23:12:49
+        /// </summary>
+        /// <param name="userId">用户id</param>
+        /// <returns>用户角色，失败返回null</returns>
+        public List<UserRoleInfo> getChouseRoles(int userId)
+        {
+            List<UserRoleInfo> roles = new List<UserRoleInfo>();
+
+            try
+            {
+                if (this._roleDataBase != null)
+                {
+                    //连接数据库
+                    if (this._roleDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取所有角色
+                        string sql = "SELECT * FROM AUT_ROLE";
+                        string chouseRolesSql = "SELECT * FROM AUT_USER_ROLE WHERE USERID = " + userId.ToString();
+                        //获取数据
+                        DataTable dt = this._roleDataBase.executeSqlReturnDt(sql);
+                        DataTable chouseRolesDt = this._roleDataBase.executeSqlReturnDt(chouseRolesSql);
+                        if (dt != null && chouseRolesDt != null)
+                        {
+                            //获取选中角色
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                UserRoleInfo ur = new UserRoleInfo();
+
+                                //设置数据
+                                //菜单id不能为null，否则返回失败。
+                                if (!row.IsNull("ID"))
+                                {
+                                    ur.id = Convert.ToInt32(row["ID"]);
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+
+                                if (!row.IsNull("NAME"))
+                                {
+                                    ur.name = row["NAME"].ToString();
+                                }
+
+                                if (!row.IsNull("EXPLAIN"))
+                                {
+                                    ur.explain = row["EXPLAIN"].ToString();
+                                }
+
+                                if (chouseRolesDt.Select("ROLEID = " + row["ID"].ToString()).Length > 0)
+                                {
+                                    ur.choused = true;
+                                }
+
+                                roles.Add(ur);
+                            }
+
+                        }
+
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._roleDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._roleDataBase.disconnectDataBase();
+            }
+
+            return roles;
         }
     }
 }

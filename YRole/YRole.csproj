@@ -48,6 +48,7 @@
     <Compile Include="RoleInfo.cs" />
     <Compile Include="RoleMenuInfo.cs" />
     <Compile Include="RoleOperater.cs" />
+    <Compile Include="UserRoleInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YMenu\YMenu.csproj">

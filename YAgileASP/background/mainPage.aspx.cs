@@ -18,10 +18,10 @@ namespace YAgileASP.background
         {
             if (!this.IsPostBack)
             {
+                //获取用户信息。
+                UserInfo user = (UserInfo)Session["UserInfo"];
                 try
                 {
-                    //获取用户信息。
-                    UserInfo user = (UserInfo)Session["UserInfo"];
                     if (user != null)
                     {
                         this.userName.InnerText = user.name;
@@ -53,7 +53,7 @@ namespace YAgileASP.background
                         MenuOperater menuOper = new MenuOperater();
                         menuOper.menuDataBase = orgDb;
 
-                        List<MenuInfo> menus = menuOper.getMainPageMunus();
+                        List<MenuInfo> menus = menuOper.getMainPageMunus(user.id);
                         this.menuGroup.DataSource = menus;
                         this.menuGroup.DataBind();
                     }

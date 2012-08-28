@@ -30,9 +30,6 @@ namespace YAgileASP.background.sys.organization
                         return;
                     }
 
-                    //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
-
                     this.bindData();
                 }
                 catch (Exception ex)
@@ -58,7 +55,7 @@ namespace YAgileASP.background.sys.organization
                 RoleOperater roleOper = RoleOperater.createRoleOperater(configFile, "SQLServer");
                 if (roleOper != null)
                 {
-                    List<RoleInfo> roles = roleOper.getRoles();
+                    List<UserRoleInfo> roles = roleOper.getChouseRoles(Convert.ToInt32(this.hidUserId.Value));
                     if (roles != null)
                     {
                         this.rolesRepeater.DataSource = roles;

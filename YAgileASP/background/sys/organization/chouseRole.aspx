@@ -35,7 +35,7 @@
             <ItemTemplate>
                 <tr style="width:100%;height:30px">
                     <td class="admincls0" style="text-align:center">
-                        <input type="checkbox" name="chkItem" value="<%#Eval("id") %>" />
+                        <input type="checkbox" name="chkItem" "<%#Eval("choused").ToString() == "True" ? " checked=\"checked\" " : "" %>" value="<%#Eval("id") %>"/>
                     </td>
                     <td class="admincls0" style="text-align:center"><%#Eval("name") %></td>
                 </tr>
@@ -43,7 +43,7 @@
             <AlternatingItemTemplate>
                 <tr style="width:100%;height:30px">
                     <td class="admincls1" style="text-align:center">
-                        <input type="checkbox" name="chkItem" value="<%#Eval("id") %>" />
+                        <input type="checkbox" name="chkItem" "<%#Eval("choused").ToString() == "True" ? " checked=\"checked\" " : "" %>" value="<%#Eval("id") %>"/>
                     </td>
                     <td class="admincls1" style="text-align:center"><%#Eval("name") %></td>
                 </tr>
