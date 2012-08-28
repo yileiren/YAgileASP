@@ -348,5 +348,81 @@ namespace YLR.YDataDictionary
 
             return dics;
         }
+
+        /// <summary>
+        /// 修改指定字典项内容，通过字典项id匹配。
+        /// </summary>
+        /// <param name="dic">要修改的字典项。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool changeDataDictionary(DataDictionaryInfo dic)
+        {
+            bool bRet = false; //返回值
+
+            try
+            {
+                if (this._dicDataBase != null)
+                {
+                    //连接数据库
+                    if (this._dicDataBase.connectDataBase())
+                    {
+                        //sql语句
+                        string sql = "";
+                        if (dic.parentId == -1)
+                        {
+                            //顶级菜单
+                            sql = string.Format("UPDATE SYS_DATADICTIONARY SET NAME = '{0}',VALUE = {1},CODE = '{2}',[ORDER] = {3} WHERE ID = {4}"
+                                , dic.name
+                                , dic.value
+                                , dic.code
+                                , dic.order
+                                , dic.id);
+                        }
+                        else
+                        {
+                            sql = string.Format("UPDATE SYS_DATADICTIONARY SET NAME = '{0}',PARENTID = {1},VALUE = {2},CODE = '{3}',[ORDER] = {4} WHERE ID = {5}"
+                                , dic.name
+                                , dic.parentId
+                                , dic.value
+                                , dic.code
+                                , dic.order
+                                , dic.id);
+                        }
+
+                        int retCount = this._dicDataBase.executeSqlWithOutDs(sql);
+                        if (retCount == 1)
+                        {
+                            bRet = true;
+                        }
+                        else
+                        {
+                            this._errorMessage = "更新数据失败！";
+                            if (retCount != 1)
+                            {
+                                this._errorMessage += "错误信息[" + this._dicDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._dicDataBase.errorText + "]";
+                    }
+
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._dicDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
     }
 }

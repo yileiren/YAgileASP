@@ -30,7 +30,35 @@ namespace YAgileASP.background.sys.dataDictionary
                 string strId = Request.QueryString["id"];
                 if (!string.IsNullOrEmpty(strId))
                 {
-                    
+                    this.hidDicId.Value = strId;
+
+                    //获取配置文件路径。
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+
+                    //创建操作对象
+                    DataDicOperater dicOper = DataDicOperater.createDataDicOperater(configFile, "SQLServer");
+                    if (dicOper != null)
+                    {
+                        ////获取字典项信息
+                        DataDictionaryInfo dicInfo = dicOper.getDataDictionary(Convert.ToInt32(strId));
+                        if (dicInfo != null)
+                        {
+                            this.txtDicName.Value = dicInfo.name;
+                            this.txtDicValue.Value = dicInfo.value.ToString();
+                            this.txtDicCode.Value = dicInfo.code;
+                            this.txtDicOrder.Value = dicInfo.order.ToString();
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "获取字典信息失败！错误信息[" + dicOper.errorMessage + "]");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        YMessageBox.show(this, "创建数据库操作对象失败！");
+                        return;
+                    }
                 }
             }
         }
@@ -82,30 +110,16 @@ namespace YAgileASP.background.sys.dataDictionary
                     else
                     {
                         //修改
-                        //user.id = Convert.ToInt32(this.hidUserId.Value);
-                        //if (orgOper.changeUser(user))
-                        //{
-                        //    bool bRet = true;
-                        //    if (!string.IsNullOrEmpty(user.logPassword))
-                        //    {
-                        //        //修改密码
-                        //        bRet = orgOper.changePassword(user);
-
-                        //    }
-                        //    if (bRet)
-                        //    {
-                        //        YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('组织机构管理','icon-organization','sys/organization/organization_list.aspx?parentId=" + this.hidOrgId.Value + "')");
-                        //    }
-                        //    else
-                        //    {
-                        //        YMessageBox.show(this, "修改密码失败！错误信息：[" + orgOper.errorMessage + "]");
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    YMessageBox.show(this, "修改用户失败！错误信息：[" + orgOper.errorMessage + "]");
-                        //    return;
-                        //}
+                        dataDicInfo.id = Convert.ToInt32(this.hidDicId.Value);
+                        if (dataDicOper.changeDataDictionary(dataDicInfo))
+                        {
+                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('数据字典','icon-dictionary','sys/dataDictionary/dataDictionary_list.aspx?parentId=" + this.hidParentId.Value + "')");
+                        }
+                        else
+                        {
+                            YMessageBox.show(this, "修改字典项失败！错误信息：[" + dataDicOper.errorMessage + "]");
+                            return;
+                        }
                     }
                 }
                 else

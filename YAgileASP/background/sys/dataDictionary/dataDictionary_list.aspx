@@ -30,6 +30,23 @@
         }
 
         /*!
+        * \brief
+        * 修改字典。
+        * 作者：董帅 创建时间：2012-8-28 21:59:45
+        */
+        function editDataDictionary()
+        {
+            //判断选中
+            if ($("input:checked[type='checkbox'][name='chkDic']").length != 1)
+            {
+                alert("请选中要编辑的字典项，一次只能选择一个！");
+                return;
+            }
+
+            window.parent.popupsWindow("#popups", "修改字典项", 600, 200, "sys/dataDictionary/dataDictionary_edit.aspx?parentId=" + $("#hidParentId").val() + "&id=" + $("input:checked[type='checkbox'][name='chkDic']").eq(0).val(), "icon-edit", true, true);
+        }
+
+        /*!
         * \brief 
         * 返回上级字典.
         * 作者：董帅 创建时间：2012-8-28 21:51:59
@@ -45,7 +62,7 @@
     <div region="north" border="true" style="height:28px;background-color:#EEF5FD">
         <div style="width:380px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addDataDictionary();">新增</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editItem();">修改</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editDataDictionary();">修改</a>
             <a id="A1" href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteItem();" runat="server">删除</a>
         </div>
     </div>
@@ -70,7 +87,7 @@
         <asp:Repeater ID="dicList" runat="server">
         <ItemTemplate>
             <tr style="width:100%;height:30px">
-                <td class="admincls0" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkOrg" /></td>
+                <td class="admincls0" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkDic" /></td>
                 <td class="admincls0" style="width:auto">
                     <a href="dataDictionary_list.aspx?parentId=<%#Eval("ID") %>" class="easyui-linkbutton" id="<%#Eval("ID") %>" plain="true" style="width:317px" ><%#Eval("NAME")%></a>
                 </td>
@@ -87,7 +104,7 @@
         </ItemTemplate>
         <AlternatingItemTemplate>
             <tr style="width:100%;height:30px">
-                <td class="admincls1" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkOrg" /></td>
+                <td class="admincls1" style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkDic" /></td>
                 <td class="admincls1" style="width:auto">
                     <a href="dataDictionary_list.aspx?parentId=<%#Eval("ID") %>" class="easyui-linkbutton" id="<%#Eval("ID") %>" plain="true" style="width:317px" ><%#Eval("NAME")%></a>
                 </td>
