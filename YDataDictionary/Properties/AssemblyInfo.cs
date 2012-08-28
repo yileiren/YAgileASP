@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("YMenu")]
-[assembly: AssemblyDescription("菜单操作方法。")]
+[assembly: AssemblyTitle("YDataDictionary")]
+[assembly: AssemblyDescription("数据字典类库。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("异类人部落。")]
-[assembly: AssemblyProduct("菜单操作方法。")]
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("数据字典类库。")]
 [assembly: AssemblyCopyright("Copyright © 异类人部落")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("f4429226-e306-4aee-9d26-9c2deb413317")]
+[assembly: Guid("ec93f53c-c853-4c69-a664-79a6862ce19d")]
 
 // 程序集的版本信息由下面四个值组成:
 //

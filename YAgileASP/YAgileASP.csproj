@@ -65,7 +65,8 @@
     <Content Include="background\images\organization\userIcon.png" />
     <Content Include="background\mainPage.aspx" />
     <Content Include="background\sys\changePassword.aspx" />
-    <Content Include="background\sys\dataDictionary\dataDictionary.aspx" />
+    <Content Include="background\sys\dataDictionary\dataDictionary_edit.aspx" />
+    <Content Include="background\sys\dataDictionary\dataDictionary_list.aspx" />
     <Content Include="background\sys\login.aspx" />
     <Content Include="background\sys\menu\menu_edit.aspx" />
     <Content Include="background\sys\menu\menu_list.aspx" />
@@ -318,6 +319,7 @@
     <Content Include="js\jquery-easyui\themes\icons\blank.gif" />
     <Content Include="js\jquery-easyui\themes\icons\cancel.png" />
     <Content Include="js\jquery-easyui\themes\icons\cut.png" />
+    <Content Include="js\jquery-easyui\themes\icons\dictionary.png" />
     <Content Include="js\jquery-easyui\themes\icons\edit_add.png" />
     <Content Include="js\jquery-easyui\themes\icons\edit_remove.png" />
     <Content Include="js\jquery-easyui\themes\icons\filesave.png" />
@@ -379,12 +381,19 @@
     <Compile Include="background\sys\changePassword.aspx.designer.cs">
       <DependentUpon>changePassword.aspx</DependentUpon>
     </Compile>
-    <Compile Include="background\sys\dataDictionary\dataDictionary.aspx.cs">
-      <DependentUpon>dataDictionary.aspx</DependentUpon>
+    <Compile Include="background\sys\dataDictionary\dataDictionary_edit.aspx.cs">
+      <DependentUpon>dataDictionary_edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="background\sys\dataDictionary\dataDictionary.aspx.designer.cs">
-      <DependentUpon>dataDictionary.aspx</DependentUpon>
+    <Compile Include="background\sys\dataDictionary\dataDictionary_edit.aspx.designer.cs">
+      <DependentUpon>dataDictionary_edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="background\sys\dataDictionary\dataDictionary_list.aspx.cs">
+      <DependentUpon>dataDictionary_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="background\sys\dataDictionary\dataDictionary_list.aspx.designer.cs">
+      <DependentUpon>dataDictionary_list.aspx</DependentUpon>
     </Compile>
     <Compile Include="background\sys\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
@@ -479,6 +488,10 @@
     <Content Include="js\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\YDataDictionary\YDataDictionary.csproj">
+      <Project>{46628F38-93C8-4B4B-BFE1-CEB4286890EA}</Project>
+      <Name>YDataDictionary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YMenu\YMenu.csproj">
       <Project>{ECDCE1BC-059A-43B5-8862-1C8B0F2E1C4B}</Project>
       <Name>YMenu</Name>

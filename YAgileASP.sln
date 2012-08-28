@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMenu", "YMenu\YMenu.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YRole", "YRole\YRole.csproj", "{09D4B73E-DE61-4BD0-8D0E-F65965D9C205}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YDataDictionary", "YDataDictionary\YDataDictionary.csproj", "{46628F38-93C8-4B4B-BFE1-CEB4286890EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{09D4B73E-DE61-4BD0-8D0E-F65965D9C205}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09D4B73E-DE61-4BD0-8D0E-F65965D9C205}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09D4B73E-DE61-4BD0-8D0E-F65965D9C205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46628F38-93C8-4B4B-BFE1-CEB4286890EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46628F38-93C8-4B4B-BFE1-CEB4286890EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46628F38-93C8-4B4B-BFE1-CEB4286890EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46628F38-93C8-4B4B-BFE1-CEB4286890EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
