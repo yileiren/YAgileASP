@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YLR.YOrganization
+namespace YLR.YSystem.Organization
 {
     /// <summary>
-    /// 组织机构用户实体类。
+    /// 组织机构实体类。
     /// </summary>
-    public class UserInfo
+    public class OrganizationInfo
     {
         /// <summary>
-        /// 用户id。
+        /// 组织机构id，-1表示错误机构。
         /// </summary>
         protected int _id = -1;
 
         /// <summary>
-        /// 用户id。
+        /// 组织机构id。
         /// </summary>
         public int id
         {
@@ -31,52 +31,12 @@ namespace YLR.YOrganization
         }
 
         /// <summary>
-        /// 登陆名。
-        /// </summary>
-        protected string _logName = "";
-
-        /// <summary>
-        /// 登陆名。
-        /// </summary>
-        public string logName
-        {
-            get
-            {
-                return this._logName;
-            }
-            set
-            {
-                this._logName = value;
-            }
-        }
-
-        /// <summary>
-        /// 用户登陆密码。
-        /// </summary>
-        protected string _logPassword = "";
-
-        /// <summary>
-        /// 用户登陆密码。
-        /// </summary>
-        public string logPassword
-        {
-            get
-            {
-                return this._logPassword;
-            }
-            set
-            {
-                this._logPassword = value;
-            }
-        }
-
-        /// <summary>
-        /// 用户姓名。
+        /// 组织机构名称。
         /// </summary>
         protected string _name = "";
 
         /// <summary>
-        /// 用户姓名。
+        /// 组织机构名称。
         /// </summary>
         public string name
         {
@@ -91,22 +51,42 @@ namespace YLR.YOrganization
         }
 
         /// <summary>
-        /// 用户所属机构id。
+        /// 组织机构父id，-1表示顶级机构。
         /// </summary>
-        protected int _organizationId = -1;
+        protected int _parentId = -1;
 
         /// <summary>
-        /// 用户所属机构id。
+        /// 组织机构父id，-1表示顶级机构。
         /// </summary>
-        public int organizationId
+        public int parentId
         {
             get
             {
-                return this._organizationId;
+                return this._parentId;
             }
             set
             {
-                this._organizationId = value;
+                this._parentId = value;
+            }
+        }
+
+        /// <summary>
+        /// 创建时间，默认值是当前值。
+        /// </summary>
+        protected DateTime _createTime = DateTime.Now;
+
+        /// <summary>
+        /// 创建时间，默认值是当前值。
+        /// </summary>
+        public DateTime createTime
+        {
+            get
+            {
+                return this._createTime;
+            }
+            set
+            {
+                this._createTime = value;
             }
         }
 

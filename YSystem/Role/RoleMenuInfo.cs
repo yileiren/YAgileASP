@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using YLR.YMenu;
+using YLR.YSystem.Menu;
 
-namespace YLR.YRole
+namespace YLR.YSystem.Role
 {
     /// <summary>
     /// 权限菜单，继承菜单属性，扩展权限特有属性。

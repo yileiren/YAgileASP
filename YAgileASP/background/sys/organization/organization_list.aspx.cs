@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using YLR.YMessage;
-using YLR.YOrganization;
+using YLR.YSystem.Organization;
 
 namespace YAgileASP.background.sys.organization
 {

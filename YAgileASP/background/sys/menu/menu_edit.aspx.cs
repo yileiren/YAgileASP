@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YLR.YMenu;
 using YLR.YMessage;
 using YLR.YAdoNet;
+using YLR.YSystem.Menu;
 
 namespace YAgileASP.background.sys.menu
 {

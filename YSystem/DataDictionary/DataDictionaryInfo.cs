@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YLR.YDataDictionary
+namespace YLR.YSystem.DataDictionary
 {
     /// <summary>
     /// 数据字典实体类。

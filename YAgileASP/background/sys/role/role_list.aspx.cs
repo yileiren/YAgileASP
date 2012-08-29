@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YLR.YRole;
 using YLR.YMessage;
+using YLR.YSystem.Role;
 
 namespace YAgileASP.background.sys.role
 {

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YLR.YOrganization;
 using System.Web.Security;
 using YLR.YMessage;
 using YLR.YAdoNet;
-using YLR.YMenu;
+using YLR.YSystem.Organization;
+using YLR.YSystem.Menu;
 
 namespace YAgileASP.background
 {

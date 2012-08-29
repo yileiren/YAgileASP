@@ -6,9 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using YLR.YAdoNet;
 using YLR.YMessage;
-using YLR.YOrganization;
 using YLR.YCrypto;
 using System.Web.Security;
+using YLR.YSystem.Organization;
 
 namespace YAgileASP.background.sys
 {

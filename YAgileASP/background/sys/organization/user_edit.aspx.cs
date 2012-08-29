@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YLR.YOrganization;
 using YLR.YMessage;
 using YLR.YCrypto;
+using YLR.YSystem.Organization;
 
 namespace YAgileASP.background.sys.organization
 {

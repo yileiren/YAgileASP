@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using YLR.YMessage;
-using YLR.YRole;
+using YLR.YSystem.Role;
 
 namespace YAgileASP.background.sys.role
 {

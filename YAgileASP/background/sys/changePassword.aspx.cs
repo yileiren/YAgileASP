@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YLR.YOrganization;
 using YLR.YCrypto;
 using YLR.YMessage;
 using YLR.YAdoNet;
+using YLR.YSystem.Organization;
 
 namespace YAgileASP.background.sys
 {

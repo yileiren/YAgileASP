@@ -5,7 +5,7 @@ using System.Text;
 using YLR.YAdoNet;
 using System.Data;
 
-namespace YLR.YOrganization
+namespace YLR.YSystem.Organization
 {
     /// <summary>
     /// 组织机构操作操作类。

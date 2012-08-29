@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using YLR.YAdoNet;
 using System.Data;
-using YLR.YMenu;
+using YLR.YSystem.Menu;
 
-namespace YLR.YRole
+namespace YLR.YSystem.Role
 {
     /// <summary>
     /// 角色数据库操作类。

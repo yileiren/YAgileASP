@@ -5,7 +5,7 @@ using System.Text;
 using YLR.YAdoNet;
 using System.Data;
 
-namespace YLR.YDataDictionary
+namespace YLR.YSystem.DataDictionary
 {
     /// <summary>
     /// 数据字典业务类封装。

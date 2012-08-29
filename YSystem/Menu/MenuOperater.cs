@@ -5,7 +5,7 @@ using System.Text;
 using YLR.YAdoNet;
 using System.Data;
 
-namespace YLR.YMenu
+namespace YLR.YSystem.Menu
 {
     /// <summary>
     /// 菜单操作类库封装。

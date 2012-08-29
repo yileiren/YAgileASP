@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YLR.YRole
+namespace YLR.YSystem.Role
 {
     /// <summary>
     /// 用户角色信息，记录用户被选则的角色。

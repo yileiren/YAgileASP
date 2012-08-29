@@ -488,21 +488,9 @@
     <Content Include="js\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\YDataDictionary\YDataDictionary.csproj">
-      <Project>{46628F38-93C8-4B4B-BFE1-CEB4286890EA}</Project>
-      <Name>YDataDictionary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YMenu\YMenu.csproj">
-      <Project>{ECDCE1BC-059A-43B5-8862-1C8B0F2E1C4B}</Project>
-      <Name>YMenu</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YOrganization\YOrganization.csproj">
-      <Project>{85A2BF8C-3ABA-44F3-AE4C-7C425B72C0AD}</Project>
-      <Name>YOrganization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YRole\YRole.csproj">
-      <Project>{09D4B73E-DE61-4BD0-8D0E-F65965D9C205}</Project>
-      <Name>YRole</Name>
+    <ProjectReference Include="..\YSystem\YSystem.csproj">
+      <Project>{4532D292-2B0B-4A9E-920E-1E91BB2AD647}</Project>
+      <Name>YSystem</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
