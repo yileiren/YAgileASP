@@ -292,15 +292,15 @@ namespace YLR.YMenu
                     //组织机构名称不合法。
                     this._errorMessage = "菜单名称不合法！";
                 }
-                else if (string.IsNullOrEmpty(menu.url) || menu.url.Length > 200)
+                else if (menu.url.Length > 200)
                 {
                     this._errorMessage = "菜单URL不合法！";
                 }
-                else if (string.IsNullOrEmpty(menu.icon) || menu.icon.Length > 20)
+                else if (menu.icon.Length > 20)
                 {
                     this._errorMessage = "菜单图标不合法！";
                 }
-                else if (string.IsNullOrEmpty(menu.desktopIcon) || menu.desktopIcon.Length > 100)
+                else if (menu.desktopIcon.Length > 100)
                 {
                     this._errorMessage = "菜单桌面图标不合法！";
                 }
