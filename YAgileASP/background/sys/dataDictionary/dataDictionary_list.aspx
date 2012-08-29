@@ -12,6 +12,9 @@
     <link href="../../../js/jquery-easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../../js/jquery-easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../../../css/table.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        html,body{ height:100%;}
+    </style>
 
     <script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="../../../js/jquery-easyui/jquery.easyui.min.js"></script>
@@ -58,7 +61,8 @@
         }
     </script>
 </head>
-<body class="easyui-layout" style="margin:0px;background-color:#EEF5FD;">
+<body  style="width:100%;margin:0px;background-color:#EEF5FD;">
+    <form id="form1" runat="server" class="easyui-layout" style="width:100%;height:100%;margin:0px;background-color:#EEF5FD;">
     <div region="north" border="true" style="height:28px;background-color:#EEF5FD">
         <div style="width:380px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addDataDictionary();">新增</a>
@@ -67,7 +71,7 @@
         </div>
     </div>
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD"">
-    <form id="form1" runat="server">
+    
     <input type="hidden" id="hidParentId" name="hidParentId" runat="server" />
     <input type="hidden" id="hidReturnId" name="hidReturnId" runat="server" />
     <div style="width:600px;height:28px;margin:0px auto">
@@ -122,7 +126,8 @@
         </asp:Repeater>
         </table>
     </div>
-    </form>
+    
     </div>
+    </form>
 </body>
 </html>

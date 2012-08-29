@@ -125,7 +125,8 @@ namespace YAgileASP.background.sys.dataDictionary
 
                         if (dicOper.deleteDataDictionarys(dicIntIds))
                         {
-                            YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.parent.menuButtonOnClick('数据字典','icon-dictionary','sys/dataDictionary/dataDictionary_list.aspx?parentId=" + this.hidParentId.Value + "')");
+                            this.Response.Redirect("dataDictionary_list.aspx?parentId=" + this.hidParentId.Value);
+                            //YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.location.href='dataDictionary_list.aspx?parentId=" + this.hidParentId.Value + "'");
                         }
                         else
                         {

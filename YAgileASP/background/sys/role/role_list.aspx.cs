@@ -77,11 +77,12 @@ namespace YAgileASP.background.sys.role
 
                         if (roleOper.deleteRoles(intIds))
                         {
-                            YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx')");
+                            this.Response.Redirect("role_list.aspx");
+                            //YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx')");
                         }
                         else
                         {
-                            YMessageBox.show(this, "删除数据失败！错误信息[" + roleOper.errorMessage + "]");
+                            YMessageBox.show(this, "删除数据失败！请确认是否有用户设置了该角色！");
                         }
                     }
                     else

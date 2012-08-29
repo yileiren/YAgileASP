@@ -178,7 +178,8 @@ namespace YAgileASP.background.sys.organization
 
                         if (orgOper.deleteOrganizationAndUser(orgIntIds, userIntIds))
                         {
-                            YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.parent.menuButtonOnClick('组织机构管理','icon-organization','sys/organization/organization_list.aspx?parentId=" + this.hidParentId.Value + "')");
+                            this.Response.Redirect("organization_list.aspx?parentId=" + this.hidParentId.Value);
+                            //YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.parent.menuButtonOnClick('组织机构管理','icon-organization','sys/organization/organization_list.aspx?parentId=" + this.hidParentId.Value + "')");
                         }
                         else
                         {
