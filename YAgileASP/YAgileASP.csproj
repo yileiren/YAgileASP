@@ -479,13 +479,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="background\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="background\images\Web.config" />
     <None Include="js\jquery-easyui\themes\default\images\Thumbs.db" />
     <None Include="js\jquery-easyui\themes\gray\images\Thumbs.db" />
-    <Content Include="js\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YSystem\YSystem.csproj">
