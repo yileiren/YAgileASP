@@ -50,6 +50,25 @@
         }
 
         /*!
+        * \brief
+        * 删除字典。
+        * 作者：董帅 创建时间：2012-8-30 13:42:08
+        */
+        function deleteDataDictionarys()
+        {
+            //判断选中
+            if ($("input:checked[type='checkbox'][name='chkDic']").length > 0)
+            {
+                return confirm("确认要删除选中的字典？删除时将连同子项一并删除！");
+            }
+            else
+            {
+                alert("请选中要删除的字典！");
+                return false;
+            }
+        }
+
+        /*!
         * \brief 
         * 返回上级字典.
         * 作者：董帅 创建时间：2012-8-28 21:51:59
@@ -67,7 +86,7 @@
         <div style="width:380px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addDataDictionary();">新增</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editDataDictionary();">修改</a>
-            <a id="A1" href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteItem();" runat="server" onserverclick="butDeleteItems_Click">删除</a>
+            <a id="A1" href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteDataDictionarys();" runat="server" onserverclick="butDeleteItems_Click">删除</a>
         </div>
     </div>
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD"">

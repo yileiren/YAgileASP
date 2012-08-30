@@ -140,7 +140,7 @@ namespace YAgileASP.background.sys.dataDictionary
                 }
                 else
                 {
-                    YMessageBox.show(this, "没有选择要删除的角色！");
+                    YMessageBox.show(this, "没有选择要删除的字典！");
                 }
             }
             catch (Exception ex)
