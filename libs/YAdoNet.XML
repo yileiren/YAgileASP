@@ -4,44 +4,9 @@
         <name>YAdoNet</name>
     </assembly>
     <members>
-        <member name="T:YLR.YAdoNet.DataBaseType">
+        <member name="T:YLR.YAdoNet.YSQLiteDataBase">
             <summary>
-            所要操作的数据库类型
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.DataBaseType.MSSQL">
-            <summary>
-            SQLServer通用类型
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.DataBaseType.SQL2000">
-            <summary>
-            SQLServer2000数据库
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.DataBaseType.SQL2005">
-            <summary>
-            SQLServer2005数据库
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.DataBaseType.SQL2008">
-            <summary>
-            SQLServer2008数据库
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.DataBaseType.Access">
-            <summary>
-            微软Access数据库
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.DataBaseType.SQlite">
-            <summary>
-            SQLite数据库。
-            </summary>
-        </member>
-        <member name="T:YLR.YAdoNet.YMSSQLDataBase">
-            <summary>
-            SQLServer数据库操作类
+            Sqlite数据库操作封装。
             </summary>
         </member>
         <member name="T:YLR.YAdoNet.YDataBase">
@@ -66,6 +31,13 @@
             <summary>
             开启事务
             </summary>
+            <returns>成功返回true，否则返回false</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YDataBase.beginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            开启事务
+            </summary>
+            <param name="isolationLevel">事务隔离级别，使用ADO.NET的定义。</param>
             <returns>成功返回true，否则返回false</returns>
         </member>
         <member name="M:YLR.YAdoNet.YDataBase.commitTransaction">
@@ -109,9 +81,294 @@
             获取当前类库版本号。
             </summary>
         </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.#ctor">
+            <summary>
+            构造函数。
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.Finalize">
+            <summary>
+            析构函数，断开数据库连接。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YSQLiteDataBase._databaseType">
+            <summary>
+            数据库类型。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YSQLiteDataBase._errorText">
+            <summary>
+            错误信息。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YSQLiteDataBase._filePath">
+            <summary>
+            数据库文件路径。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YSQLiteDataBase._transaction">
+            <summary>
+            数据库事务对象。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YSQLiteDataBase._connection">
+            <summary>
+            SQLite数据库连接对象。
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.connectDataBase">
+            <summary>
+            连接数据库。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.disconnectDataBase">
+            <summary>
+            断开数据库连接。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.beginTransaction">
+            <summary>
+            开启事务。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.beginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            开启事务并指定事务的隔离级别。
+            </summary>
+            <param name="isolationLevel">隔离级别</param>
+            <returns>成功返回ture，否是返回false</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.commitTransaction">
+            <summary>
+            提交事务。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.rollbackTransaction">
+            <summary>
+            回滚事务。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.executeSqlReturnDt(System.String)">
+            <summary>
+            执行带数据集返回的SQL语句。
+            </summary>
+            <param name="sql">SQL语句。</param>
+            <returns>返回数据集，失败返回null。</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.executeSqlWithOutDs(System.String)">
+            <summary>
+            执行不带数据集返回的SQL语句。
+            </summary>
+            <param name="sql">SQL语句。</param>
+            <returns>返回响应行数，失败返回-1。</returns>
+        </member>
+        <member name="P:YLR.YAdoNet.YSQLiteDataBase.databaseType">
+            <summary>
+            数据库类型。
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.YSQLiteDataBase.errorText">
+            <summary>
+            错误信息。
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.YSQLiteDataBase.version">
+            <summary>
+            程序版本号。
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.YSQLiteDataBase.filePaht">
+            <summary>
+            数据库文件路径。
+            </summary>
+        </member>
+        <member name="T:YLR.YAdoNet.DataBaseType">
+            <summary>
+            所要操作的数据库类型
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.DataBaseType.MSSQL">
+            <summary>
+            SQLServer通用类型
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.DataBaseType.SQL2000">
+            <summary>
+            SQLServer2000数据库
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.DataBaseType.SQL2005">
+            <summary>
+            SQLServer2005数据库
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.DataBaseType.SQL2008">
+            <summary>
+            SQLServer2008数据库
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.DataBaseType.Access">
+            <summary>
+            微软Access数据库
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.DataBaseType.SQlite">
+            <summary>
+            SQLite数据库。
+            </summary>
+        </member>
+        <member name="T:YLR.YAdoNet.YDataBaseConfigFile">
+            <summary>
+            数据库配置文件操作类。
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YDataBaseConfigFile.createDataBase(System.String,System.String)">
+            <summary>
+            创建数据库实例。
+            </summary>
+            <param name="configFile">配置文件。</param>
+            <param name="nodeName">配置文件节点名称。</param>
+            <returns>数据库实例，失败返回null。</returns>
+        </member>
+        <member name="T:YLR.YAdoNet.YAccessDataBase">
+            <summary>
+            微软Access数据库操作
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.Finalize">
+            <summary>
+            析构函数，断开数据库连接。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YAccessDataBase.connection">
+            <summary>
+            数据库连接对象
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YAccessDataBase.transaction">
+            <summary>
+            数据库连接使用的事务
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YAccessDataBase._databaseType">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YAccessDataBase._filePath">
+            <summary>
+            数据库文件路径
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YAccessDataBase._password">
+            <summary>
+            数据库访问密码
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YAccessDataBase._errorText">
+            <summary>
+            上次出错的错误信息
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.connectDataBase">
+            <summary>
+            连接数据库
+            </summary>
+            <returns>成功返回true，否则返回false</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.disconnectDataBase">
+            <summary>
+            断开数据库连接
+            </summary>
+            <returns>成功返回true，否则返回false</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.beginTransaction">
+            <summary>
+            开启事务
+            </summary>
+            <returns>成功返回turu，否则返回false</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.beginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            开启事务并指定事务的隔离级别。
+            </summary>
+            <param name="isolationLevel">隔离级别</param>
+            <returns>成功返回turu，否则返回false</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.commitTransaction">
+            <summary>
+            提交事务
+            </summary>
+            <returns>成功返回true，否则返回false</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.rollbackTransaction">
+            <summary>
+            回滚事务
+            </summary>
+            <returns>成功返回true，否则返回false</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.executeSqlReturnDt(System.String)">
+            <summary>
+            执行带数据集返回的sql语句
+            </summary>
+            <param name="sql">要执行的sql语句</param>
+            <returns>返回结果集，如果执行失败返回null</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.executeSqlWithOutDs(System.String)">
+            <summary>
+            执行不带数据集返回的sql语句
+            </summary>
+            <param name="sql">要执行的sql语句</param>
+            <returns>返回应用行数，-1表式出错</returns>
+        </member>
+        <member name="P:YLR.YAdoNet.YAccessDataBase.databaseType">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.YAccessDataBase.filePath">
+            <summary>
+            数据库文件路径
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.YAccessDataBase.password">
+            <summary>
+            数据库访问密码
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.YAccessDataBase.errorText">
+            <summary>
+            上次出错的错误信息
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.YAccessDataBase.version">
+            <summary>
+            当前程序集版本号
+            </summary>
+        </member>
+        <member name="T:YLR.YAdoNet.YMSSQLDataBase">
+            <summary>
+            SQLServer数据库操作类
+            </summary>
+        </member>
         <member name="M:YLR.YAdoNet.YMSSQLDataBase.#ctor">
             <summary>
             构造函数
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YMSSQLDataBase.Finalize">
+            <summary>
+            析构函数，断开数据库连接。
             </summary>
         </member>
         <member name="M:YLR.YAdoNet.YMSSQLDataBase.#ctor(YLR.YAdoNet.DataBaseType)">
@@ -181,6 +438,13 @@
             <summary>
             开启事务
             </summary>
+            <returns>成功返回turu，否则返回false</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YMSSQLDataBase.beginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            开启事务，并制定事务个隔离级别。
+            </summary>
+            <param name="isolationLevel">隔离级别</param>
             <returns>成功返回turu，否则返回false</returns>
         </member>
         <member name="M:YLR.YAdoNet.YMSSQLDataBase.commitTransaction">
@@ -284,222 +548,6 @@
             <summary>
             当前程序集版本号
             </summary>
-        </member>
-        <member name="T:YLR.YAdoNet.YAccessDataBase">
-            <summary>
-            微软Access数据库操作
-            </summary>
-        </member>
-        <member name="M:YLR.YAdoNet.YAccessDataBase.#ctor">
-            <summary>
-            构造函数
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YAccessDataBase.connection">
-            <summary>
-            数据库连接对象
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YAccessDataBase.transaction">
-            <summary>
-            数据库连接使用的事务
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YAccessDataBase._databaseType">
-            <summary>
-            数据库类型
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YAccessDataBase._filePath">
-            <summary>
-            数据库文件路径
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YAccessDataBase._password">
-            <summary>
-            数据库访问密码
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YAccessDataBase._errorText">
-            <summary>
-            上次出错的错误信息
-            </summary>
-        </member>
-        <member name="M:YLR.YAdoNet.YAccessDataBase.connectDataBase">
-            <summary>
-            连接数据库
-            </summary>
-            <returns>成功返回true，否则返回false</returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YAccessDataBase.disconnectDataBase">
-            <summary>
-            断开数据库连接
-            </summary>
-            <returns>成功返回true，否则返回false</returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YAccessDataBase.beginTransaction">
-            <summary>
-            开启事务
-            </summary>
-            <returns>成功返回turu，否则返回false</returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YAccessDataBase.commitTransaction">
-            <summary>
-            提交事务
-            </summary>
-            <returns>成功返回true，否则返回false</returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YAccessDataBase.rollbackTransaction">
-            <summary>
-            回滚事务
-            </summary>
-            <returns>成功返回true，否则返回false</returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YAccessDataBase.executeSqlReturnDt(System.String)">
-            <summary>
-            执行带数据集返回的sql语句
-            </summary>
-            <param name="sql">要执行的sql语句</param>
-            <returns>返回结果集，如果执行失败返回null</returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YAccessDataBase.executeSqlWithOutDs(System.String)">
-            <summary>
-            执行不带数据集返回的sql语句
-            </summary>
-            <param name="sql">要执行的sql语句</param>
-            <returns>返回应用行数，-1表式出错</returns>
-        </member>
-        <member name="P:YLR.YAdoNet.YAccessDataBase.databaseType">
-            <summary>
-            数据库类型
-            </summary>
-        </member>
-        <member name="P:YLR.YAdoNet.YAccessDataBase.filePath">
-            <summary>
-            数据库文件路径
-            </summary>
-        </member>
-        <member name="P:YLR.YAdoNet.YAccessDataBase.password">
-            <summary>
-            数据库访问密码
-            </summary>
-        </member>
-        <member name="P:YLR.YAdoNet.YAccessDataBase.errorText">
-            <summary>
-            上次出错的错误信息
-            </summary>
-        </member>
-        <member name="P:YLR.YAdoNet.YAccessDataBase.version">
-            <summary>
-            当前程序集版本号
-            </summary>
-        </member>
-        <member name="T:YLR.YAdoNet.YSQLiteDataBase">
-            <summary>
-            Sqlite数据库操作封装。
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YSQLiteDataBase._databaseType">
-            <summary>
-            数据库类型。
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YSQLiteDataBase._errorText">
-            <summary>
-            错误信息。
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YSQLiteDataBase._filePath">
-            <summary>
-            数据库文件路径。
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YSQLiteDataBase._transaction">
-            <summary>
-            数据库事务对象。
-            </summary>
-        </member>
-        <member name="F:YLR.YAdoNet.YSQLiteDataBase._connection">
-            <summary>
-            SQLite数据库连接对象。
-            </summary>
-        </member>
-        <member name="M:YLR.YAdoNet.YSQLiteDataBase.connectDataBase">
-            <summary>
-            连接数据库。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YSQLiteDataBase.disconnectDataBase">
-            <summary>
-            断开数据库连接。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YSQLiteDataBase.beginTransaction">
-            <summary>
-            开启事务。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YSQLiteDataBase.commitTransaction">
-            <summary>
-            提交事务。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YSQLiteDataBase.rollbackTransaction">
-            <summary>
-            回滚事务。
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YSQLiteDataBase.executeSqlReturnDt(System.String)">
-            <summary>
-            执行带数据集返回的SQL语句。
-            </summary>
-            <param name="sql">SQL语句。</param>
-            <returns>返回数据集，失败返回null。</returns>
-        </member>
-        <member name="M:YLR.YAdoNet.YSQLiteDataBase.executeSqlWithOutDs(System.String)">
-            <summary>
-            执行不带数据集返回的SQL语句。
-            </summary>
-            <param name="sql">SQL语句。</param>
-            <returns>返回响应行数，失败返回-1。</returns>
-        </member>
-        <member name="P:YLR.YAdoNet.YSQLiteDataBase.databaseType">
-            <summary>
-            数据库类型。
-            </summary>
-        </member>
-        <member name="P:YLR.YAdoNet.YSQLiteDataBase.errorText">
-            <summary>
-            错误信息。
-            </summary>
-        </member>
-        <member name="P:YLR.YAdoNet.YSQLiteDataBase.version">
-            <summary>
-            程序版本号。
-            </summary>
-        </member>
-        <member name="P:YLR.YAdoNet.YSQLiteDataBase.filePaht">
-            <summary>
-            数据库文件路径。
-            </summary>
-        </member>
-        <member name="T:YLR.YAdoNet.YDataBaseConfigFile">
-            <summary>
-            数据库配置文件操作类。
-            </summary>
-        </member>
-        <member name="M:YLR.YAdoNet.YDataBaseConfigFile.createDataBase(System.String,System.String)">
-            <summary>
-            创建数据库实例。
-            </summary>
-            <param name="configFile">配置文件。</param>
-            <param name="nodeName">配置文件节点名称。</param>
-            <returns>数据库实例，失败返回null。</returns>
         </member>
     </members>
 </doc>
