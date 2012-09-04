@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -90,27 +90,18 @@ $(this).validatebox(_15.options);
 _a(this);
 });
 };
-$.fn._outerWidth=function(_16){
-return this.each(function(){
-if(!$.boxModel&&$.browser.msie){
-$(this).width(_16);
-}else{
-$(this).width(_16-($(this).outerWidth()-$(this).width()));
-}
-});
-};
 $.fn.spinner.methods={options:function(jq){
-var _17=$.data(jq[0],"spinner").options;
-return $.extend(_17,{value:jq.val()});
+var _16=$.data(jq[0],"spinner").options;
+return $.extend(_16,{value:jq.val()});
 },destroy:function(jq){
 return jq.each(function(){
-var _18=$.data(this,"spinner").spinner;
+var _17=$.data(this,"spinner").spinner;
 $(this).validatebox("destroy");
-_18.remove();
+_17.remove();
 });
-},resize:function(jq,_19){
+},resize:function(jq,_18){
 return jq.each(function(){
-_4(this,_19);
+_4(this,_18);
 });
 },enable:function(jq){
 return jq.each(function(){
@@ -124,24 +115,24 @@ _a(this);
 });
 },getValue:function(jq){
 return jq.val();
-},setValue:function(jq,_1a){
+},setValue:function(jq,_19){
 return jq.each(function(){
-var _1b=$.data(this,"spinner").options;
-_1b.value=_1a;
-$(this).val(_1a);
+var _1a=$.data(this,"spinner").options;
+_1a.value=_19;
+$(this).val(_19);
 });
 },clear:function(jq){
 return jq.each(function(){
-var _1c=$.data(this,"spinner").options;
-_1c.value="";
+var _1b=$.data(this,"spinner").options;
+_1b.value="";
 $(this).val("");
 });
 }};
-$.fn.spinner.parseOptions=function(_1d){
-var t=$(_1d);
-return $.extend({},$.fn.validatebox.parseOptions(_1d),{width:(parseInt(_1d.style.width)||undefined),value:(t.val()||undefined),min:t.attr("min"),max:t.attr("max"),increment:(parseFloat(t.attr("increment"))||undefined),editable:(t.attr("editable")?t.attr("editable")=="true":undefined),disabled:(t.attr("disabled")?true:undefined)});
+$.fn.spinner.parseOptions=function(_1c){
+var t=$(_1c);
+return $.extend({},$.fn.validatebox.parseOptions(_1c),$.parser.parseOptions(_1c,["width","min","max",{increment:"number",editable:"boolean"}]),{value:(t.val()||undefined),disabled:(t.attr("disabled")?true:undefined)});
 };
-$.fn.spinner.defaults=$.extend({},$.fn.validatebox.defaults,{width:"auto",value:"",min:null,max:null,increment:1,editable:true,disabled:false,spin:function(_1e){
+$.fn.spinner.defaults=$.extend({},$.fn.validatebox.defaults,{width:"auto",value:"",min:null,max:null,increment:1,editable:true,disabled:false,spin:function(_1d){
 },onSpinUp:function(){
 },onSpinDown:function(){
 }});

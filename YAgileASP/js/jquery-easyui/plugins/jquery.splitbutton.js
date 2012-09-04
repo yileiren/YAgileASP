@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -99,7 +99,7 @@ $(this).remove();
 }};
 $.fn.splitbutton.parseOptions=function(_12){
 var t=$(_12);
-return $.extend({},$.fn.linkbutton.parseOptions(_12),{menu:t.attr("menu"),duration:t.attr("duration")});
+return $.extend({},$.fn.linkbutton.parseOptions(_12),$.parser.parseOptions(_12,["menu",{plain:"boolean",duration:"number"}]));
 };
 $.fn.splitbutton.defaults=$.extend({},$.fn.linkbutton.defaults,{plain:true,menu:null,duration:100});
 })(jQuery);

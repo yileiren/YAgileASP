@@ -49,11 +49,13 @@
 }
 .searchbox a.l-btn-plain:hover{
 	-moz-border-radius:0px;
-	-webkit-border-radius: 0px;
+	-webkit-border-radius:0px;
+	border-radius:0px;
 	border:0;
 	padding:0 6px 0 0;
 }
 .searchbox a.m-btn-plain-active{
 	-moz-border-radius:0px;
-	-webkit-border-radius: 0px;
+	-webkit-border-radius:0px;
+	border-radius:0px;
 }

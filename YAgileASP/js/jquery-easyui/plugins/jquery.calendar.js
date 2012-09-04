@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -279,40 +279,22 @@ _d(this);
 $(this).find("div.calendar-menu").hide();
 });
 };
-$.fn._outerWidth=function(_3b){
-return this.each(function(){
-if(!$.boxModel&&$.browser.msie){
-$(this).width(_3b);
-}else{
-$(this).width(_3b-($(this).outerWidth()-$(this).width()));
-}
-});
-};
-$.fn._outerHeight=function(_3c){
-return this.each(function(){
-if(!$.boxModel&&$.browser.msie){
-$(this).height(_3c);
-}else{
-$(this).height(_3c-($(this).outerHeight()-$(this).height()));
-}
-});
-};
 $.fn.calendar.methods={options:function(jq){
 return $.data(jq[0],"calendar").options;
 },resize:function(jq){
 return jq.each(function(){
 _1(this);
 });
-},moveTo:function(jq,_3d){
+},moveTo:function(jq,_3b){
 return jq.each(function(){
-$(this).calendar({year:_3d.getFullYear(),month:_3d.getMonth()+1,current:_3d});
+$(this).calendar({year:_3b.getFullYear(),month:_3b.getMonth()+1,current:_3b});
 });
 }};
-$.fn.calendar.parseOptions=function(_3e){
-var t=$(_3e);
-return {width:(parseInt(_3e.style.width)||undefined),height:(parseInt(_3e.style.height)||undefined),firstDay:(parseInt(t.attr("firstDay"))||undefined),fit:(t.attr("fit")?t.attr("fit")=="true":undefined),border:(t.attr("border")?t.attr("border")=="true":undefined)};
+$.fn.calendar.parseOptions=function(_3c){
+var t=$(_3c);
+return $.extend({},$.parser.parseOptions(_3c,["width","height",{firstDay:"number",fit:"boolean",border:"boolean"}]));
 };
-$.fn.calendar.defaults={width:180,height:180,fit:false,border:true,firstDay:0,weeks:["S","M","T","W","T","F","S"],months:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],year:new Date().getFullYear(),month:new Date().getMonth()+1,current:new Date(),onSelect:function(_3f){
+$.fn.calendar.defaults={width:180,height:180,fit:false,border:true,firstDay:0,weeks:["S","M","T","W","T","F","S"],months:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],year:new Date().getFullYear(),month:new Date().getMonth()+1,current:new Date(),onSelect:function(_3d){
 }};
 })(jQuery);
 

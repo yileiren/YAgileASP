@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -255,8 +255,7 @@ _5(this,_1e);
 });
 }};
 $.fn.window.parseOptions=function(_1f){
-var t=$(_1f);
-return $.extend({},$.fn.panel.parseOptions(_1f),{draggable:(t.attr("draggable")?t.attr("draggable")=="true":undefined),resizable:(t.attr("resizable")?t.attr("resizable")=="true":undefined),shadow:(t.attr("shadow")?t.attr("shadow")=="true":undefined),modal:(t.attr("modal")?t.attr("modal")=="true":undefined),inline:(t.attr("inline")?t.attr("inline")=="true":undefined)});
+return $.extend({},$.fn.panel.parseOptions(_1f),$.parser.parseOptions(_1f,[{draggable:"boolean",resizable:"boolean",shadow:"boolean",modal:"boolean",inline:"boolean"}]));
 };
 $.fn.window.defaults=$.extend({},$.fn.panel.defaults,{zIndex:9000,draggable:true,resizable:true,shadow:true,modal:false,inline:false,title:"New Window",collapsible:true,minimizable:true,maximizable:true,closable:true,closed:false});
 })(jQuery);

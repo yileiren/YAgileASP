@@ -26,6 +26,7 @@
 	cursor:pointer;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
+	border-radius:4px;
 }
 .calendar-prevmonth,.calendar-nextmonth,.calendar-prevyear,.calendar-nextyear{
 	position:absolute;
@@ -37,6 +38,7 @@
 	font-size:1px;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
+	border-radius:4px;
 }
 .calendar-prevmonth{
 	left:20px;
@@ -77,6 +79,7 @@
 	border:1px solid #fff;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
+	border-radius:4px;
 }
 .calendar-sunday{
 	color:#CC2222;
@@ -158,4 +161,5 @@
 	color:#666;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
+	border-radius:4px;
 }

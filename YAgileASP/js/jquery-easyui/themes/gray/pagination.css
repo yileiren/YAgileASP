@@ -5,6 +5,9 @@
 	float:left;
 	height:30px;
 }
+.pagination td{
+	border:0;
+}
 .pagination-btn-separator{
 	float:left;
 	height:24px;

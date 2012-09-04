@@ -52,39 +52,6 @@
 .icon-tip{
 	background:url('icons/tip.png') no-repeat;
 }
-.icon-userlogin{
-	background:url('icons/userlogin.png') no-repeat;
-}
-.icon-menu{
-	background:url('icons/menu.png') no-repeat;
-}
-.icon-home{
-	background:url('icons/home.png') no-repeat;
-}
-.icon-systemMenu{
-	background:url('icons/systemMenu.png') no-repeat;
-}
-.icon-systemSetting{
-	background:url('icons/systemSetting.png') no-repeat;
-}
-.icon-system{
-	background:url('icons/system.png') no-repeat;
-}
-.icon-role{
-	background:url('icons/role.png') no-repeat;
-}
-.icon-organization{
-	background:url('icons/organization.png') no-repeat;
-}
-.icon-dictionary{
-	background:url('icons/dictionary.png') no-repeat;
-}
-.icon-out{
-	background:url('icons/out.png') no-repeat;
-}
-.icon-key{
-	background:url('icons/key.png') no-repeat;
-}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat 2px 2px;
