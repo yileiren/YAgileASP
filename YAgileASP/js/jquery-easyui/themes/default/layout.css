@@ -3,6 +3,7 @@
 	overflow:hidden;
 	margin:0;
 	padding:0;
+	z-index:0;
 }
 .layout-panel{
 	position:absolute;
@@ -15,16 +16,16 @@
 	z-index:3;
 }
 .layout-button-up{
-	background:url('images/layout_button_up.gif') no-repeat;
+	background:url('images/layout_arrows.png') no-repeat -16px -16px;
 }
 .layout-button-down{
-	background:url('images/layout_button_down.gif') no-repeat;
+	background:url('images/layout_arrows.png') no-repeat -16px 0;
 }
 .layout-button-left{
-	background:url('images/layout_button_left.gif') no-repeat;
+	background:url('images/layout_arrows.png') no-repeat 0 0;
 }
 .layout-button-right{
-	background:url('images/layout_button_right.gif') no-repeat;
+	background:url('images/layout_arrows.png') no-repeat 0 -16px;
 }
 .layout-expand{
 	position:absolute;

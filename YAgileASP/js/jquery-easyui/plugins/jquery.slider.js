@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -192,15 +192,6 @@ _b(this);
 _5(this);
 });
 };
-$.fn._outerHeight=function(_34){
-return this.each(function(){
-if(!$.boxModel&&$.browser.msie){
-$(this).height(_34);
-}else{
-$(this).height(_34-($(this).outerHeight()-$(this).height()));
-}
-});
-};
 $.fn.slider.methods={options:function(jq){
 return $.data(jq[0],"slider").options;
 },destroy:function(jq){
@@ -208,15 +199,15 @@ return jq.each(function(){
 $.data(this,"slider").slider.remove();
 $(this).remove();
 });
-},resize:function(jq,_35){
+},resize:function(jq,_34){
 return jq.each(function(){
-_5(this,_35);
+_5(this,_34);
 });
 },getValue:function(jq){
 return jq.slider("options").value;
-},setValue:function(jq,_36){
+},setValue:function(jq,_35){
 return jq.each(function(){
-_1e(this,_36);
+_1e(this,_35);
 });
 },enable:function(jq){
 return jq.each(function(){
@@ -229,15 +220,15 @@ $.data(this,"slider").options.disabled=true;
 _14(this);
 });
 }};
-$.fn.slider.parseOptions=function(_37){
-var t=$(_37);
-return {width:(parseInt(_37.style.width)||undefined),height:(parseInt(_37.style.height)||undefined),value:(t.val()||undefined),mode:(t.attr("mode")?t.attr("mode"):undefined),showTip:(t.attr("showTip")?t.attr("showTip")=="true":undefined),disabled:(t.attr("disabled")?true:undefined),min:(t.attr("min")=="0"?0:parseInt(t.attr("min"))||undefined),max:(t.attr("max")=="0"?0:parseInt(t.attr("max"))||undefined),step:(t.attr("step")=="0"?0:parseInt(t.attr("step"))||undefined),rule:(t.attr("rule")?eval(t.attr("rule")):undefined)};
+$.fn.slider.parseOptions=function(_36){
+var t=$(_36);
+return $.extend({},$.parser.parseOptions(_36,["width","height","mode",{showTip:"boolean",min:"number",max:"number",step:"number"}]),{value:(t.val()||undefined),disabled:(t.attr("disabled")?true:undefined),rule:(t.attr("rule")?eval(t.attr("rule")):undefined)});
 };
-$.fn.slider.defaults={width:"auto",height:"auto",mode:"h",showTip:false,disabled:false,value:0,min:0,max:100,step:1,rule:[],tipFormatter:function(_38){
-return _38;
-},onChange:function(_39,_3a){
-},onSlideStart:function(_3b){
-},onSlideEnd:function(_3c){
+$.fn.slider.defaults={width:"auto",height:"auto",mode:"h",showTip:false,disabled:false,value:0,min:0,max:100,step:1,rule:[],tipFormatter:function(_37){
+return _37;
+},onChange:function(_38,_39){
+},onSlideStart:function(_3a){
+},onSlideEnd:function(_3b){
 }};
 })(jQuery);
 

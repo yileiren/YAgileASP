@@ -11,4 +11,6 @@ c) Modify or remove any copyright notices from any of the software files.
 
 The Licensee has the right to apply for tech support on the software within 1 month since purchasing the product and bug fixing during the same period.
 
+The Licensee has the right to get free upgrades for 1 year since purchasing the product.
+
 jQuery EasyUI Team retain all ownership rights to the software.

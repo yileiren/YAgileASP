@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -15,7 +15,7 @@ $(_2).addClass("l-btn");
 if(_3.id){
 $(_2).attr("id",_3.id);
 }else{
-$(_2).removeAttr("id");
+$(_2).attr("id","");
 }
 if(_3.plain){
 $(_2).addClass("l-btn-plain");
@@ -96,7 +96,7 @@ _4(this,true);
 }};
 $.fn.linkbutton.parseOptions=function(_c){
 var t=$(_c);
-return {id:t.attr("id"),disabled:(t.attr("disabled")?true:undefined),plain:(t.attr("plain")?t.attr("plain")=="true":undefined),text:$.trim(t.html()),iconCls:(t.attr("icon")||t.attr("iconCls"))};
+return $.extend({},$.parser.parseOptions(_c,["id","iconCls",{plain:"boolean"}]),{disabled:(t.attr("disabled")?true:undefined),text:$.trim(t.html()),iconCls:(t.attr("icon")||t.attr("iconCls"))});
 };
 $.fn.linkbutton.defaults={id:null,disabled:false,plain:false,text:"",iconCls:null};
 })(jQuery);

@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -44,10 +44,18 @@ function _f(_10){
 var _11=$.data(_10,"numberbox").options;
 $(_10).unbind(".numberbox").bind("keypress.numberbox",function(e){
 if(e.which==45){
+if($(this).val().indexOf("-")==-1){
 return true;
+}else{
+return false;
+}
 }
 if(e.which==46){
+if($(this).val().indexOf(".")==-1){
 return true;
+}else{
+return false;
+}
 }else{
 if((e.which>=48&&e.which<=57&&e.ctrlKey==false&&e.shiftKey==false)||e.which==0||e.which==8){
 return true;
@@ -158,7 +166,7 @@ $(this).val("");
 }};
 $.fn.numberbox.parseOptions=function(_1f){
 var t=$(_1f);
-return $.extend({},$.fn.validatebox.parseOptions(_1f),{disabled:(t.attr("disabled")?true:undefined),value:(t.val()||undefined),min:(t.attr("min")=="0"?0:parseFloat(t.attr("min"))||undefined),max:(t.attr("max")=="0"?0:parseFloat(t.attr("max"))||undefined),precision:(parseInt(t.attr("precision"))||undefined),decimalSeparator:(t.attr("decimalSeparator")?t.attr("decimalSeparator"):undefined),groupSeparator:(t.attr("groupSeparator")?t.attr("groupSeparator"):undefined),prefix:(t.attr("prefix")?t.attr("prefix"):undefined),suffix:(t.attr("suffix")?t.attr("suffix"):undefined)});
+return $.extend({},$.fn.validatebox.parseOptions(_1f),$.parser.parseOptions(_1f,["decimalSeparator","groupSeparator","prefix","suffix",{min:"number",max:"number",precision:"number"}]),{disabled:(t.attr("disabled")?true:undefined),value:(t.val()||undefined)});
 };
 $.fn.numberbox.defaults=$.extend({},$.fn.validatebox.defaults,{disabled:false,value:"",min:null,max:null,precision:0,decimalSeparator:".",groupSeparator:"",prefix:"",suffix:"",formatter:function(_20){
 if(!_20){

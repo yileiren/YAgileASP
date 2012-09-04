@@ -97,6 +97,8 @@
     <Content Include="js\jquery-easyui\locale\easyui-lang-es.js" />
     <Content Include="js\jquery-easyui\locale\easyui-lang-fr.js" />
     <Content Include="js\jquery-easyui\locale\easyui-lang-nl.js" />
+    <Content Include="js\jquery-easyui\locale\easyui-lang-pt_BR.js" />
+    <Content Include="js\jquery-easyui\locale\easyui-lang-ru.js" />
     <Content Include="js\jquery-easyui\locale\easyui-lang-tr.js" />
     <Content Include="js\jquery-easyui\locale\easyui-lang-zh_CN.js" />
     <Content Include="js\jquery-easyui\locale\easyui-lang-zh_TW.js" />
@@ -163,6 +165,7 @@
     <Content Include="js\jquery-easyui\themes\default\images\datagrid_sort_desc.gif" />
     <Content Include="js\jquery-easyui\themes\default\images\datagrid_title_bg.png" />
     <Content Include="js\jquery-easyui\themes\default\images\datebox_arrow.png" />
+    <Content Include="js\jquery-easyui\themes\default\images\layout_arrows.png" />
     <Content Include="js\jquery-easyui\themes\default\images\layout_button_down.gif" />
     <Content Include="js\jquery-easyui\themes\default\images\layout_button_left.gif" />
     <Content Include="js\jquery-easyui\themes\default\images\layout_button_right.gif" />
@@ -252,6 +255,7 @@
     <Content Include="js\jquery-easyui\themes\gray\images\datagrid_sort_desc.gif" />
     <Content Include="js\jquery-easyui\themes\gray\images\datagrid_title_bg.gif" />
     <Content Include="js\jquery-easyui\themes\gray\images\datebox_arrow.png" />
+    <Content Include="js\jquery-easyui\themes\gray\images\layout_arrows.png" />
     <Content Include="js\jquery-easyui\themes\gray\images\layout_button_down.gif" />
     <Content Include="js\jquery-easyui\themes\gray\images\layout_button_left.gif" />
     <Content Include="js\jquery-easyui\themes\gray\images\layout_button_right.gif" />

@@ -1,3 +1,28 @@
+Version 1.3
+-----------
+* Bug
+ * combogrid: When set to 'remote' query mode, the 'queryParams' parameters can't be sent to server. fixed.
+ * combotree: The tree nodes on drop-down panel can not be unchecked while calling 'clear' method. fixed.
+ * datetimebox: Setting 'showSeconds' property to false cannot hide seconds info. fixed.
+ * datagrid: Calling 'mergeCells' method can't auto resize the merged cell while header is hidden. fixed.
+ * dialog: Set cache to false and load data via ajax, the content cannot be refreshed. fixed.
+* Improvement
+ * The HTML5 'data-options' attribute is available for components to declare all custom options, including properties and events.
+ * More detailed documentation is available.
+ * panel: Prevent script on panel body from running twice.
+ * accordion: Add 'getPanelIndex' method.
+ * accordion: The tools can be added on panel header.
+ * datetimebox: Add 'timeSeparator' option that allows users to define the time separator.
+ * pagination: Add 'refresh' and 'select' methods.
+ * datagrid: Auto resize the column width to fit the contents when the column width is not defined.
+ * datagrid: Double click on the right border of columns to auto resize the columns to the contents in the columns.
+ * datagrid: Add 'autoSizeColumn' method that allows users to adjust the column width to fit the contents.
+ * datagrid: Add 'getChecked' method to get all rows where the checkbox has been checked.
+ * datagrid: Add 'selectOnCheck' and 'checkOnSelect' properties and some checking methods to enhance the row selections.
+ * datagrid: Add 'pagePosition' property to allow users to display pager bar at either top,bottom or both places of the grid.
+ * datagrid: The buffer view and virtual scroll view are supported to display large amounts of records without pagination.
+ * tabs: Add 'disableTab' and 'enableTab' methods to allow users to disable or enable a tab panel.
+
 Version 1.2.6
 -------------
 * Bug

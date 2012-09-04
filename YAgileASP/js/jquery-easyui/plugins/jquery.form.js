@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -106,7 +106,6 @@ var rr=$("input[name=\""+_17+"\"][type=radio], input[name=\""+_17+"\"][type=chec
 $.fn.prop?rr.prop("checked",false):rr.attr("checked",false);
 rr.each(function(){
 var f=$(this);
-console.log(_17+":"+f.val()+","+val);
 if(f.val()==String(val)){
 $.fn.prop?f.prop("checked",true):f.attr("checked",true);
 }

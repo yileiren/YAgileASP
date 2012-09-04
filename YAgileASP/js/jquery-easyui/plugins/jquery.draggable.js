@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -38,13 +38,11 @@ _4.top=_6;
 function _7(e){
 var _8=$.data(e.data.target,"draggable").options;
 var _9=$.data(e.data.target,"draggable").proxy;
-if(_9){
-_9.css("cursor",_8.cursor);
-}else{
+if(!_9){
 _9=$(e.data.target);
-$.data(e.data.target,"draggable").handle.css("cursor",_8.cursor);
 }
 _9.css({left:e.data.left,top:e.data.top});
+$("body").css("cursor",_8.cursor);
 };
 function _a(e){
 _1=true;
@@ -133,7 +131,7 @@ _15();
 _14.onStopDrag.call(e.data.target,e);
 $(document).unbind(".draggable");
 setTimeout(function(){
-$("body").css("cursor","auto");
+$("body").css("cursor","");
 },100);
 function _16(){
 if(_13){
@@ -170,10 +168,10 @@ if(_1c){
 _1c.handle.unbind(".draggable");
 _1b=$.extend(_1c.options,_19);
 }else{
-_1b=$.extend({},$.fn.draggable.defaults,_19||{});
+_1b=$.extend({},$.fn.draggable.defaults,$.fn.draggable.parseOptions(this),_19||{});
 }
 if(_1b.disabled==true){
-$(this).css("cursor","default");
+$(this).css("cursor","");
 return;
 }
 var _1d=null;
@@ -199,6 +197,7 @@ $(this).css("cursor","");
 if(_1f(e)==false){
 return;
 }
+$(this).css("cursor","");
 var _20=$(e.data.target).position();
 var _21={startPosition:$(e.data.target).css("position"),startLeft:_20.left,startTop:_20.top,left:_20.left,top:_20.top,startX:e.pageX,startY:e.pageY,target:e.data.target,parent:$(e.data.target).parent()[0]};
 $.extend(e.data,_21);
@@ -209,7 +208,6 @@ return;
 $(document).bind("mousedown.draggable",e.data,_a);
 $(document).bind("mousemove.draggable",e.data,_f);
 $(document).bind("mouseup.draggable",e.data,_12);
-$("body").css("cursor",_22.cursor);
 });
 function _1f(e){
 var _23=$.data(e.data.target,"draggable");
@@ -238,6 +236,10 @@ return jq.each(function(){
 $(this).draggable({disabled:true});
 });
 }};
+$.fn.draggable.parseOptions=function(_28){
+var t=$(_28);
+return $.extend({},$.parser.parseOptions(_28,["cursor","handle","axis",{"revert":"boolean","deltaX":"number","deltaY":"number","edge":"number"}]),{disabled:(t.attr("disabled")?true:undefined)});
+};
 $.fn.draggable.defaults={proxy:null,revert:false,cursor:"move",deltaX:null,deltaY:null,handle:null,disabled:false,edge:0,axis:null,onBeforeDrag:function(e){
 },onStartDrag:function(e){
 },onDrag:function(e){

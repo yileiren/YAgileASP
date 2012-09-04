@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -98,7 +98,7 @@ $(this).remove();
 }};
 $.fn.menubutton.parseOptions=function(_11){
 var t=$(_11);
-return $.extend({},$.fn.linkbutton.parseOptions(_11),{menu:t.attr("menu"),duration:t.attr("duration")});
+return $.extend({},$.fn.linkbutton.parseOptions(_11),$.parser.parseOptions(_11,["menu",{plain:"boolean",duration:"number"}]));
 };
 $.fn.menubutton.defaults=$.extend({},$.fn.linkbutton.defaults,{plain:true,menu:null,duration:100});
 })(jQuery);

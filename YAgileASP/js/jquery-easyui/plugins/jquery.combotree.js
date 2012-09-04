@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -135,6 +135,10 @@ _13(this,[_23]);
 return jq.each(function(){
 var _24=$.data(this,"combotree").tree;
 _24.find("div.tree-node-selected").removeClass("tree-node-selected");
+var cc=_24.tree("getChecked");
+for(var i=0;i<cc.length;i++){
+_24.tree("uncheck",cc[i].target);
+}
 $(this).combo("clear");
 });
 }};

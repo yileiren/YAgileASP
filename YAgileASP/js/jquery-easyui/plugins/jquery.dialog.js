@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.6
+ * jQuery EasyUI 1.3
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -67,7 +67,7 @@ var _c=_6.href;
 var _d=_6.content;
 _6.href=null;
 _6.content=null;
-_7.panel({closed:_6.closed,href:_c,content:_d,onLoad:function(){
+_7.panel({closed:_6.closed,cache:_6.cache,href:_c,content:_d,onLoad:function(){
 if(_6.height=="auto"){
 $(_5).window("resize");
 }
@@ -127,8 +127,7 @@ _11(this,_1c);
 });
 }};
 $.fn.dialog.parseOptions=function(_1d){
-var t=$(_1d);
-return $.extend({},$.fn.window.parseOptions(_1d),{toolbar:t.attr("toolbar"),buttons:t.attr("buttons")});
+return $.extend({},$.fn.window.parseOptions(_1d),$.parser.parseOptions(_1d,["toolbar","buttons"]));
 };
 $.fn.dialog.defaults=$.extend({},$.fn.window.defaults,{title:"New Dialog",collapsible:false,minimizable:false,maximizable:false,resizable:false,toolbar:null,buttons:null});
 })(jQuery);
