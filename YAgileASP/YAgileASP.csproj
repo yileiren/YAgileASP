@@ -361,6 +361,7 @@
     <Content Include="js\My97DatePicker\lang\en.js" />
     <Content Include="js\My97DatePicker\lang\zh-cn.js" />
     <Content Include="js\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="js\My97DatePicker\My97DatePicker.htm" />
     <Content Include="js\My97DatePicker\skin\datePicker.gif" />
     <Content Include="js\My97DatePicker\skin\default\datepicker.css" />
     <Content Include="js\My97DatePicker\skin\default\img.gif" />
