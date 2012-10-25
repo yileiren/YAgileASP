@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSystem", "YSystem\YSystem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAgileControls", "YAgileControls\YAgileControls.csproj", "{7A039531-8707-4EA7-BF72-070D14DE519F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTest", "WebTest\WebTest.csproj", "{CA86308C-47D0-43E6-BF85-B7575174EDE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{7A039531-8707-4EA7-BF72-070D14DE519F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A039531-8707-4EA7-BF72-070D14DE519F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A039531-8707-4EA7-BF72-070D14DE519F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA86308C-47D0-43E6-BF85-B7575174EDE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA86308C-47D0-43E6-BF85-B7575174EDE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA86308C-47D0-43E6-BF85-B7575174EDE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA86308C-47D0-43E6-BF85-B7575174EDE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

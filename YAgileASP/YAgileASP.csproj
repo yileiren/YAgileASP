@@ -501,6 +501,10 @@
     <None Include="js\jquery-easyui\themes\gray\images\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\YAgileControls\YAgileControls.csproj">
+      <Project>{7A039531-8707-4EA7-BF72-070D14DE519F}</Project>
+      <Name>YAgileControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YSystem\YSystem.csproj">
       <Project>{4532D292-2B0B-4A9E-920E-1E91BB2AD647}</Project>
       <Name>YSystem</Name>
