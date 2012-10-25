@@ -12,9 +12,11 @@
     <form id="form1" runat="server">
     <div>
     
-        <cc1:YPagerControl ID="YPagerControl1" runat="server" />
+        <cc1:YPagerControl ID="YPagerControl1" runat="server" DataCount="10" 
+            PageCount="5" onpagechanged="YPagerControl1_PageChanged" />
     
     </div>
+    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
     </form>
 </body>
 </html>
