@@ -28,7 +28,7 @@ namespace WebTest {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::YLR.YAgileControls.YPagerControl YPagerControl1;
+        protected global::YLR.YAgileControls.PagerControl.YPagerControl YPagerControl1;
         
         /// <summary>
         /// Label1 控件。

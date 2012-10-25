@@ -6,9 +6,11 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Drawing;
 
-namespace YLR.YAgileControls
+namespace YLR.YAgileControls.PagerControl
 {
+    [ToolboxBitmap(typeof(YPagerControl), "YPagerControl.png")]
     [DefaultProperty("PageCount")]
     [ToolboxData("<{0}:YPagerControl runat=server></{0}:YPagerControl>")]
     public class YPagerControl : WebControl, IPostBackEventHandler
@@ -29,7 +31,6 @@ namespace YLR.YAgileControls
             {
                 return (ViewState["PageCount"] == null ) ? 1 : (int)ViewState["PageCount"];
             }
-
             set
             {
                 ViewState["PageCount"] = value;
@@ -49,7 +50,6 @@ namespace YLR.YAgileControls
             {
                 return (ViewState["PageNum"] == null) ? 1 : (int)ViewState["PageNum"];
             }
-
             set
             {
                 ViewState["PageNum"] = value;
@@ -69,7 +69,6 @@ namespace YLR.YAgileControls
             {
                 return (ViewState["DataCount"] == null) ? 20 : (int)ViewState["DataCount"];
             }
-
             set
             {
                 ViewState["DataCount"] = value;

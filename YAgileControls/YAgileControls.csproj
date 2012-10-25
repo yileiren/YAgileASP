@@ -44,7 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="YPagerControl.cs" />
+    <Compile Include="PagerControl\YPagerControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PagerControl\YPagerControl.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
