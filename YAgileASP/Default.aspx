@@ -5,8 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>异类人敏捷开发平台</title>
+    <script src="js/jquery/jquery.min.js" type="text/javascript"></script>
 
-
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function ()
+        {
+            location.href = "background/sys/login.aspx";
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
