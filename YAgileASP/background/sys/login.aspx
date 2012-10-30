@@ -53,12 +53,31 @@
             }
         }
 
-        $(document).ready(function () 
+        $(document).ready(function ()
         {
-            if (window.top.location != window.self.location) 
+            if (window.top.location != window.self.location)
             {
                 window.top.location = "login.aspx";
             }
+
+            $("#txtUserName").bind("keypress", function (e)
+            {
+                if (e.keyCode == 13 && $(this).val() != "")
+                {
+                    $("#passUserPassword").focus();
+                }
+            });
+
+            $("#passUserPassword").bind("keypress", function (e)
+            {
+                if (e.keyCode == 13)
+                {
+                    if (checkForms())
+                    {
+                        __doPostBack('butLogin', '')
+                    }
+                }
+            });
         });
     //-->
     </script>
