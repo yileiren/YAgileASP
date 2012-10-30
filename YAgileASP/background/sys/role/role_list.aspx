@@ -11,6 +11,7 @@
 
     <link href="../../../js/jquery-easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../../js/jquery-easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../../css/table.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="../../../js/jquery-easyui/jquery.easyui.min.js"></script>
@@ -98,26 +99,31 @@
     <div>
         <asp:Repeater ID="rolesRepeater" runat="server">
             <HeaderTemplate>
-                <table class="easyui-datagrid" data-options="rownumbers:true,singleSelect:true">
-                <thead>
-                <tr>
-                    <th data-options="field:'ck',align:'center'">选择</th>
-                    <th data-options="field:'name',width:200">名称</th>
-                    <th data-options="field:'explain',width:300">说明</th>
+                <table class="admintable" style="width:100%">
+                <tr style="width:100%;height:30px">
+                    <th class="adminth" style="width:40px">选择</th>
+                    <th class="adminth" style="width:200px">名称</th>
+                    <th class="adminth" style="width:auto">说明</th>
                 </tr>
-                </thead>
             </HeaderTemplate>
             <ItemTemplate>
-                <tbody>
-                <tr>
-                    <td>
+                <tr style="width:100%;height:30px">
+                    <td class="admincls0" style="text-align:center">
                         <input type="checkbox" name="chkItem" value="<%#Eval("id") %>" />
                     </td>
-                    <td><%#Eval("name") %></td>
-                    <td><%#Eval("explain")%></td>
+                    <td class="admincls0" style="text-align:center"><%#Eval("name") %></td>
+                    <td class="admincls0"><%#Eval("explain")%></td>
                 </tr>
-                </tbody>
             </ItemTemplate>
+            <AlternatingItemTemplate>
+                <tr style="width:100%;height:30px">
+                    <td class="admincls1" style="text-align:center">
+                        <input type="checkbox" name="chkItem" value="<%#Eval("id") %>" />
+                    </td>
+                    <td class="admincls1" style="text-align:center"><%#Eval("name") %></td>
+                    <td class="admincls1"><%#Eval("explain")%></td>
+                </tr>
+            </AlternatingItemTemplate>
             <FooterTemplate>
                 </table>
             </FooterTemplate>
