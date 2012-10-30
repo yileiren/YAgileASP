@@ -78,10 +78,25 @@
         {
             window.parent.menuButtonOnClick('数据字典', 'icon-dictionary', 'sys/dataDictionary/dataDictionary_list.aspx?parentId=' + $("#hidReturnId").val());
         }
+
+        /*!
+         * \brief
+         * 动态调整layout。
+         */
+        $(function ()
+        {
+            $(window).resize(function ()
+            {
+                $('form#form1').height($(window).height());
+                $('form#form1').width($(window).width());
+                $('form#form1').height($(window).height());
+                $('form#form1').layout();
+            });
+        });
     </script>
 </head>
 <body  style="width:100%;margin:0px;background-color:#EEF5FD;">
-    <form id="form1" runat="server" class="easyui-layout" style="width:100%;height:100%;margin:0px;background-color:#EEF5FD;">
+    <form id="form1" runat="server" class="easyui-layout" flt="true" style="width:100%;height:100%;margin:0px;background-color:#EEF5FD;">
     <div region="north" border="true" style="height:28px;background-color:#EEF5FD">
         <div style="width:380px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addDataDictionary();">新增</a>
