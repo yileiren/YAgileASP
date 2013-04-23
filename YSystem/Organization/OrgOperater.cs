@@ -60,7 +60,7 @@ namespace YLR.YSystem.Organization
             OrgOperater orgOper = null;
 
             //获取数据库实例。
-            YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFilePath, nodeName);
+            YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFilePath, nodeName,"");
 
             if (orgDb != null)
             {

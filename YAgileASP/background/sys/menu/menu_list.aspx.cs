@@ -41,7 +41,7 @@ namespace YAgileASP.background.sys.menu
                 string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
 
                 //获取数据库实例。
-                YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer");
+                YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer", "");
 
                 if (orgDb != null)
                 {
@@ -122,7 +122,7 @@ namespace YAgileASP.background.sys.menu
                     string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
 
                     //获取数据库实例。
-                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer");
+                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer", "");
 
                     if (orgDb != null)
                     {
@@ -178,7 +178,7 @@ namespace YAgileASP.background.sys.menu
                     string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
 
                     //获取数据库实例。
-                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer");
+                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer", "");
 
                     if (orgDb != null)
                     {

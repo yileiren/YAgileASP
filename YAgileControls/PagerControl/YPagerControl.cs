@@ -10,12 +10,17 @@ using System.Drawing;
 
 namespace YLR.YAgileControls.PagerControl
 {
+    /// <summary>
+    /// 分页控件。
+    /// </summary>
     [ToolboxBitmap(typeof(YPagerControl), "YPagerControl.png")]
     [DefaultProperty("PageCount")]
     [ToolboxData("<{0}:YPagerControl runat=server></{0}:YPagerControl>")]
     public class YPagerControl : WebControl, IPostBackEventHandler
     {
-        //页面改变事件。
+        /// <summary>
+        /// 页面改变事件。
+        /// </summary>
         public event EventHandler PageChanged = null;
 
         /// <summary>
@@ -75,6 +80,9 @@ namespace YLR.YAgileControls.PagerControl
             }
         }
 
+        /// <summary>
+        /// 使用的标签。
+        /// </summary>
         protected override HtmlTextWriterTag TagKey
         {
             get
@@ -83,6 +91,10 @@ namespace YLR.YAgileControls.PagerControl
             }
         }
 
+        /// <summary>
+        /// 分页控件
+        /// </summary>
+        /// <param name="output">使用的输出流。</param>
         protected override void RenderContents(HtmlTextWriter output)
         {
             //显示首页按钮
@@ -104,6 +116,10 @@ namespace YLR.YAgileControls.PagerControl
             output.Write("<input type=\"button\" value=\"尾&nbsp;&nbsp;页\" " + ((this.PageNum == this.PageCount) ? "disabled=\"disabled\"" : "") + " style=\"height:25px;border:solid 2px #dcdcdc;padding:2px 4px 2px 4px;background-color:#EEF5FD;\" onclick=" + Page.ClientScript.GetPostBackClientHyperlink(this, "Last") + " onmouseover=\"this.style.borderColor='#75cd02'\" onmouseout=\"this.style.borderColor='#dcdcdc'\" />");
         }
 
+        /// <summary>
+        /// 返回事件。
+        /// </summary>
+        /// <param name="eventArgument">事件名称。</param>
         public void RaisePostBackEvent(string eventArgument)
         {
             if (eventArgument == "First")

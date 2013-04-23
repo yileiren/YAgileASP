@@ -39,7 +39,7 @@ namespace YAgileASP.background.sys
                 string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
 
                 //获取数据库实例。
-                YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer");
+                YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer", "");
                 
                 if (orgDb != null)
                 {
