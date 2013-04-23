@@ -59,11 +59,36 @@
             <param name="sql">sql语句</param>
             <returns>返回数据集，null表式执行失败，可以通过errorText属性查看失败信息</returns>
         </member>
+        <member name="M:YLR.YAdoNet.YDataBase.executeSqlReturnDt(System.String,YLR.YAdoNet.YParameters)">
+            <summary>
+            执行带数据集返回的sql语句，语句中含有防止数据注入使用的参数。
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="parameters">使用的参数</param>
+            <returns>返回数据集，null表式执行失败，可以通过errorText属性查看失败信息</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YDataBase.executeSqlReturnDt(System.String,System.Int32,System.Int32)">
+            <summary>
+            获取分页数据集。
+            </summary>
+            <param name="sql">sql语句，语句获取所有数据，方法自动为数据分页。</param>
+            <param name="pageNum">要获取的页号，从1开始。</param>
+            <param name="dataCount">每页显示的数据总数。</param>
+            <returns>分页数据。</returns>
+        </member>
         <member name="M:YLR.YAdoNet.YDataBase.executeSqlWithOutDs(System.String)">
             <summary>
             执行不带数据集返回的sql语句
             </summary>
             <param name="sql">要执行的sql语句</param>
+            <returns>返回响应函数，-1表式执行失败</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YDataBase.executeSqlWithOutDs(System.String,YLR.YAdoNet.YParameters)">
+            <summary>
+            执行不带数据集返回的sql语句，语句中含有防止数据注入使用的参数。
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="parameters">使用的参数</param>
             <returns>返回响应函数，-1表式执行失败</returns>
         </member>
         <member name="P:YLR.YAdoNet.YDataBase.databaseType">
@@ -160,12 +185,37 @@
             <param name="sql">SQL语句。</param>
             <returns>返回数据集，失败返回null。</returns>
         </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.executeSqlReturnDt(System.String,YLR.YAdoNet.YParameters)">
+            <summary>
+            执行带数据集返回的sql语句，语句中含有防止数据注入使用的参数。
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="parameters">使用的参数</param>
+            <returns>返回数据集，null表式执行失败，可以通过errorText属性查看失败信息</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.executeSqlReturnDt(System.String,System.Int32,System.Int32)">
+            <summary>
+            获取分页数据集。
+            </summary>
+            <param name="sql">sql语句，语句获取所有数据，方法自动为数据分页。</param>
+            <param name="pageNum">要获取的页号，从1开始。</param>
+            <param name="dataCount">每页显示的数据总数。</param>
+            <returns>分页数据。</returns>
+        </member>
         <member name="M:YLR.YAdoNet.YSQLiteDataBase.executeSqlWithOutDs(System.String)">
             <summary>
             执行不带数据集返回的SQL语句。
             </summary>
             <param name="sql">SQL语句。</param>
             <returns>返回响应行数，失败返回-1。</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YSQLiteDataBase.executeSqlWithOutDs(System.String,YLR.YAdoNet.YParameters)">
+            <summary>
+            执行不带数据集返回的sql语句，语句中含有防止数据注入使用的参数。
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="parameters">使用的参数</param>
+            <returns>返回响应函数，-1表式执行失败</returns>
         </member>
         <member name="P:YLR.YAdoNet.YSQLiteDataBase.databaseType">
             <summary>
@@ -217,9 +267,143 @@
             微软Access数据库
             </summary>
         </member>
+        <member name="F:YLR.YAdoNet.DataBaseType.Access2007">
+            <summary>
+            微软Access2007数据库。
+            </summary>
+        </member>
         <member name="F:YLR.YAdoNet.DataBaseType.SQlite">
             <summary>
             SQLite数据库。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.DataBaseType.Unknown">
+            <summary>
+            位置类型。
+            </summary>
+        </member>
+        <member name="T:YLR.YAdoNet.PagerData">
+            <summary>
+            分页数据，用来提供分页查询时返回的数据。
+            作者：董帅 创建时间：2012-10-29 13:01:28
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.PagerData._data">
+            <summary>
+            指定页的数据。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.PagerData._pageCount">
+            <summary>
+            总页数。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.PagerData._pageNum">
+            <summary>
+            当前页号，从1开始。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.PagerData._dataCount">
+            <summary>
+            每页显示的数据数量。
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.PagerData.data">
+            <summary>
+            指定页的数据。
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.PagerData.pageCount">
+            <summary>
+            总页数。
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.PagerData.pageNum">
+            <summary>
+            当前页号，从1开始。
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.PagerData.dataCount">
+            <summary>
+            每页显示的数据数量。
+            </summary>
+        </member>
+        <member name="T:YLR.YAdoNet.YParameters">
+            <summary>
+            参数列表类，构建command中使用的Parameter的名称和数值，与Parameter的用法一样。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YParameters.parameters">
+            <summary>
+            参数列表。
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YParameters.add(System.String,System.Object)">
+            <summary>
+            在列表末尾增加参数。
+            </summary>
+            <param name="name">参数名称。</param>
+            <param name="value">数据。</param>
+        </member>
+        <member name="M:YLR.YAdoNet.YParameters.clear">
+            <summary>
+            清空参数列表中的数据。
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YParameters.getName(System.Int32)">
+            <summary>
+            获取指定位置的名称。
+            </summary>
+            <param name="p">位置索引。</param>
+            <returns>名称</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YParameters.getValue(System.Int32)">
+            <summary>
+            获取指定位置的数据。
+            </summary>
+            <param name="p">位置索引。</param>
+            <returns>数据。</returns>
+        </member>
+        <member name="P:YLR.YAdoNet.YParameters.Count">
+            <summary>
+            参数数量。
+            </summary>
+        </member>
+        <member name="T:YLR.YAdoNet.YParameters.YParameterValue">
+            <summary>
+            参数类。
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YParameters.YParameterValue.#ctor">
+            <summary>
+            默认构造函数。
+            </summary>
+        </member>
+        <member name="M:YLR.YAdoNet.YParameters.YParameterValue.#ctor(System.String,System.Object)">
+            <summary>
+            够咱函数。
+            </summary>
+            <param name="name">参数名称。</param>
+            <param name="value">参数值。</param>
+        </member>
+        <member name="F:YLR.YAdoNet.YParameters.YParameterValue._name">
+            <summary>
+            参数名称。
+            </summary>
+        </member>
+        <member name="F:YLR.YAdoNet.YParameters.YParameterValue._value">
+            <summary>
+            参数值。
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.YParameters.YParameterValue.name">
+            <summary>
+            参数名称。
+            </summary>
+        </member>
+        <member name="P:YLR.YAdoNet.YParameters.YParameterValue.value">
+            <summary>
+            参数值。
             </summary>
         </member>
         <member name="T:YLR.YAdoNet.YDataBaseConfigFile">
@@ -227,13 +411,54 @@
             数据库配置文件操作类。
             </summary>
         </member>
-        <member name="M:YLR.YAdoNet.YDataBaseConfigFile.createDataBase(System.String,System.String)">
+        <member name="M:YLR.YAdoNet.YDataBaseConfigFile.createDataBase(System.String,System.String,System.String)">
             <summary>
             创建数据库实例。
             </summary>
             <param name="configFile">配置文件。</param>
             <param name="nodeName">配置文件节点名称。</param>
+            <param name="key">使用的加密密码，目前支持AES和DES两种加密算法，如果没有密码使用空字符串。</param>
             <returns>数据库实例，失败返回null。</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YDataBaseConfigFile.createMSSQLDataBase(System.Xml.XmlNode,System.String)">
+            <summary>
+            创建SqlServer数据库实例。
+            </summary>
+            <param name="configNode">配置节点。</param>
+            <param name="key">使用的加密密码，目前支持AES和DES两种加密算法，如果没有密码使用空字符串。</param>
+            <returns>成功返回SqlServer实例，否则返回false。</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YDataBaseConfigFile.createMSSQLDataBase(System.String,System.String,System.String)">
+            <summary>
+            创建微软SqlServer数据库实例。
+            </summary>
+            <param name="configFile">配置文件路径。</param>
+            <param name="nodeName">配置节点名称。</param>
+            <param name="key">使用的加密密码，目前支持AES和DES两种加密算法，如果没有密码使用空字符串。</param>
+            <returns>成功返回SqlServer实例，否则返回false。</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YDataBaseConfigFile.getConfigNode(System.String,System.String)">
+            <summary>
+            获取配置节点。
+            </summary>
+            <param name="configFile">配置文件。</param>
+            <param name="nodeName">节点名称。</param>
+            <returns>成功返回节点，否则返回null。</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YDataBaseConfigFile.getDataBaseType(System.Xml.XmlNode)">
+            <summary>
+            获取数据库类型。
+            </summary>
+            <param name="configNode">配置节点。</param>
+            <returns>数据库类型。</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YDataBaseConfigFile.getDataBaseType(System.String,System.String)">
+            <summary>
+            获取数据库类型。
+            </summary>
+            <param name="configFile">配置文件。</param>
+            <param name="nodeName">节点名称。</param>
+            <returns>数据库类型。</returns>
         </member>
         <member name="T:YLR.YAdoNet.YAccessDataBase">
             <summary>
@@ -324,12 +549,37 @@
             <param name="sql">要执行的sql语句</param>
             <returns>返回结果集，如果执行失败返回null</returns>
         </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.executeSqlReturnDt(System.String,YLR.YAdoNet.YParameters)">
+            <summary>
+            执行带数据集返回的sql语句，语句中含有防止数据注入使用的参数。
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="parameters">使用的参数</param>
+            <returns>返回数据集，null表式执行失败，可以通过errorText属性查看失败信息</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.executeSqlReturnDt(System.String,System.Int32,System.Int32)">
+            <summary>
+            获取分页数据集。
+            </summary>
+            <param name="sql">sql语句，语句获取所有数据，方法自动为数据分页。</param>
+            <param name="pageNum">要获取的页号，从1开始。</param>
+            <param name="dataCount">每页显示的数据总数。</param>
+            <returns>分页数据。</returns>
+        </member>
         <member name="M:YLR.YAdoNet.YAccessDataBase.executeSqlWithOutDs(System.String)">
             <summary>
             执行不带数据集返回的sql语句
             </summary>
             <param name="sql">要执行的sql语句</param>
             <returns>返回应用行数，-1表式出错</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YAccessDataBase.executeSqlWithOutDs(System.String,YLR.YAdoNet.YParameters)">
+            <summary>
+            执行不带数据集返回的sql语句，语句中含有防止数据注入使用的参数。
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="parameters">使用的参数</param>
+            <returns>返回响应函数，-1表式执行失败</returns>
         </member>
         <member name="P:YLR.YAdoNet.YAccessDataBase.databaseType">
             <summary>
@@ -466,12 +716,37 @@
             <param name="sql">要执行的sql语句</param>
             <returns>返回结果集，如果执行失败返回null</returns>
         </member>
+        <member name="M:YLR.YAdoNet.YMSSQLDataBase.executeSqlReturnDt(System.String,YLR.YAdoNet.YParameters)">
+            <summary>
+            执行带数据集返回的sql语句，语句中含有防止数据注入使用的参数。
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="parameters">使用的参数</param>
+            <returns>返回数据集，null表式执行失败，可以通过errorText属性查看失败信息</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YMSSQLDataBase.executeSqlReturnDt(System.String,System.Int32,System.Int32)">
+            <summary>
+            获取分页数据集。
+            </summary>
+            <param name="sql">sql语句，语句获取所有数据，方法自动为数据分页。</param>
+            <param name="pageNum">要获取的页号，从1开始。</param>
+            <param name="dataCount">每页显示的数据总数。</param>
+            <returns>分页数据。</returns>
+        </member>
         <member name="M:YLR.YAdoNet.YMSSQLDataBase.executeSqlWithOutDs(System.String)">
             <summary>
             执行不带数据集返回的sql语句
             </summary>
             <param name="sql">要执行的sql语句</param>
             <returns>返回应用行数，-1表式出错</returns>
+        </member>
+        <member name="M:YLR.YAdoNet.YMSSQLDataBase.executeSqlWithOutDs(System.String,YLR.YAdoNet.YParameters)">
+            <summary>
+            执行不带数据集返回的sql语句，语句中含有防止数据注入使用的参数。
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="parameters">使用的参数</param>
+            <returns>返回响应函数，-1表式执行失败</returns>
         </member>
         <member name="P:YLR.YAdoNet.YMSSQLDataBase.integratedSecurity">
             <summary>

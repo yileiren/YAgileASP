@@ -28,5 +28,52 @@
             <param name="data">要加密的字符串。</param>
             <returns>加密后的字符串。</returns>
         </member>
+        <member name="T:YLR.YCrypto.DESEncrypt">
+            <summary>
+            DES加密算法处理类。
+            </summary>
+        </member>
+        <member name="M:YLR.YCrypto.DESEncrypt.encrypt(System.String,System.String)">
+            <summary>  
+            DES加密算法  
+            </summary>  
+            <param name="plainText">明文字符串</param>  
+            <param name="strKey">密钥，支持8位密钥</param>  
+            <returns>返回加密后的密文字节数组，可以使用Convert.ToBase64String方法将字节数组转换成字符串。</returns>
+        </member>
+        <member name="M:YLR.YCrypto.DESEncrypt.decrypt(System.Byte[],System.String)">
+            <summary>  
+            DES解密  
+            </summary>  
+            <param name="cipherText">密文字节数组，可以使用Convert.FromBase64String方法从字符串获取字节数组。</param>  
+            <param name="strKey">密钥，支持8位</param>  
+            <returns>返回解密后的字符串</returns> 
+        </member>
+        <member name="T:YLR.YCrypto.AESEncrypt">
+            <summary>
+            AES加密算法处理类。
+            </summary>
+        </member>
+        <member name="F:YLR.YCrypto.AESEncrypt._key1">
+            <summary>
+            默认密钥向量
+            </summary>
+        </member>
+        <member name="M:YLR.YCrypto.AESEncrypt.encrypt(System.String,System.String)">
+            <summary>  
+            AES加密算法  
+            </summary>  
+            <param name="plainText">明文字符串</param>  
+            <param name="strKey">密钥，支持128位和256位密钥</param>  
+            <returns>返回加密后的密文字节数组，可以使用Convert.ToBase64String方法将字节数组转换成字符串。</returns>  
+        </member>
+        <member name="M:YLR.YCrypto.AESEncrypt.decrypt(System.Byte[],System.String)">
+            <summary>  
+            AES解密  
+            </summary>  
+            <param name="cipherText">密文字节数组，可以使用Convert.FromBase64String方法从字符串获取字节数组。</param>  
+            <param name="strKey">密钥，支持128位和256位密钥</param>  
+            <returns>返回解密后的字符串</returns>  
+        </member>
     </members>
 </doc>
