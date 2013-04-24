@@ -128,22 +128,24 @@ namespace YLR.YSystem.Menu
 
                         //sql语句，获取所有菜单
                         string sql = "";
+                        YParameters par = new YParameters();
+                        par.add("@userId", userId);
                         if (userId == 1)
                         {
                             sql = "SELECT * FROM SYS_MENUS ORDER BY PARENTID ASC,[ORDER] ASC";
                         }
                         else
                         {
-                            sql = string.Format(@"SELECT DISTINCT SYS_MENUS.* 
-                                                FROM SYS_MENUS,AUT_USER_ROLE,AUT_ROLE_MENU 
-                                                WHERE AUT_USER_ROLE.USERID = {0} 
-	                                                AND AUT_USER_ROLE.ROLEID = AUT_ROLE_MENU.ROLEID
-	                                                AND AUT_ROLE_MENU.MENUID = SYS_MENUS.ID
-                                                ORDER BY PARENTID ASC,[ORDER] ASC",userId);
+                            sql = @"SELECT DISTINCT SYS_MENUS.* 
+                                    FROM SYS_MENUS,AUT_USER_ROLE,AUT_ROLE_MENU 
+                                    WHERE AUT_USER_ROLE.USERID = @userId 
+	                                AND AUT_USER_ROLE.ROLEID = AUT_ROLE_MENU.ROLEID
+	                                AND AUT_ROLE_MENU.MENUID = SYS_MENUS.ID
+                                    ORDER BY PARENTID ASC,[ORDER] ASC";
                         }
 
                         //获取数据
-                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql);
+                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql,par);
                         if (dt != null)
                         {
                             //获取分组
@@ -220,17 +222,19 @@ namespace YLR.YSystem.Menu
 
                         //构建sql语句。
                         string sql = "";
+                        YParameters par = new YParameters();
+                        par.add("@parentId",parentId);
                         if (parentId == -1)
                         {
                             sql = "SELECT * FROM SYS_MENUS WHERE PARENTID IS NULL OR PARENTID = -1 ORDER BY [ORDER] ASC";
                         }
                         else
                         {
-                            sql = string.Format("SELECT * FROM SYS_MENUS WHERE PARENTID = {0} ORDER BY [ORDER] ASC", parentId);
+                            sql = "SELECT * FROM SYS_MENUS WHERE PARENTID = @parentId ORDER BY [ORDER] ASC";
                         }
 
                         //获取数据
-                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql);
+                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql,par);
                         if (dt != null)
                         {
 
@@ -308,29 +312,27 @@ namespace YLR.YSystem.Menu
                 {
                     //新增数据
                     string sql = "";
+                    YParameters par = new YParameters();
+                    par.add("@name",menu.name);
+                    par.add("@url", menu.url);
+                    par.add("@parentID", menu.parentID);
+                    par.add("@icon", menu.icon);
+                    par.add("@desktopIcon", menu.desktopIcon);
+                    par.add("@order", menu.order);
                     if (menu.parentID == -1)
                     {
 
-                        sql = string.Format("INSERT INTO SYS_MENUS (NAME,ICON,[ORDER]) VALUES ('{0}','{1}',{2}) SELECT SCOPE_IDENTITY() AS id"
-                            , menu.name
-                            , menu.icon
-                            , menu.order);
+                        sql = "INSERT INTO SYS_MENUS (NAME,ICON,[ORDER]) VALUES (@name,@icon,@order) SELECT SCOPE_IDENTITY() AS id";
                     }
                     else
                     {
-                        sql = string.Format("INSERT INTO SYS_MENUS (NAME,URL,PARENTID,ICON,DESKTOPICON,[ORDER]) VALUES ('{0}','{1}',{2},'{3}','{4}',{5}) SELECT SCOPE_IDENTITY() AS id"
-                            , menu.name
-                            , menu.url
-                            , menu.parentID
-                            , menu.icon
-                            , menu.desktopIcon
-                            , menu.order);
+                        sql = "INSERT INTO SYS_MENUS (NAME,URL,PARENTID,ICON,DESKTOPICON,[ORDER]) VALUES (@name,@url,@parentID,@icon,@desktopIcon,@order) SELECT SCOPE_IDENTITY() AS id";
                     }
 
                     //存入数据库
                     if (this._menuDataBase.connectDataBase())
                     {
-                        DataTable retDt = this._menuDataBase.executeSqlReturnDt(sql);
+                        DataTable retDt = this._menuDataBase.executeSqlReturnDt(sql,par);
                         if (retDt != null && retDt.Rows.Count > 0)
                         {
                             //获取组织机构id
@@ -382,10 +384,12 @@ namespace YLR.YSystem.Menu
                     {
 
                         //sql语句，获取所有菜单
-                        string sql = string.Format("SELECT * FROM SYS_MENUS WHERE id = {0} ORDER BY PARENTID ASC,[ORDER] ASC",id);
+                        YParameters par = new YParameters();
+                        par.add("@menuId", id);
+                        string sql = "SELECT * FROM SYS_MENUS WHERE id = @menuId ORDER BY PARENTID ASC,[ORDER] ASC";
 
                         //获取数据
-                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql);
+                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql,par);
                         if (dt != null && dt.Rows.Count == 1)
                         {
                             //获取分组
@@ -433,28 +437,25 @@ namespace YLR.YSystem.Menu
                     {
                         //sql语句
                         string sql = "";
+                        YParameters par = new YParameters();
+                        par.add("@id",menu.id);
+                        par.add("@name", menu.name);
+                        par.add("@url", menu.url);
+                        par.add("@parentID", menu.parentID);
+                        par.add("@icon", menu.icon);
+                        par.add("@desktopIcon", menu.desktopIcon);
+                        par.add("@order", menu.order);
                         if (menu.parentID == -1)
                         {
                             //顶级菜单
-                            sql = string.Format("UPDATE SYS_MENUS SET NAME = '{0}',ICON = '{1}',[ORDER] = {2} WHERE ID = {3}"
-                                , menu.name
-                                , menu.icon
-                                , menu.order
-                                , menu.id);
+                            sql = "UPDATE SYS_MENUS SET NAME = @name,ICON = @icon,[ORDER] = @order WHERE ID = @id";
                         }
                         else
                         {
-                            sql = string.Format("UPDATE SYS_MENUS SET NAME = '{0}',URL = '{1}',PARENTID = {2},ICON = '{3}',DESKTOPICON = '{4}',[ORDER] = {5} WHERE ID = {6}"
-                                , menu.name
-                                , menu.url
-                                , menu.parentID
-                                , menu.icon
-                                , menu.desktopIcon
-                                , menu.order
-                                , menu.id);
+                            sql = "UPDATE SYS_MENUS SET NAME = @name,URL = @url,PARENTID = @parentID,ICON = @icon,DESKTOPICON = @desktopIcon,[ORDER] = @order WHERE ID = @id";
                         }
 
-                        int retCount = this._menuDataBase.executeSqlWithOutDs(sql);
+                        int retCount = this._menuDataBase.executeSqlWithOutDs(sql,par);
                         if (retCount == 1)
                         {
                             bRet = true;
@@ -513,9 +514,11 @@ namespace YLR.YSystem.Menu
                         for (i = 0; i < ids.Length; i++)
                         {
                             //sql语句
-                            string sql = string.Format("DELETE SYS_MENUS WHERE ID = {0} OR PARENTID = {0}",ids[i]);
+                            YParameters par = new YParameters();
+                            par.add("@id", ids[i]);
+                            string sql = "DELETE SYS_MENUS WHERE ID = @id OR PARENTID = @id";
 
-                            int retCount = this._menuDataBase.executeSqlWithOutDs(sql);
+                            int retCount = this._menuDataBase.executeSqlWithOutDs(sql,par);
                             if (retCount <= 0)
                             {
                                 this._errorMessage = "删除数据失败！";

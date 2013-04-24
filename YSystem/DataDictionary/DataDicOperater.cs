@@ -112,11 +112,11 @@ namespace YLR.YSystem.DataDictionary
                         par.add("@dicParentId", dataDic.parentId);
                         if (dataDic.parentId == -1)
                         {
-                            sql = string.Format("INSERT INTO SYS_DATADICTIONARY (NAME,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id");
+                            sql = "INSERT INTO SYS_DATADICTIONARY (NAME,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id";
                         }
                         else
                         {
-                            sql = string.Format("INSERT INTO SYS_DATADICTIONARY (NAME,PARENTID,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicParentId,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id");
+                            sql = "INSERT INTO SYS_DATADICTIONARY (NAME,PARENTID,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicParentId,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id";
                         }
 
                         DataTable retDt = this._dicDataBase.executeSqlReturnDt(sql,par);
@@ -378,11 +378,11 @@ namespace YLR.YSystem.DataDictionary
                         if (dic.parentId == -1)
                         {
                             //顶级菜单
-                            sql = string.Format("UPDATE SYS_DATADICTIONARY SET NAME = @dicName,VALUE = @dicValue,CODE = @dicCode,[ORDER] = @dicOrder WHERE ID = @dicId");
+                            sql = "UPDATE SYS_DATADICTIONARY SET NAME = @dicName,VALUE = @dicValue,CODE = @dicCode,[ORDER] = @dicOrder WHERE ID = @dicId";
                         }
                         else
                         {
-                            sql = string.Format("UPDATE SYS_DATADICTIONARY SET NAME = @dicName,PARENTID = @dicParentId,VALUE = @dicValue,CODE = @dicCode,[ORDER] = @dicOrder WHERE ID = @dicId");
+                            sql = "UPDATE SYS_DATADICTIONARY SET NAME = @dicName,PARENTID = @dicParentId,VALUE = @dicValue,CODE = @dicCode,[ORDER] = @dicOrder WHERE ID = @dicId";
                         }
 
                         int retCount = this._dicDataBase.executeSqlWithOutDs(sql,par);
