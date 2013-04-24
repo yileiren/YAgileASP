@@ -102,25 +102,24 @@ namespace YLR.YSystem.Organization
                 {
                     //新增数据
                     string sql = "";
+                    YParameters par = new YParameters();
+                    par.add("@name", org.name);
+                    par.add("@parentId",org.parentId);
+                    par.add("@order",org.order);
                     if (org.parentId == -1)
                     {
 
-                        sql = string.Format("INSERT INTO org_organization (name,[ORDER]) VALUES ('{0}',{1}) SELECT SCOPE_IDENTITY() AS id"
-                            , org.name
-                            , org.order);
+                        sql = "INSERT INTO org_organization (name,[ORDER]) VALUES (@name,@order) SELECT SCOPE_IDENTITY() AS id";
                     }
                     else
                     {
-                        sql = string.Format("INSERT INTO org_organization (name,parentId,[ORDER]) VALUES ('{0}',{1},{2}) SELECT SCOPE_IDENTITY() AS id"
-                            , org.name
-                            , org.parentId
-                            , org.order);
+                        sql = "INSERT INTO org_organization (name,parentId,[ORDER]) VALUES (@name,@parentId,@order) SELECT SCOPE_IDENTITY() AS id";
                     }
 
                     //存入数据库
                     if (this._orgDataBase.connectDataBase())
                     {
-                        DataTable retDt = this._orgDataBase.executeSqlReturnDt(sql);
+                        DataTable retDt = this._orgDataBase.executeSqlReturnDt(sql,par);
                         if (retDt != null && retDt.Rows.Count > 0)
                         {
                             //获取组织机构id
@@ -243,10 +242,12 @@ namespace YLR.YSystem.Organization
                     {
 
                         //sql语句，获取所有权限
-                        string sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND ID = " + id.ToString();
+                        YParameters par = new YParameters();
+                        par.add("@id",id);
+                        string sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND ID = @id";
                         
                         //获取数据
-                        DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                        DataTable dt = this._orgDataBase.executeSqlReturnDt(sql,par);
                         if (dt != null && dt.Rows.Count == 1)
                         {
                             orgInfo = this.getOrganizationFormDataRow(dt.Rows[0]);
@@ -303,24 +304,22 @@ namespace YLR.YSystem.Organization
                     {
                         //sql语句
                         string sql = "";
+                        YParameters par = new YParameters();
+                        par.add("@name",org.name);
+                        par.add("@parentId", org.parentId);
+                        par.add("@order", org.order);
+                        par.add("@id", org.id);
                         if (org.parentId == -1)
                         {
                             //顶级菜单
-                            sql = string.Format("UPDATE ORG_ORGANIZATION SET NAME = '{0}',[ORDER] = {1} WHERE ID = {2}"
-                                , org.name
-                                , org.order
-                                , org.id);
+                            sql = "UPDATE ORG_ORGANIZATION SET NAME = @name,[ORDER] = @order WHERE ID = @id";
                         }
                         else
                         {
-                            sql = string.Format("UPDATE ORG_ORGANIZATION SET NAME = '{0}',PARENTID = {1},[ORDER] = {2} WHERE ID = {3}"
-                                , org.name
-                                , org.parentId
-                                , org.order
-                                , org.id);
+                            sql = "UPDATE ORG_ORGANIZATION SET NAME = @name,PARENTID = @parentId,[ORDER] = @order WHERE ID = @id";
                         }
 
-                        int retCount = this._orgDataBase.executeSqlWithOutDs(sql);
+                        int retCount = this._orgDataBase.executeSqlWithOutDs(sql,par);
                         if (retCount == 1)
                         {
                             bRet = true;
@@ -377,16 +376,18 @@ namespace YLR.YSystem.Organization
 
                         //sql语句，获取所有权限
                         string sql = "";
+                        YParameters par = new YParameters();
+                        par.add("@parentId",pId);
                         if (pId == -1)
                         {
                             sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND PARENTID IS NULL ORDER BY [ORDER] ASC";
                         }
                         else
                         {
-                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND PARENTID = " + pId.ToString() + " ORDER BY [ORDER] ASC";
+                            sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND PARENTID = @parentId ORDER BY [ORDER] ASC";
                         }
                         //获取数据
-                        DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                        DataTable dt = this._orgDataBase.executeSqlReturnDt(sql,par);
                         if (dt != null)
                         {
                             orgs = new List<OrganizationInfo>();
@@ -458,30 +459,27 @@ namespace YLR.YSystem.Organization
                 {
                     //新增数据
                     string sql = "";
+                    YParameters par = new YParameters();
+                    par.add("@logName",user.logName);
+                    par.add("@logPassword", user.logPassword);
+                    par.add("@name", user.name);
+                    par.add("@organizationId", user.organizationId);
+                    par.add("@order", user.order);
                     if (user.organizationId > 0)
                     {
-                        sql = string.Format("INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,ORGANIZATIONID,[ORDER]) VALUES ('{0}','{1}','{2}',{3},{4}) SELECT SCOPE_IDENTITY() AS id"
-                            , user.logName
-                            , user.logPassword
-                            , user.name
-                            , user.organizationId
-                            , user.order);
+                        sql = "INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,ORGANIZATIONID,[ORDER]) VALUES (@logName,@logPassword,@name,@organizationId,@order) SELECT SCOPE_IDENTITY() AS id";
                         
                     }
                     else
                     {
                         //顶级用户
-                        sql = string.Format("INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,[ORDER]) VALUES ('{0}','{1}','{2}',{3}) SELECT SCOPE_IDENTITY() AS id"
-                            , user.logName
-                            , user.logPassword
-                            , user.name
-                            , user.order);
+                        sql = "INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,[ORDER]) VALUES (@logName,@logPassword,@name,@order) SELECT SCOPE_IDENTITY() AS id";
                     }
 
                     //存入数据库
                     if (this._orgDataBase.connectDataBase())
                     {
-                        DataTable retDt = this._orgDataBase.executeSqlReturnDt(sql);
+                        DataTable retDt = this._orgDataBase.executeSqlReturnDt(sql,par);
                         if (retDt != null && retDt.Rows.Count > 0)
                         {
                             //获取组织机构id
@@ -527,13 +525,15 @@ namespace YLR.YSystem.Organization
             try
             {
                 //构建SQL语句
-                string sql = string.Format("SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND ID = {0}", id);
+                YParameters par = new YParameters();
+                par.add("@id",id);
+                string sql = "SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND ID = @id";
 
                 //连接数据库
                 if (this._orgDataBase.connectDataBase())
                 {
                     //获取用户
-                    DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                    DataTable dt = this._orgDataBase.executeSqlReturnDt(sql,par);
 
                     //构建用户
                     if (dt != null && dt.Rows.Count > 0)
@@ -627,13 +627,16 @@ namespace YLR.YSystem.Organization
             try
             {
                 //构建SQL语句
-                string sql = string.Format("SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = '{0}' AND LOGPASSWORD = '{1}'",logName,logPassword);
+                YParameters par = new YParameters();
+                par.add("@logName",logName);
+                par.add("@logPassword",logPassword);
+                string sql = "SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = @logName AND LOGPASSWORD = @logPassword";
 
                 //连接数据库
                 if (this._orgDataBase.connectDataBase())
                 {
                     //获取用户
-                    DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                    DataTable dt = this._orgDataBase.executeSqlReturnDt(sql,par);
 
                     //构建用户
                     if (dt != null && dt.Rows.Count > 0)
@@ -797,16 +800,18 @@ namespace YLR.YSystem.Organization
 
                         //sql语句
                         string sql = "";
+                        YParameters par = new YParameters();
+                        par.add("@id",orgId);
                         if (orgId == -1)
                         {
                             sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND ORGANIZATIONID IS NULL AND ID <> 1 ORDER BY [ORDER] ASC";
                         }
                         else
                         {
-                            sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND ORGANIZATIONID = " + orgId.ToString() + " AND ID <> 1 ORDER BY [ORDER] ASC";
+                            sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND ORGANIZATIONID = @id AND ID <> 1 ORDER BY [ORDER] ASC";
                         }
                         //获取数据
-                        DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                        DataTable dt = this._orgDataBase.executeSqlReturnDt(sql,par);
                         if (dt != null)
                         {
                             users = new List<UserInfo>();
@@ -864,26 +869,23 @@ namespace YLR.YSystem.Organization
                     {
                         //sql语句
                         string sql = "";
+                        YParameters par = new YParameters();
+                        par.add("@logName",user.logName);
+                        par.add("@name", user.name);
+                        par.add("@organizationId", user.organizationId);
+                        par.add("@order", user.order);
+                        par.add("@id", user.id);
                         if (user.organizationId == -1)
                         {
                             //顶级菜单
-                            sql = string.Format("UPDATE ORG_USER SET LOGNAME = '{0}', NAME = '{1}',[ORDER] = {2} WHERE ID = {3}"
-                                , user.logName
-                                , user.name
-                                , user.order
-                                , user.id);
+                            sql = "UPDATE ORG_USER SET LOGNAME = @logName, NAME = @name,[ORDER] = @order WHERE ID = @id";
                         }
                         else
                         {
-                            sql = string.Format("UPDATE ORG_USER SET LOGNAME = '{0}',NAME = '{1}',ORGANIZATIONID = {2},[ORDER] = {3} WHERE ID = {4}"
-                                , user.logName
-                                , user.name
-                                , user.organizationId
-                                , user.order
-                                , user.id);
+                            sql = "UPDATE ORG_USER SET LOGNAME = @logName,NAME = @name,ORGANIZATIONID = @organizationId,[ORDER] = @order WHERE ID = @id";
                         }
 
-                        int retCount = this._orgDataBase.executeSqlWithOutDs(sql);
+                        int retCount = this._orgDataBase.executeSqlWithOutDs(sql,par);
                         if (retCount == 1)
                         {
                             bRet = true;
@@ -931,13 +933,15 @@ namespace YLR.YSystem.Organization
             try
             {
                 //构建SQL语句
-                string sql = string.Format("SELECT TOP(1) * FROM ORG_USER WHERE LOGNAME = '{0}'", logName);
+                YParameters par = new YParameters();
+                par.add("@logName",logName);
+                string sql = "SELECT TOP(1) * FROM ORG_USER WHERE LOGNAME = @logName";
 
                 //连接数据库
                 if (this._orgDataBase.connectDataBase())
                 {
                     //获取用户
-                    DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                    DataTable dt = this._orgDataBase.executeSqlReturnDt(sql,par);
 
                     //构建用户
                     if (dt != null && dt.Rows.Count > 0)
@@ -982,13 +986,16 @@ namespace YLR.YSystem.Organization
             try
             {
                 //更新语句
-                string sql = string.Format("UPDATE ORG_USER SET LOGPASSWORD = '{0}' WHERE ID = {1}", user.logPassword, user.id);
+                YParameters par = new YParameters();
+                par.add("@logPassword",user.logPassword);
+                par.add("@id",user.id);
+                string sql = "UPDATE ORG_USER SET LOGPASSWORD = @logPassword WHERE ID = @id";
 
                 //连接数据库
                 if (this._orgDataBase.connectDataBase())
                 {
                     //更新数据
-                    int iRet = this._orgDataBase.executeSqlWithOutDs(sql);
+                    int iRet = this._orgDataBase.executeSqlWithOutDs(sql,par);
                     if (iRet > 0)
                     {
                         retVal = true;
@@ -1045,8 +1052,10 @@ namespace YLR.YSystem.Organization
                         if (this.deleteChildOrgaizationAndUser(i))
                         { 
                             //删除当前机构
-                            string sql = "UPDATE ORG_ORGANIZATION SET ISDELETE = 'Y' WHERE ID = " + i.ToString();
-                            if (this._orgDataBase.executeSqlWithOutDs(sql) != 1)
+                            YParameters par = new YParameters();
+                            par.add("@id",i);
+                            string sql = "UPDATE ORG_ORGANIZATION SET ISDELETE = 'Y' WHERE ID = @id";
+                            if (this._orgDataBase.executeSqlWithOutDs(sql,par) != 1)
                             {
                                 bRet = false;
                                 break;
@@ -1064,8 +1073,10 @@ namespace YLR.YSystem.Organization
                     {
                         foreach (int i in userIds)
                         {
-                            string sql = "UPDATE ORG_USER SET ISDELETE = 'Y' WHERE ID = " + i.ToString();
-                            if (this._orgDataBase.executeSqlWithOutDs(sql) != 1)
+                            YParameters par = new YParameters();
+                            par.add("@id",i);
+                            string sql = "UPDATE ORG_USER SET ISDELETE = 'Y' WHERE ID = @id";
+                            if (this._orgDataBase.executeSqlWithOutDs(sql,par) != 1)
                             {
                                 bRet = false;
                                 break;
@@ -1117,16 +1128,18 @@ namespace YLR.YSystem.Organization
 
                 //sql语句，获取所有权限
                 string sql = "";
+                YParameters par = new YParameters();
+                par.add("@orgId", orgId);
                 if (orgId == -1)
                 {
                     sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND PARENTID IS NULL ORDER BY [ORDER] ASC";
                 }
                 else
                 {
-                    sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND PARENTID = " + orgId.ToString() + " ORDER BY [ORDER] ASC";
+                    sql = "SELECT * FROM ORG_ORGANIZATION WHERE ISDELETE = 'N' AND PARENTID = @orgId ORDER BY [ORDER] ASC";
                 }
                 //获取数据
-                DataTable dt = this._orgDataBase.executeSqlReturnDt(sql);
+                DataTable dt = this._orgDataBase.executeSqlReturnDt(sql,par);
                 if (dt != null)
                 {
                     cOrgs = new List<OrganizationInfo>();
@@ -1152,8 +1165,10 @@ namespace YLR.YSystem.Organization
                         if (this.deleteChildOrgaizationAndUser(cOrgs[j].id))
                         {
                             //删除当前机构
-                            sql = "UPDATE ORG_ORGANIZATION SET ISDELETE = 'Y' WHERE ID = " + cOrgs[j].id.ToString();
-                            if (this._orgDataBase.executeSqlWithOutDs(sql) != 1)
+                            YParameters par2 = new YParameters();
+                            par2.add("@id", cOrgs[j].id);
+                            sql = "UPDATE ORG_ORGANIZATION SET ISDELETE = 'Y' WHERE ID = @id";
+                            if (this._orgDataBase.executeSqlWithOutDs(sql,par2) != 1)
                             {
                                 bRet = false;
                                 break;
@@ -1183,10 +1198,10 @@ namespace YLR.YSystem.Organization
                     }
                     else
                     {
-                        sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND ORGANIZATIONID = " + orgId.ToString() + " AND ID <> 1 ORDER BY [ORDER] ASC";
+                        sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND ORGANIZATIONID = @orgId AND ID <> 1 ORDER BY [ORDER] ASC";
                     }
                     //获取数据
-                    dt = this._orgDataBase.executeSqlReturnDt(sql);
+                    dt = this._orgDataBase.executeSqlReturnDt(sql,par);
                     if (dt != null)
                     {
                         cUsers = new List<UserInfo>();
@@ -1208,8 +1223,10 @@ namespace YLR.YSystem.Organization
                     {
                         for (int j = 0; j < cUsers.Count; j++)
                         {
-                            sql = "UPDATE ORG_USER SET ISDELETE = 'Y' WHERE ID = " + cUsers[j].id.ToString();
-                            if (this._orgDataBase.executeSqlWithOutDs(sql) != 1)
+                            YParameters userPar = new YParameters();
+                            userPar.add("@id", cUsers[j].id);
+                            sql = "UPDATE ORG_USER SET ISDELETE = 'Y' WHERE ID = @id";
+                            if (this._orgDataBase.executeSqlWithOutDs(sql,userPar) != 1)
                             {
                                 bRet = false;
                                 break;
