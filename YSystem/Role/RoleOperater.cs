@@ -99,14 +99,15 @@ namespace YLR.YSystem.Role
                 else
                 {
                     //新增数据
-                    string sql = string.Format("INSERT INTO AUT_ROLE (NAME,EXPLAIN) VALUES ('{0}','{1}') SELECT SCOPE_IDENTITY() AS id"
-                                , role.name
-                                , role.explain);
+                    YParameters par = new YParameters();
+                    par.add("@name",role.name);
+                    par.add("@explain",role.explain);
+                    string sql = "INSERT INTO AUT_ROLE (NAME,EXPLAIN) VALUES (@name,@explain) SELECT SCOPE_IDENTITY() AS id";
 
                     //存入数据库
                     if (this._roleDataBase.connectDataBase())
                     {
-                        DataTable retDt = this._roleDataBase.executeSqlReturnDt(sql);
+                        DataTable retDt = this._roleDataBase.executeSqlReturnDt(sql,par);
                         if (retDt != null && retDt.Rows.Count > 0)
                         {
                             //获取组织机构id
@@ -259,10 +260,12 @@ namespace YLR.YSystem.Role
                     {
 
                         //sql语句，获取所有权限
-                        string sql = "SELECT * FROM AUT_ROLE WHERE ID = " + id.ToString(); ;
+                        YParameters par = new YParameters();
+                        par.add("@id",id);
+                        string sql = "SELECT * FROM AUT_ROLE WHERE ID = @id";
 
                         //获取数据
-                        DataTable dt = this._roleDataBase.executeSqlReturnDt(sql);
+                        DataTable dt = this._roleDataBase.executeSqlReturnDt(sql,par);
                         if (dt != null)
                         {
                             role = this.getRoleFormDataRow(dt.Rows[0]);
@@ -312,12 +315,13 @@ namespace YLR.YSystem.Role
                     if (this._roleDataBase.connectDataBase())
                     {
                         //sql语句
-                        string sql = string.Format("UPDATE AUT_ROLE SET NAME = '{0}',EXPLAIN = '{1}' WHERE ID = {2}"
-                                        , role.name
-                                        , role.explain
-                                        , role.id);
+                        YParameters par = new YParameters();
+                        par.add("@name",role.name);
+                        par.add("@explain", role.explain);
+                        par.add("@id", role.id);
+                        string sql = "UPDATE AUT_ROLE SET NAME = @name,EXPLAIN = @explain WHERE ID = @id";
 
-                        int retCount = this._roleDataBase.executeSqlWithOutDs(sql);
+                        int retCount = this._roleDataBase.executeSqlWithOutDs(sql,par);
                         if (retCount == 1)
                         {
                             bRet = true;
