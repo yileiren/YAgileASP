@@ -104,26 +104,22 @@ namespace YLR.YSystem.DataDictionary
                     {
                         //新增数据
                         string sql = "";
+                        YParameters par = new YParameters();
+                        par.add("@dicName", dataDic.name);
+                        par.add("@dicValue", dataDic.value);
+                        par.add("@dicCode", dataDic.code);
+                        par.add("@dicOrder", dataDic.order);
+                        par.add("@dicParentId", dataDic.parentId);
                         if (dataDic.parentId == -1)
                         {
-
-                            sql = string.Format("INSERT INTO SYS_DATADICTIONARY (NAME,VALUE,CODE,[ORDER]) VALUES ('{0}',{1},'{2}',{3}) SELECT SCOPE_IDENTITY() AS id"
-                                , dataDic.name
-                                , dataDic.value
-                                , dataDic.code
-                                , dataDic.order);
+                            sql = string.Format("INSERT INTO SYS_DATADICTIONARY (NAME,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id");
                         }
                         else
                         {
-                            sql = string.Format("INSERT INTO SYS_DATADICTIONARY (NAME,PARENTID,VALUE,CODE,[ORDER]) VALUES ('{0}',{1},{2},'{3}',{4}) SELECT SCOPE_IDENTITY() AS id"
-                                , dataDic.name
-                                , dataDic.parentId
-                                , dataDic.value
-                                , dataDic.code
-                                , dataDic.order);
+                            sql = string.Format("INSERT INTO SYS_DATADICTIONARY (NAME,PARENTID,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicParentId,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id");
                         }
 
-                        DataTable retDt = this._dicDataBase.executeSqlReturnDt(sql);
+                        DataTable retDt = this._dicDataBase.executeSqlReturnDt(sql,par);
                         if (retDt != null && retDt.Rows.Count > 0)
                         {
                             //获取组织机构id
@@ -239,10 +235,12 @@ namespace YLR.YSystem.DataDictionary
                     {
 
                         //sql语句，获取字典项
-                        string sql = "SELECT * FROM SYS_DATADICTIONARY WHERE ID = " + id.ToString();
+                        YParameters par = new YParameters();
+                        par.add("@id", id);
+                        string sql = "SELECT * FROM SYS_DATADICTIONARY WHERE ID = @id";
 
                         //获取数据
-                        DataTable dt = this._dicDataBase.executeSqlReturnDt(sql);
+                        DataTable dt = this._dicDataBase.executeSqlReturnDt(sql,par);
                         if (dt != null && dt.Rows.Count == 1)
                         {
                             dicInfo = this.getDataDictionaryFormDataRow(dt.Rows[0]);
@@ -301,16 +299,18 @@ namespace YLR.YSystem.DataDictionary
 
                         //sql语句，获取所有字典
                         string sql = "";
+                        YParameters par = new YParameters();
+                        par.add("@parentId", pId);
                         if (pId == -1)
                         {
                             sql = "SELECT * FROM SYS_DATADICTIONARY WHERE PARENTID IS NULL ORDER BY [ORDER] ASC";
                         }
                         else
                         {
-                            sql = "SELECT * FROM SYS_DATADICTIONARY WHERE PARENTID = " + pId.ToString() + " ORDER BY [ORDER] ASC";
+                            sql = "SELECT * FROM SYS_DATADICTIONARY WHERE PARENTID = @parentId ORDER BY [ORDER] ASC";
                         }
                         //获取数据
-                        DataTable dt = this._dicDataBase.executeSqlReturnDt(sql);
+                        DataTable dt = this._dicDataBase.executeSqlReturnDt(sql,par);
                         if (dt != null)
                         {
                             dics = new List<DataDictionaryInfo>();
@@ -368,28 +368,24 @@ namespace YLR.YSystem.DataDictionary
                     {
                         //sql语句
                         string sql = "";
+                        YParameters par = new YParameters();
+                        par.add("@dicId", dic.id);
+                        par.add("@dicName", dic.name);
+                        par.add("@dicValue", dic.value);
+                        par.add("@dicCode", dic.code);
+                        par.add("@dicOrder", dic.order);
+                        par.add("@dicParentId", dic.parentId);
                         if (dic.parentId == -1)
                         {
                             //顶级菜单
-                            sql = string.Format("UPDATE SYS_DATADICTIONARY SET NAME = '{0}',VALUE = {1},CODE = '{2}',[ORDER] = {3} WHERE ID = {4}"
-                                , dic.name
-                                , dic.value
-                                , dic.code
-                                , dic.order
-                                , dic.id);
+                            sql = string.Format("UPDATE SYS_DATADICTIONARY SET NAME = @dicName,VALUE = @dicValue,CODE = @dicCode,[ORDER] = @dicOrder WHERE ID = @dicId");
                         }
                         else
                         {
-                            sql = string.Format("UPDATE SYS_DATADICTIONARY SET NAME = '{0}',PARENTID = {1},VALUE = {2},CODE = '{3}',[ORDER] = {4} WHERE ID = {5}"
-                                , dic.name
-                                , dic.parentId
-                                , dic.value
-                                , dic.code
-                                , dic.order
-                                , dic.id);
+                            sql = string.Format("UPDATE SYS_DATADICTIONARY SET NAME = @dicName,PARENTID = @dicParentId,VALUE = @dicValue,CODE = @dicCode,[ORDER] = @dicOrder WHERE ID = @dicId");
                         }
 
-                        int retCount = this._dicDataBase.executeSqlWithOutDs(sql);
+                        int retCount = this._dicDataBase.executeSqlWithOutDs(sql,par);
                         if (retCount == 1)
                         {
                             bRet = true;
@@ -448,8 +444,10 @@ namespace YLR.YSystem.DataDictionary
                         if (this.deleteChildDataDictionarys(i))
                         {
                             //删除当前机构
-                            string sql = "DELETE SYS_DATADICTIONARY WHERE ID = " + i.ToString();
-                            if (this._dicDataBase.executeSqlWithOutDs(sql) != 1)
+                            string sql = "DELETE SYS_DATADICTIONARY WHERE ID = @id";
+                            YParameters par = new YParameters();
+                            par.add("@id",i);
+                            if (this._dicDataBase.executeSqlWithOutDs(sql,par) != 1)
                             {
                                 bRet = false;
                                 break;
@@ -506,16 +504,18 @@ namespace YLR.YSystem.DataDictionary
 
                 //sql语句，获取所有字典项
                 string sql = "";
+                YParameters par = new YParameters();
+                par.add("@parentId",dicId);
                 if (dicId == -1)
                 {
                     sql = "SELECT * FROM SYS_DATADICTIONARY WHERE PARENTID IS NULL ORDER BY [ORDER] ASC";
                 }
                 else
                 {
-                    sql = "SELECT * FROM SYS_DATADICTIONARY WHERE PARENTID = " + dicId.ToString() + " ORDER BY [ORDER] ASC";
+                    sql = "SELECT * FROM SYS_DATADICTIONARY WHERE PARENTID = @parentId ORDER BY [ORDER] ASC";
                 }
                 //获取数据
-                DataTable dt = this._dicDataBase.executeSqlReturnDt(sql);
+                DataTable dt = this._dicDataBase.executeSqlReturnDt(sql,par);
                 if (dt != null)
                 {
                     cDics = new List<DataDictionaryInfo>();
@@ -541,8 +541,10 @@ namespace YLR.YSystem.DataDictionary
                         if (this.deleteChildDataDictionarys(cDics[j].id))
                         {
                             //删除当前字典项
-                            sql = "DELETE SYS_DATADICTIONARY WHERE ID = " + cDics[j].id.ToString();
-                            if (this._dicDataBase.executeSqlWithOutDs(sql) != 1)
+                            sql = "DELETE SYS_DATADICTIONARY WHERE ID = @dicId";
+                            YParameters par2 = new YParameters();
+                            par2.add("@dicId", cDics[j].id);
+                            if (this._dicDataBase.executeSqlWithOutDs(sql, par2) != 1)
                             {
                                 bRet = false;
                                 break;
