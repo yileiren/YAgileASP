@@ -483,6 +483,7 @@
     <Compile Include="background\sys\role\role_list.aspx.designer.cs">
       <DependentUpon>role_list.aspx</DependentUpon>
     </Compile>
+    <Compile Include="background\sys\SystemConfig.cs" />
     <Compile Include="background\YMessageBox.cs" />
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>

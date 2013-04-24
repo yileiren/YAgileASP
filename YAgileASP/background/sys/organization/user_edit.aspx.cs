@@ -35,10 +35,10 @@ namespace YAgileASP.background.sys.organization
 
                     this.txtUserLogName.Disabled = true;
                     //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                     //创建操作对象
-                    OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
+                    OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                     if (orgOper != null)
                     {
                         ////获取用户信息
@@ -112,10 +112,10 @@ namespace YAgileASP.background.sys.organization
                 user.organizationId = Convert.ToInt32(this.hidOrgId.Value);
 
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                 //创建操作对象
-                OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
+                OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                 if (orgOper != null)
                 {
                     if (string.IsNullOrEmpty(this.hidUserId.Value))

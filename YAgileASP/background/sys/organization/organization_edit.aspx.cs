@@ -36,10 +36,10 @@ namespace YAgileASP.background.sys.organization
 
                         
                         //获取配置文件路径。
-                        string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                        string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName ;
 
                         //创建操作对象
-                        OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
+                        OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                         if (orgOper != null)
                         {
                             //获取机构信息
@@ -92,10 +92,10 @@ namespace YAgileASP.background.sys.organization
                 orgInfo.parentId = Convert.ToInt32(this.hidParentId.Value);
 
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                 //创建操作对象
-                OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
+                OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                 if (orgOper != null)
                 {
                     if (string.IsNullOrEmpty(this.hidOrgId.Value))

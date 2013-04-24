@@ -55,13 +55,14 @@ namespace YLR.YSystem.DataDictionary
         /// </summary>
         /// <param name="configFilePath">配置文件路径。</param>
         /// <param name="nodeName">节点名。</param>
+        /// <param name="key">解密密码。</param>
         /// <returns>成功返回操作对象，否则返回null。</returns>
-        public static DataDicOperater createDataDicOperater(string configFilePath, string nodeName)
+        public static DataDicOperater createDataDicOperater(string configFilePath, string nodeName,string key)
         {
             DataDicOperater dicOper = null;
 
             //获取数据库实例。
-            YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFilePath, nodeName,"");
+            YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFilePath, nodeName, key);
 
             if (orgDb != null)
             {

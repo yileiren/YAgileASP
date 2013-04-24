@@ -49,10 +49,10 @@ namespace YAgileASP.background.sys.organization
             try
             {
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                 //创建数据库操作对象。
-                RoleOperater roleOper = RoleOperater.createRoleOperater(configFile, "SQLServer");
+                RoleOperater roleOper = RoleOperater.createRoleOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                 if (roleOper != null)
                 {
                     List<UserRoleInfo> roles = roleOper.getChouseRoles(Convert.ToInt32(this.hidUserId.Value));
@@ -90,10 +90,10 @@ namespace YAgileASP.background.sys.organization
                 }
 
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                 //创建数据库操作对象。
-                RoleOperater roleOper = RoleOperater.createRoleOperater(configFile, "SQLServer");
+                RoleOperater roleOper = RoleOperater.createRoleOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                 if (roleOper != null)
                 {
 

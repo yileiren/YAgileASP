@@ -50,10 +50,10 @@ namespace YAgileASP.background.sys.organization
             try
             {
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                 //获取数据库操作对象
-                OrgOperater orgOper = OrgOperater.createOrgOperater(configFile,"SQLServer");
+                OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                 if(orgOper != null)
                 {
                     //获取父机构信息
@@ -102,10 +102,10 @@ namespace YAgileASP.background.sys.organization
             try
             {
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                 //获取数据库操作对象
-                OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
+                OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                 if (orgOper != null)
                 {
                     List<UserInfo> users = orgOper.getUserByOrganizationId(Convert.ToInt32(this.hidParentId.Value));
@@ -156,10 +156,10 @@ namespace YAgileASP.background.sys.organization
                 if ((orgIds.Length + userIds.Length) > 0)
                 {
                     //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                     //创建数据库操作对象。
-                    OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
+                    OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                     if (orgOper != null)
                     {
 

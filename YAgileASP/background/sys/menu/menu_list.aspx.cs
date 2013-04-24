@@ -38,10 +38,10 @@ namespace YAgileASP.background.sys.menu
             try
             {
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                 //获取数据库实例。
-                YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer", "");
+                YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
 
                 if (orgDb != null)
                 {
@@ -119,10 +119,10 @@ namespace YAgileASP.background.sys.menu
                 if (ids.Length > 0)
                 {
                     //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                     //获取数据库实例。
-                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer", "");
+                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
 
                     if (orgDb != null)
                     {
@@ -175,10 +175,10 @@ namespace YAgileASP.background.sys.menu
                 if (ids.Length > 0)
                 {
                     //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                     //获取数据库实例。
-                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer", "");
+                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
 
                     if (orgDb != null)
                     {

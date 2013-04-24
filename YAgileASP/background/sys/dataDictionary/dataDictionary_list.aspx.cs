@@ -46,10 +46,10 @@ namespace YAgileASP.background.sys.dataDictionary
             try
             {
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                 //获取数据库操作对象
-                DataDicOperater dicOper = DataDicOperater.createDataDicOperater(configFile, "SQLServer");
+                DataDicOperater dicOper = DataDicOperater.createDataDicOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                 if (dicOper != null)
                 {
                     //获取父字典项
@@ -109,10 +109,10 @@ namespace YAgileASP.background.sys.dataDictionary
                 if (dicIds.Length > 0)
                 {
                     //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                     //创建数据库操作对象。
-                    DataDicOperater dicOper = DataDicOperater.createDataDicOperater(configFile, "SQLServer");
+                    DataDicOperater dicOper = DataDicOperater.createDataDicOperater(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
                     if (dicOper != null)
                     {
 

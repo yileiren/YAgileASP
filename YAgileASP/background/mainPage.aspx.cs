@@ -9,6 +9,7 @@ using YLR.YMessage;
 using YLR.YAdoNet;
 using YLR.YSystem.Organization;
 using YLR.YSystem.Menu;
+using YAgileASP.background.sys;
 
 namespace YAgileASP.background
 {
@@ -43,10 +44,10 @@ namespace YAgileASP.background
                 try
                 {
                     //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + SystemConfig.databaseConfigFileName;
 
                     //获取数据库实例。
-                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer", "");
+                    YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, SystemConfig.databaseConfigNodeName, SystemConfig.configFileKey);
 
                     if (orgDb != null)
                     {
