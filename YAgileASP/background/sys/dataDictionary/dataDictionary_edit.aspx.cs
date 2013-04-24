@@ -33,7 +33,7 @@ namespace YAgileASP.background.sys.dataDictionary
                     this.hidDicId.Value = strId;
 
                     //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
 
                     //创建操作对象
                     DataDicOperater dicOper = DataDicOperater.createDataDicOperater(configFile, "SQLServer");
@@ -88,7 +88,7 @@ namespace YAgileASP.background.sys.dataDictionary
                 dataDicInfo.parentId = Convert.ToInt32(this.hidParentId.Value);
 
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
 
                 //创建操作对象
                 DataDicOperater dataDicOper = DataDicOperater.createDataDicOperater(configFile, "SQLServer");

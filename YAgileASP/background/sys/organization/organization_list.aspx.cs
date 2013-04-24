@@ -50,7 +50,7 @@ namespace YAgileASP.background.sys.organization
             try
             {
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
 
                 //获取数据库操作对象
                 OrgOperater orgOper = OrgOperater.createOrgOperater(configFile,"SQLServer");
@@ -102,7 +102,7 @@ namespace YAgileASP.background.sys.organization
             try
             {
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
 
                 //获取数据库操作对象
                 OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");
@@ -156,7 +156,7 @@ namespace YAgileASP.background.sys.organization
                 if ((orgIds.Length + userIds.Length) > 0)
                 {
                     //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
 
                     //创建数据库操作对象。
                     OrgOperater orgOper = OrgOperater.createOrgOperater(configFile, "SQLServer");

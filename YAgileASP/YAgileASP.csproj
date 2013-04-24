@@ -78,7 +78,7 @@
     <Content Include="background\sys\role\role_edit.aspx" />
     <Content Include="background\sys\role\role_list.aspx" />
     <Content Include="css\table.css" />
-    <Content Include="DataBaseConfig.xml" />
+    <None Include="DataBaseConfig.config" />
     <Content Include="Default.aspx" />
     <Content Include="js\jquery-easyui\changelog.txt" />
     <Content Include="js\jquery-easyui\easyloader.js" />

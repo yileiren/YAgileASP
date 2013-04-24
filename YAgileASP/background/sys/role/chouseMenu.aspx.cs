@@ -26,7 +26,7 @@ namespace YAgileASP.background.sys.role
                         this.hidRoleId.Value = roleId;
                     }
                     //获取配置文件路径。
-                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+                    string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
 
                     //获取数据库实例。
                     YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFile, "SQLServer", "");
@@ -77,7 +77,7 @@ namespace YAgileASP.background.sys.role
                 }
 
                 //获取配置文件路径。
-                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.xml";
+                string configFile = AppDomain.CurrentDomain.BaseDirectory.ToString() + "DataBaseConfig.config";
 
                 //创建数据库操作对象。
                 RoleOperater roleOper = RoleOperater.createRoleOperater(configFile, "SQLServer");
