@@ -104,7 +104,7 @@
             <a id="A1" href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteDataDictionarys();" runat="server" onserverclick="butDeleteItems_Click">删除</a>
         </div>
     </div>
-    <div id="center" region="center" style="padding:3px;background-color:#EEF5FD"">
+    <div id="center" region="center" style="padding:3px;background-color:#EEF5FD">
     
     <input type="hidden" id="hidParentId" name="hidParentId" runat="server" />
     <input type="hidden" id="hidReturnId" name="hidReturnId" runat="server" />

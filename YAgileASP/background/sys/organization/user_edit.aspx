@@ -56,38 +56,40 @@
         }
     </script>
 </head>
-<body style="margin:0px;background-color:#EEF5FD">
+<body class="easyui-layout">
+<div id="center" region="center" style="padding:3px;background-color:#EEF5FD">
     <form id="form1" runat="server">
     <input type="hidden" id="hidUserId" name="hidUserId" runat="server" />
     <input type="hidden" id="hidOrgId" name="hidOrgId" runat="server" />
-    <div style="width:500px;margin:0px auto;padding:5px">
-    <table class="admintable" style="width:100%;">
-        <tr style="height:30px">
-            <th class="adminth_s2" style="width:120px;text-align:right">姓名：</th>
-            <td bgcolor="#FFFFFF"><input type="text" id="txtUserName" name="txtUserName" class="easyui-validatebox" required="true" maxlength="20" runat="server" style="width:200px" /></td>
-        </tr>
-        <tr style="height:30px">
-            <th class="adminth_s2" style="width:120px;text-align:right">用户名：</th>
-            <td bgcolor="#FFFFFF"><input type="text" id="txtUserLogName" name="txtUserLogName" class="easyui-validatebox" required="true" maxlength="20" runat="server" style="width:200px" /></td>
-        </tr>
-        <tr style="height:30px">
-            <th class="adminth_s2" style="width:120px;text-align:right">密码：</th>
-            <td bgcolor="#FFFFFF"><input type="password" id="txtUserLogPassword1" name="txtUserLogPassword1" class="easyui-validatebox" maxlength="20" runat="server" style="width:200px" /></td>
-        </tr>
-        <tr style="height:30px">
-            <th class="adminth_s2" style="width:120px;text-align:right">密码确认：</th>
-            <td bgcolor="#FFFFFF"><input type="password" id="txtUserLogPassword2" name="txtUserLogPassword2" class="easyui-validatebox" maxlength="20" runat="server" style="width:200px" /></td>
-        </tr>
-        <tr style="height:30px">
-            <th class="adminth_s2" style="width:120px;text-align:right">序号：</th>
-            <td bgcolor="#FFFFFF"><input type="text" id="txtUserOrder" name="txtUserOrder" class="easyui-numberbox" required="true" min="0" max="50000" precision="0" value="0" runat="server" style="width:200px" /></td>
-        </tr>
-    </table>
-    <div style="width:170px;margin-left:auto;margin-top:5px;margin-right:5px">
+    <div style="width:500px;margin:0px auto;padding:0px">
+        <table class="admintable" style="width:100%;">
+            <tr style="height:30px">
+                <th class="adminth_s2" style="width:120px;text-align:right">姓名：</th>
+                <td bgcolor="#FFFFFF"><input type="text" id="txtUserName" name="txtUserName" class="easyui-validatebox" required="true" maxlength="20" runat="server" style="width:200px" /></td>
+            </tr>
+            <tr style="height:30px">
+                <th class="adminth_s2" style="width:120px;text-align:right">用户名：</th>
+                <td bgcolor="#FFFFFF"><input type="text" id="txtUserLogName" name="txtUserLogName" class="easyui-validatebox" required="true" maxlength="20" runat="server" style="width:200px" /></td>
+            </tr>
+            <tr style="height:30px">
+                <th class="adminth_s2" style="width:120px;text-align:right">密码：</th>
+                <td bgcolor="#FFFFFF"><input type="password" id="txtUserLogPassword1" name="txtUserLogPassword1" class="easyui-validatebox" maxlength="20" runat="server" style="width:200px" /></td>
+            </tr>
+            <tr style="height:30px">
+                <th class="adminth_s2" style="width:120px;text-align:right">密码确认：</th>
+                <td bgcolor="#FFFFFF"><input type="password" id="txtUserLogPassword2" name="txtUserLogPassword2" class="easyui-validatebox" maxlength="20" runat="server" style="width:200px" /></td>
+            </tr>
+            <tr style="height:30px">
+                <th class="adminth_s2" style="width:120px;text-align:right">序号：</th>
+                <td bgcolor="#FFFFFF"><input type="text" id="txtUserOrder" name="txtUserOrder" class="easyui-numberbox" required="true" min="0" max="50000" precision="0" value="0" runat="server" style="width:200px" /></td>
+            </tr>
+        </table>
+        <div style="width:170px;margin-left:auto;margin-top:5px;margin-right:5px">
             <a id="A1" href="#" class="easyui-linkbutton" iconCls="icon-save" runat="server" onclick="javascript:return checkForms();" onserverclick="butSave_Click" >保存</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:window.parent.closePopupsWindow('#popups')">取消</a>
         </div>
     </div>
     </form>
+</div>
 </body>
 </html>
