@@ -91,13 +91,13 @@
         <div style="width:640px;height:400px;margin-left:auto;margin-right:auto;background-image:url('../images/login/login.png')">
     
         <div style="width:640px;height:270px"></div>
-        <div style="width:335px;height:40px;margin-left:auto;margin-right:10px;background-image:url('../images/login/userName.png')">
+        <div style="width:335px;height:40px;margin-left:auto;margin-right:5px;background-image:url('../images/login/userName.png')">
             <input type="text" id="txtUserName" name="txtUserName" runat="server" runat="server" maxlength="20" style="width:236px;height:26px;margin-left:92px;margin-top:6px;border-width:0px;font-size:18px" class="easyui-validatebox" required="true"/>
         </div>
-        <div style="width:335px;height:40px;margin-top:5px;margin-left:auto;margin-right:10px;background-image:url('../images/login/userPassword.png')">
+        <div style="width:335px;height:40px;margin-top:5px;margin-left:auto;margin-right:5px;background-image:url('../images/login/userPassword.png')">
             <input type="password" id="passUserPassword" name="passUserPassword" maxlength="20" runat="server" runat="server" style="width:236px;height:26px;margin-left:92px;margin-top:6px;border-width:0px;font-size:18px" />
         </div>
-        <div style="width:100px;height:40px;margin-top:5px;margin-left:auto;margin-right:10px">
+        <div style="width:100px;height:40px;margin-top:5px;margin-left:auto;margin-right:5px">
             <a href="#" id="butLogin" name="butLogin" class="easyui-linkbutton" iconCls="icon-userlogin" runat="server" onclick="javascript:if(!checkForms()){ return false; };" onserverclick="butLogin_Click">登陆</a>
         </div>
         </div>
