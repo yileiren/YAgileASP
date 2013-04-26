@@ -82,9 +82,9 @@
     //-->
     </script>
 </head>
-<body style="background-color:#89BBDE">
+<body style="padding:0px;margin:0px;background-color:#89BBDE">
     <form id="form1" runat="server">
-    <div style="position:absolute;background-color:#4550B8;width:100%;height:30px;top:0px;left:0px;right:0px;bottom:0px">
+    <div style="background-color:#4550B8;padding:0px;margin:0px;width:100%;height:30px;top:0px;left:0px;right:0px;bottom:0px">
     </div>
 
     <div style="width:100%;height:100%;margin-left:auto;margin-right:auto;margin-top:10%;margin-bottom:0px;float:left">
