@@ -27,7 +27,7 @@
         //修改密码
         function changePassword()
         {
-            popupsWindow("#popups", "修改密码", 300, 155, "sys/changePassword.aspx", "icon-key", true, true);
+            popupsWindow("#popups", "修改密码", 300, 165, "sys/changePassword.aspx", "icon-key", true, true);
         }
 
         /*!
