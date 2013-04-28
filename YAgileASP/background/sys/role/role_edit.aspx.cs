@@ -89,7 +89,7 @@ namespace YAgileASP.background.sys.role
                         int retId = roleOper.createNewRole(role);
                         if (retId > 0)
                         {
-                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx')");
+                            YMessageBox.showAndResponseScript(this, "保存成功！", "", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx');window.parent.closePopupsWindow('#popups');");
                         }
                         else
                         {
@@ -104,7 +104,7 @@ namespace YAgileASP.background.sys.role
                         bool bRet = roleOper.changeRole(role);
                         if (bRet)
                         {
-                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx')");
+                            YMessageBox.showAndResponseScript(this, "保存成功！", "", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx');window.parent.closePopupsWindow('#popups');");
                         }
                         else
                         {

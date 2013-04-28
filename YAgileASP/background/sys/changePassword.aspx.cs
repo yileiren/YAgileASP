@@ -55,7 +55,7 @@ namespace YAgileASP.background.sys
                             if (bRet)
                             {
                                 //更新成功。
-                                YMessageBox.showAndResponseScript(this, "修改用户密码成功！", "window.parent.closePopupsWindow('#popups');","");
+                                YMessageBox.showAndResponseScript(this, "修改用户密码成功！", "", "window.parent.closePopupsWindow('#popups');");
                             }
                             else
                             {

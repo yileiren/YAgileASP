@@ -29,7 +29,7 @@ namespace YLR.YMessage
         /// <param name="endScript">提示信息后执行的脚本</param>
         public static void showAndResponseScript(System.Web.UI.Page page, string msg, string beginScript,string endScript)
         {
-            page.ClientScript.RegisterStartupScript(page.GetType(), "message", "<script language='javascript' defer>" + beginScript + ";alert('" + msg.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\"", "\\\"") + "');" + endScript + "</script>");
+            page.ClientScript.RegisterStartupScript(page.GetType(), "message", "<script language='javascript' defer>" + beginScript + "alert('" + msg.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\"", "\\\"") + "');" + endScript + "</script>");
         }
 
         /// <summary>

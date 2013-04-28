@@ -93,7 +93,7 @@ namespace YAgileASP.background.sys.role
 
                     if (roleOper.chouseRoleMenus(Convert.ToInt32(this.hidRoleId.Value),intIds))
                     {
-                        YMessageBox.showAndResponseScript(this, "选择菜单成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx')");
+                        YMessageBox.showAndResponseScript(this, "选择菜单成功！", "", "window.parent.menuButtonOnClick('角色管理','icon-role','sys/role/role_list.aspx');window.parent.closePopupsWindow('#popups');");
                     }
                     else
                     {

@@ -130,12 +130,12 @@ namespace YAgileASP.background.sys.menu
                             if (this.txtMenuURL.Disabled)
                             {
                                 //分组
-                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + iRet.ToString() + "')");
+                                YMessageBox.showAndResponseScript(this, "保存成功！", "", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + iRet.ToString() + "');window.parent.closePopupsWindow('#popups');");
                             }
                             else
                             {
                                 //菜单
-                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + this.hidParentId.Value + "')");
+                                YMessageBox.showAndResponseScript(this, "保存成功！", "", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + this.hidParentId.Value + "');window.parent.closePopupsWindow('#popups');");
                             }
                         }
                         else
@@ -153,12 +153,12 @@ namespace YAgileASP.background.sys.menu
                             if (this.txtMenuURL.Disabled)
                             {
                                 //分组
-                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + menu.id.ToString() + "')");
+                                YMessageBox.showAndResponseScript(this, "保存成功！", "", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + menu.id.ToString() + "');window.parent.closePopupsWindow('#popups');");
                             }
                             else
                             {
                                 //菜单
-                                YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + menu.parentID.ToString() + "')");
+                                YMessageBox.showAndResponseScript(this, "保存成功！", "", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx?id=" + menu.parentID.ToString() + "');window.parent.closePopupsWindow('#popups');");
                             }
                         }
                         else

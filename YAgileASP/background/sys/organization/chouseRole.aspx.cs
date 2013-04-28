@@ -106,7 +106,7 @@ namespace YAgileASP.background.sys.organization
 
                     if (roleOper.chouseUserRoles(Convert.ToInt32(this.hidUserId.Value), intIds))
                     {
-                        YMessageBox.showAndResponseScript(this, "选择角色成功！", "window.parent.closePopupsWindow('#popups');", "");
+                        YMessageBox.showAndResponseScript(this, "选择角色成功！", "", "window.parent.closePopupsWindow('#popups');");
                     }
                     else
                     {

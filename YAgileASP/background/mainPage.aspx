@@ -30,6 +30,7 @@
             popupsWindow("#popups", "修改密码", 300, 165, "sys/changePassword.aspx", "icon-key", true, true);
         }
 
+
         /*!
          * \brief
          * 菜单按钮点击事件处理方法。用来显示点击的菜单页面。
@@ -39,7 +40,7 @@
          * \param icon 菜单图标，显示在中间区域的icon中。
          * \param url 菜单对应的url。
          */
-        function menuButtonOnClick(name, icon, url) 
+        function menuButtonOnClick(name, icon, url)
         {
             //设置panel标题和图标。
             $('#center').panel(

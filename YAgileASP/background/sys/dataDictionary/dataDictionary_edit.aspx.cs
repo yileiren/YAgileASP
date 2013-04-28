@@ -99,7 +99,7 @@ namespace YAgileASP.background.sys.dataDictionary
                         //新增
                         if (dataDicOper.createNewDataDictionary(dataDicInfo) > 0)
                         {
-                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('数据字典','icon-dictionary','sys/dataDictionary/dataDictionary_list.aspx?parentId=" + this.hidParentId.Value + "')");
+                            YMessageBox.showAndResponseScript(this, "保存成功！", "", "window.parent.menuButtonOnClick('数据字典','icon-dictionary','sys/dataDictionary/dataDictionary_list.aspx?parentId=" + this.hidParentId.Value + "');window.parent.closePopupsWindow('#popups');");
                         }
                         else
                         {
@@ -113,7 +113,7 @@ namespace YAgileASP.background.sys.dataDictionary
                         dataDicInfo.id = Convert.ToInt32(this.hidDicId.Value);
                         if (dataDicOper.changeDataDictionary(dataDicInfo))
                         {
-                            YMessageBox.showAndResponseScript(this, "保存成功！", "window.parent.closePopupsWindow('#popups');", "window.parent.menuButtonOnClick('数据字典','icon-dictionary','sys/dataDictionary/dataDictionary_list.aspx?parentId=" + this.hidParentId.Value + "')");
+                            YMessageBox.showAndResponseScript(this, "保存成功！", "", "window.parent.menuButtonOnClick('数据字典','icon-dictionary','sys/dataDictionary/dataDictionary_list.aspx?parentId=" + this.hidParentId.Value + "');window.parent.closePopupsWindow('#popups');");
                         }
                         else
                         {
