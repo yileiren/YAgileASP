@@ -80,6 +80,7 @@
     <Content Include="css\table.css" />
     <None Include="DataBaseConfig.config" />
     <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="js\jquery-easyui\changelog.txt" />
     <Content Include="js\jquery-easyui\easyloader.js" />
     <Content Include="js\jquery-easyui\jquery-1.7.2.min.js" />
@@ -491,6 +492,9 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
