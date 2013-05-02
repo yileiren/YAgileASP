@@ -85,6 +85,9 @@
 .icon-key{
 	background:url('icons/key.png') no-repeat;
 }
+.icon-supplies{
+	background:url('icons/supplies.png') no-repeat;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat 2px 2px;
