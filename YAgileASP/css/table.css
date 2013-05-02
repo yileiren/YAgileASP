@@ -2,6 +2,52 @@
     border:1px solid #AEDEF2;
     border-collapse: collapse;
 }
+table.admintable tr.tableHead{
+    width:100%;
+    height:25px;
+}
+
+table.admintable tr.tableHead th{
+    color: #0066CC;
+    background-color:#AEDEF2;
+    font-size:12px;
+    border:1px solid #67C1E6;
+}
+
+table.admintable tr.tableBody1{
+    width:100%;
+    height:30px;
+}
+
+table.admintable tr.tableBody2{
+    width:100%;
+    height:30px;
+}
+
+table.admintable tr.tableBody1 td{
+    border:1px solid #AEDEF2;
+    background:#FFFFFF;
+    font-size:12px;
+    font-family: "宋体";
+    color: #333333;
+}
+
+table.admintable tr.tableBody2 td{
+    border:1px solid #AEDEF2;
+    background:#DAF0F1;
+    font-size:12px;
+    font-family: "宋体";
+    color: #333;
+}
+
+table.admintable tr.tableBody2 th{
+    border:1px solid #AEDEF2;
+    background:#FFFFFF;
+    font-size:12px;
+    font-family: "宋体";
+    color: #333;
+}
+
 table.admintable_s2{
     color:#658fd4;
     border-bottom:#aedef2 thin solid;
@@ -22,7 +68,7 @@ th.adminth {
     width: 671px;
     color: #0066cc;
     background-color: #AEDEF2;
-    font-size:14px;
+    font-size:12px;
     color:#05B;
     border:1px solid #67C1E6;
 }

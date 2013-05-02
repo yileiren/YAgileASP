@@ -144,42 +144,42 @@
             <asp:Repeater ID="childs" runat="server">
                 <HeaderTemplate>
                     <table class="admintable" style="width:900px;margin-left:auto;margin-right:auto">
-                    <tr style="width:100%;height:30px">
-                        <th class="adminth" style="width:40px">选择</th>
-                        <th class="adminth" style="width:200px">名称</th>
-                        <th class="adminth" style="width:300px">页面URL</th>
-                        <th class="adminth" style="width:100px">菜单图标</th>
-                        <th class="adminth" style="width:100px">桌面图标</th>
-                        <th class="adminth" style="width:40px">序号</th>
-                        <th class="adminth" style="width:120px">关联页面</th>
+                    <tr class="tableHead">
+                        <th style="width:40px">选择</th>
+                        <th style="width:200px">名称</th>
+                        <th style="width:300px">页面URL</th>
+                        <th style="width:100px">菜单图标</th>
+                        <th style="width:100px">桌面图标</th>
+                        <th style="width:40px">序号</th>
+                        <th style="width:120px">关联页面</th>
                     </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <tr style="width:100%;height:30px">
-                        <td class="admincls0" style="text-align:center">
+                    <tr class="tableBody1">
+                        <td style="text-align:center">
                             <input type="checkbox" name="chkItem" value="<%#Eval("id") %>" />
                         </td>
-                        <td class="admincls0" style="text-align:center"><%#Eval("name") %></td>
-                        <td class="admincls0"><%#Eval("url") %></td>
-                        <td class="admincls0" style="text-align:center"><%#Eval("icon") %></td>
-                        <td class="admincls0" style="text-align:center"><%#Eval("desktopIcon")%></td>
-                        <td class="admincls0" style="text-align:center"><%#Eval("order")%></td>
-                        <td class="admincls0" style="text-align:center">
+                        <td style="text-align:center"><%#Eval("name") %></td>
+                        <td><%#Eval("url") %></td>
+                        <td style="text-align:center"><%#Eval("icon") %></td>
+                        <td style="text-align:center"><%#Eval("desktopIcon")%></td>
+                        <td style="text-align:center"><%#Eval("order")%></td>
+                        <td style="text-align:center">
                             <a id="butSetPage" href="#" class="easyui-linkbutton" iconCls="icon-supplies" onclick="javascript:window.parent.popupsWindow('#popups', '关联页面', 640, 480, 'sys/menu/setPage_list.aspx?menuId=<%#Eval("id") %>', 'icon-supplies', true, true);">关联页面</a>
                         </td>
                     </tr>
                 </ItemTemplate>
                 <AlternatingItemTemplate>
-                    <tr style="width:100%;height:30px">
-                        <td class="admincls1" style="text-align:center">
+                    <tr class="tableBody2">
+                        <td style="text-align:center">
                             <input type="checkbox" name="chkItem" value="<%#Eval("id") %>" />
                         </td>
-                        <td class="admincls1" style="text-align:center"><%#Eval("name") %></td>
-                        <td class="admincls1"><%#Eval("url") %></td>
-                        <td class="admincls1" style="text-align:center"><%#Eval("icon") %></td>
-                        <td class="admincls1" style="text-align:center"><%#Eval("desktopIcon")%></td>
-                        <td class="admincls1" style="text-align:center"><%#Eval("order")%></td>
-                        <td class="admincls1" style="text-align:center">
+                        <td style="text-align:center"><%#Eval("name") %></td>
+                        <td><%#Eval("url") %></td>
+                        <td style="text-align:center"><%#Eval("icon") %></td>
+                        <td style="text-align:center"><%#Eval("desktopIcon")%></td>
+                        <td style="text-align:center"><%#Eval("order")%></td>
+                        <td style="text-align:center">
                             <a id="butSetPage" href="#" class="easyui-linkbutton" iconCls="icon-supplies" onclick="javascript:window.parent.popupsWindow('#popups', '关联页面', 640, 480, 'sys/menu/setPage_list.aspx?menuId=<%#Eval("id") %>', 'icon-supplies', true, true);">关联页面</a>
                         </td>
                     </tr>

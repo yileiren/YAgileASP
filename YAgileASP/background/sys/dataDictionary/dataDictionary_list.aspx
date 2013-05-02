@@ -115,12 +115,12 @@
     </div>
     <div style="width:600px;margin:0px auto">
         <table class="admintable" style="width:100%">
-            <tr style="width:100%;height:30px">
-                <th class="adminth" style="width:30px">选择</th>
-                <th class="adminth" style="width:auto">名称</th>
-                <th class="adminth" style="width:50px">数值</th>
-                <th class="adminth" style="width:150px">代码</th>
-                <th class="adminth" style="width:30px">序号</th>
+            <tr class="tableHead"">
+                <th style="width:30px">选择</th>
+                <th style="width:auto">名称</th>
+                <th style="width:50px">数值</th>
+                <th style="width:150px">代码</th>
+                <th style="width:30px">序号</th>
             </tr>
         <asp:Repeater ID="dicList" runat="server">
         <ItemTemplate>

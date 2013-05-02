@@ -27,9 +27,9 @@
         <asp:Repeater ID="rolesRepeater" runat="server">
             <HeaderTemplate>
                 <table class="admintable" style="width:100%">
-                <tr style="width:100%;height:30px">
-                    <th class="adminth" style="width:30px">选择</th>
-                    <th class="adminth" style="width:200px">名称</th>
+                <tr class="tableHead">
+                    <th style="width:30px">选择</th>
+                    <th style="width:200px">名称</th>
                 </tr>
             </HeaderTemplate>
             <ItemTemplate>
