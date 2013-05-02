@@ -80,11 +80,28 @@ INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('组织机构管理', 'sys/o
 INSERT INTO sys_menus (name, url, parentID, icon) VALUES ('数据字典', 'sys/dataDictionary/dataDictionary_list.aspx', '1', 'icon-dictionary');
 GO
 
+--创建菜单页面关联表。
+CREATE TABLE SYS_MENU_PAGE
+(
+	ID INT NOT NULL IDENTITY ,
+	-- 页面说明
+	DETAIL NVARCHAR(200),
+	-- 要关联的菜单相对路径。
+	PATH NVARCHAR(500) NOT NULL,
+	-- 菜单id，使用自增列做主键。
+	MENUID INT NOT NULL,
+	PRIMARY KEY (ID),
+	--关联菜单id
+	FOREIGN KEY (MENUID) REFERENCES SYS_MENUS (ID)
+);
+
 --创建角色表。
 CREATE TABLE AUT_ROLE
 (
 	ID INT NOT NULL IDENTITY ,
+	--角色名称
 	NAME NVARCHAR(20) NOT NULL,
+	--说明
 	EXPLAIN NVARCHAR(50),
 	PRIMARY KEY (ID)
 );
