@@ -55,6 +55,7 @@
     <Compile Include="DataDictionary\DataDictionaryInfo.cs" />
     <Compile Include="Menu\MenuInfo.cs" />
     <Compile Include="Menu\MenuOperater.cs" />
+    <Compile Include="Menu\PageInfo.cs" />
     <Compile Include="Organization\OrganizationInfo.cs" />
     <Compile Include="Organization\OrgOperater.cs" />
     <Compile Include="Organization\UserInfo.cs" />

@@ -1,30 +1,30 @@
-﻿table.admintable {
+﻿table.listTable {
     border:1px solid #AEDEF2;
     border-collapse: collapse;
 }
-table.admintable tr.tableHead{
+table.listTable tr.tableHead{
     width:100%;
     height:25px;
 }
 
-table.admintable tr.tableHead th{
+table.listTable tr.tableHead th{
     color: #0066CC;
     background-color:#AEDEF2;
     font-size:12px;
     border:1px solid #67C1E6;
 }
 
-table.admintable tr.tableBody1{
+table.listTable tr.tableBody1{
     width:100%;
     height:30px;
 }
 
-table.admintable tr.tableBody2{
+table.listTable tr.tableBody2{
     width:100%;
     height:30px;
 }
 
-table.admintable tr.tableBody1 td{
+table.listTable tr.tableBody1 td{
     border:1px solid #AEDEF2;
     background:#FFFFFF;
     font-size:12px;
@@ -32,7 +32,7 @@ table.admintable tr.tableBody1 td{
     color: #333333;
 }
 
-table.admintable tr.tableBody2 td{
+table.listTable tr.tableBody2 td{
     border:1px solid #AEDEF2;
     background:#DAF0F1;
     font-size:12px;
@@ -40,7 +40,7 @@ table.admintable tr.tableBody2 td{
     color: #333;
 }
 
-table.admintable tr.tableBody2 th{
+table.listTable tr.tableBody2 th{
     border:1px solid #AEDEF2;
     background:#FFFFFF;
     font-size:12px;
@@ -59,6 +59,33 @@ table.admintable_s2{
     font-family:"新宋体";
     overflow:auto;
 }
+
+table.editTable{
+    border:1px solid #AEDEF2;
+    border-collapse: collapse;
+}
+
+table.editTable tr{
+    width:100%;
+    height:30px;
+}
+
+table.editTable th{
+    color: #0066CC;
+    background-color: #EEF6FE;
+    font-size:12px;
+    color:#0055BB;
+    text-align:right;
+    border:1px solid #AEDEF2;
+}
+
+table.editTable td{
+    border:1px solid #AEDEF2;
+    background:#FFFFFF;
+    font-family: "宋体";
+    color: #333333;
+}
+
 td.admintd{
     color: #0066cc;
     font-size:14px;

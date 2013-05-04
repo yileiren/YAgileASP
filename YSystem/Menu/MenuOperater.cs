@@ -564,5 +564,72 @@ namespace YLR.YSystem.Menu
 
             return bRet;
         }
+
+        /// <summary>
+        /// 创建一个页面。
+        /// </summary>
+        /// <param name="page">要创建的页面。</param>
+        /// <returns>成功返回创建的页面id，失败返回-1。</returns>
+        public int createNewPage(PageInfo page)
+        {
+            int pageId = -1; //创建的组织机构id。
+
+            try
+            {
+                if (page == null)
+                {
+                    //不能插入空组织机构
+                    this._errorMessage = "不能插入空菜单！";
+                }
+                else if (string.IsNullOrEmpty(page.filePath) || page.filePath.Length > 500)
+                {
+                    //组织机构名称不合法。
+                    this._errorMessage = "页面路径不合法！";
+                }
+                else
+                {
+                    //新增数据
+                    string sql = "INSERT INTO SYS_MENU_PAGE (DETAIL,PATH,MENUID) VALUES (@detail,@filePath,@menuId) SELECT SCOPE_IDENTITY() AS id";
+                    YParameters par = new YParameters();
+                    par.add("@filePath", page.filePath);
+                    par.add("@detail", page.detail);
+                    par.add("@menuId", page.menuId);
+
+                    //存入数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+                        DataTable retDt = this._menuDataBase.executeSqlReturnDt(sql, par);
+                        if (retDt != null && retDt.Rows.Count > 0)
+                        {
+                            //获取组织机构id
+                            pageId = Convert.ToInt32(retDt.Rows[0]["id"]);
+                        }
+                        else
+                        {
+                            this._errorMessage = "创建页面失败！";
+                            if (retDt == null)
+                            {
+                                this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._menuDataBase.errorText + "]";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                //断开数据库连接。
+                this._menuDataBase.disconnectDataBase();
+            }
+
+            return pageId;
+        }
     }
 }

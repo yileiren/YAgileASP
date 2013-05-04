@@ -99,7 +99,7 @@
     <div>
         <asp:Repeater ID="rolesRepeater" runat="server">
             <HeaderTemplate>
-                <table class="admintable" style="width:100%">
+                <table class="listTable" style="width:100%">
                 <tr class="tableHead">
                     <th style="width:40px">选择</th>
                     <th style="width:200px">名称</th>

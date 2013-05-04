@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="setPage_list.aspx.cs" Inherits="YAgileASP.background.sys.menu.setPage_list" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="setPage_edit.aspx.cs" Inherits="YAgileASP.background.sys.menu.setPage_edit" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>设置菜单</title>
+    <title>编辑菜单</title>
     <style type="text/css">
         html,body{ height:100%;}
     </style>
@@ -23,6 +23,17 @@
     <script type="text/javascript" src="../../../js/YWindows.js"></script>
 
     <script language="javascript" type="text/javascript">
+
+        function savePage()
+        {
+            if (!$("#txtFilePath").validatebox("isValid"))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         /*!
         * \brief
         * 动态调整layout。
@@ -42,11 +53,11 @@
 <body style="width:100%;margin:0px;background-color:#EEF5FD;">
     <form id="form1" runat="server" class="easyui-layout" flt="true" style="width:100%;height:100%;margin:0px;background-color:#EEF5FD;">
     <input type="hidden" id="hidMenuId" name="hidMenuId" runat="server" value="" />
+    <input type="hidden" id="hidPageId" name="hidPageId" runat="server" value="" />
     <div region="north" border="true" style="height:28px;background-color:#EEF5FD">
-        <div style="width:200px;margin-left:auto;margin-top:0px;margin-right:0px">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:window.location.href='setPage_edit.aspx?menuId=<%=menuId %>';">新增</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editDataDictionary();">修改</a>
-            <a id="A2" href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteDataDictionarys();" runat="server" >删除</a>
+        <div style="width:150px;margin-left:auto;margin-top:0px;margin-right:0px">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:return savePage();" runat="server" onserverclick="butSave_Click">保存</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:window.location.href='setPage_list.aspx?menuId=<%=menuId %>'">取消</a>
         </div>
     </div>
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD">
@@ -55,7 +66,18 @@
             <div style="float:left;height:37px;margin-left:5px"><p>页面地址使用相对网站根目录的完整路径，例如“/background/sys/login.aspx”。</p></div>
         </div>
         <div style="width:100%">
-            
+            <table class="editTable" style="width:100%;">
+                <tr>
+                    <th style="width:120px;">路径：</th>
+                    <td><input type="text" id="txtFilePath" name="txtFilePath" class="easyui-validatebox" required="true" maxlength="500" runat="server" style="width:350px" /></td>
+                </tr>
+                <tr>
+                    <th style="width:120px;">说明：</th>
+                    <td>
+                        <input type="text" id="txtFileDetail" name="txtFileDetail" runat="server" maxlength="200" style="width:350px" />
+                    </td>
+                </tr>
+            </table>
         </div>
 
     </div>

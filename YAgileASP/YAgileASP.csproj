@@ -71,6 +71,7 @@
     <Content Include="background\sys\login.aspx" />
     <Content Include="background\sys\menu\menu_edit.aspx" />
     <Content Include="background\sys\menu\menu_list.aspx" />
+    <Content Include="background\sys\menu\setPage_edit.aspx" />
     <Content Include="background\sys\menu\setPage_list.aspx" />
     <Content Include="background\sys\organization\chouseRole.aspx" />
     <Content Include="background\sys\organization\organization_edit.aspx" />
@@ -348,6 +349,7 @@
     <Content Include="js\jquery-easyui\themes\icons\role.png" />
     <Content Include="js\jquery-easyui\themes\icons\search.png" />
     <Content Include="js\jquery-easyui\themes\icons\sum.png" />
+    <Content Include="js\jquery-easyui\themes\icons\supplies.png" />
     <Content Include="js\jquery-easyui\themes\icons\system.png" />
     <Content Include="js\jquery-easyui\themes\icons\systemMenu.png" />
     <Content Include="js\jquery-easyui\themes\icons\systemSetting.png" />
@@ -436,6 +438,13 @@
     </Compile>
     <Compile Include="background\sys\menu\menu_list.aspx.designer.cs">
       <DependentUpon>menu_list.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="background\sys\menu\setPage_edit.aspx.cs">
+      <DependentUpon>setPage_edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="background\sys\menu\setPage_edit.aspx.designer.cs">
+      <DependentUpon>setPage_edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="background\sys\menu\setPage_list.aspx.cs">
       <DependentUpon>setPage_list.aspx</DependentUpon>

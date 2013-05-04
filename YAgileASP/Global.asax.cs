@@ -64,8 +64,8 @@ namespace YAgileASP
                 else
                 {
                     //登陆超时。
-                    Response.Write("用户登陆超时！");
-                    Response.Redirect("sys/login.aspx");
+                    //Response.Write("用户登陆超时！");
+                    Response.Redirect("~/background/sys/login.aspx",true);
                 }
 
             }

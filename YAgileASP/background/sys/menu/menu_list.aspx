@@ -124,7 +124,7 @@
             <div class="easyui-panel" title="菜单分组" fit="true" tools="#groutsButtons" style="overflow-x:hidden;background-color:#FFFFFF">
                 <asp:Repeater ID="menuGroups" runat="server">
                 <HeaderTemplate>
-                    <table class="admintable" style="width:100%">
+                    <table class="listTable" style="width:100%">
                 </HeaderTemplate>
                 <ItemTemplate>
                     <tr style="width:100%;height:30px">
@@ -143,7 +143,7 @@
         <div region="center" title="<%=groupTitle %>" iconCls="<%=groupIcon %>" tools="#menusButtons" style="background-color:#FFFFFF">
             <asp:Repeater ID="childs" runat="server">
                 <HeaderTemplate>
-                    <table class="admintable" style="width:900px;margin-left:auto;margin-right:auto">
+                    <table class="listTable" style="width:900px;margin-left:auto;margin-right:auto">
                     <tr class="tableHead">
                         <th style="width:40px">选择</th>
                         <th style="width:200px">名称</th>

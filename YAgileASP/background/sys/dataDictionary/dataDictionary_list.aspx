@@ -114,7 +114,7 @@
         <span id="spanParentName" runat="server" style="font-size:16px;font-weight:bold"></span>
     </div>
     <div style="width:600px;margin:0px auto">
-        <table class="admintable" style="width:100%">
+        <table class="listTable" style="width:100%">
             <tr class="tableHead"">
                 <th style="width:30px">选择</th>
                 <th style="width:auto">名称</th>
