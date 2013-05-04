@@ -56,10 +56,6 @@ namespace YAgileASP.background.sys.menu
                             return;
                         }
                     }
-                    else
-                    {
-                        this.hidPageId.Value = "-1";
-                    }
                 }
             }
             catch (Exception ex)

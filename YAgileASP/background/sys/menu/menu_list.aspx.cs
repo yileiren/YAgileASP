@@ -192,7 +192,7 @@ namespace YAgileASP.background.sys.menu
                             intIds[i] = Convert.ToInt32(ids[i]);
                         }
 
-                        if (menuOper.deleteGroup(intIds))
+                        if (menuOper.deleteItem(intIds))
                         {
                             YMessageBox.showAndResponseScript(this, "删除数据成功！", "", "window.parent.menuButtonOnClick('系统菜单','icon-menu','sys/menu/menu_list.aspx')");
                         }

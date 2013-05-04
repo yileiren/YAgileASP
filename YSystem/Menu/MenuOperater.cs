@@ -220,36 +220,7 @@ namespace YLR.YSystem.Menu
                     if (this._menuDataBase.connectDataBase())
                     {
 
-                        //构建sql语句。
-                        string sql = "";
-                        YParameters par = new YParameters();
-                        par.add("@parentId",parentId);
-                        if (parentId == -1)
-                        {
-                            sql = "SELECT * FROM SYS_MENUS WHERE PARENTID IS NULL OR PARENTID = -1 ORDER BY [ORDER] ASC";
-                        }
-                        else
-                        {
-                            sql = "SELECT * FROM SYS_MENUS WHERE PARENTID = @parentId ORDER BY [ORDER] ASC";
-                        }
-
-                        //获取数据
-                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql,par);
-                        if (dt != null)
-                        {
-
-                            foreach (DataRow row in dt.Rows)
-                            {
-                                MenuInfo m = this.getMenuFormDataRow(row);
-
-                                if (m != null)
-                                {
-                                    menus.Add(m);
-                                }
-                            }
-
-                            return menus;
-                        }
+                        menus = this.getMenuByParentId(parentId, this._menuDataBase);
 
                     }
                     else
@@ -270,6 +241,68 @@ namespace YLR.YSystem.Menu
             {
                 //断开数据库连接。
                 this.menuDataBase.disconnectDataBase();
+            }
+
+            return menus;
+        }
+
+        /// <summary>
+        /// 通过父id获取菜单。
+        /// 作者：董帅 创建时间：2012-8-6 12:57:40
+        /// </summary>
+        /// <param name="parentId">父id，为-1时表示获取顶层菜单。。</param>
+        /// <param name="db">数据连接。</param>
+        /// <returns>菜单，失败返回null。</returns>
+        private List<MenuInfo> getMenuByParentId(int parentId,YDataBase db)
+        {
+            List<MenuInfo> menus = null;
+            try
+            {
+                menus = new List<MenuInfo>();
+
+                //连接数据库
+                if (db != null)
+                {
+
+                    //构建sql语句。
+                    string sql = "";
+                    YParameters par = new YParameters();
+                    par.add("@parentId", parentId);
+                    if (parentId == -1)
+                    {
+                        sql = "SELECT * FROM SYS_MENUS WHERE PARENTID IS NULL OR PARENTID = -1 ORDER BY [ORDER] ASC";
+                    }
+                    else
+                    {
+                        sql = "SELECT * FROM SYS_MENUS WHERE PARENTID = @parentId ORDER BY [ORDER] ASC";
+                    }
+
+                    //获取数据
+                    DataTable dt = db.executeSqlReturnDt(sql, par);
+                    if (dt != null)
+                    {
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            MenuInfo m = this.getMenuFormDataRow(row);
+
+                            if (m != null)
+                            {
+                                menus.Add(m);
+                            }
+                        }
+
+                        return menus;
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
             }
 
             return menus;
@@ -493,10 +526,9 @@ namespace YLR.YSystem.Menu
         }
 
         /// <summary>
-        /// 批量删除分组。
-        /// 作者：董帅 创建时间：2012-8-14 14:49:28
+        /// 删除分组。
         /// </summary>
-        /// <param name="ids">要删除的分组id。</param>
+        /// <param name="ids">分组id</param>
         /// <returns>成功返回true，否则返回false。</returns>
         public bool deleteGroup(int[] ids)
         {
@@ -510,19 +542,29 @@ namespace YLR.YSystem.Menu
                     if (this._menuDataBase.connectDataBase())
                     {
                         this._menuDataBase.beginTransaction();
+
                         int i = 0;
                         for (i = 0; i < ids.Length; i++)
                         {
-                            //sql语句
-                            YParameters par = new YParameters();
-                            par.add("@id", ids[i]);
-                            string sql = "DELETE SYS_MENUS WHERE ID = @id OR PARENTID = @id";
+                            //删除关联页面
+                            if (this.deleteItemByParentId(ids[i], this.menuDataBase))
+                            {
+                                //sql语句
+                                YParameters par = new YParameters();
+                                par.add("@id", ids[i]);
+                                string sql = "DELETE SYS_MENUS WHERE ID = @id";
 
-                            int retCount = this._menuDataBase.executeSqlWithOutDs(sql,par);
-                            if (retCount <= 0)
+                                int retCount = this._menuDataBase.executeSqlWithOutDs(sql, par);
+                                if (retCount <= 0)
+                                {
+                                    this._errorMessage = "删除数据失败！";
+                                    this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
+                                    break;
+                                }
+                            }
+                            else
                             {
                                 this._errorMessage = "删除数据失败！";
-                                this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
                                 break;
                             }
                         }
@@ -562,6 +604,179 @@ namespace YLR.YSystem.Menu
                 this._menuDataBase.disconnectDataBase();
             }
 
+            return bRet;
+        }
+
+        /// <summary>
+        /// 批量删除菜单项。
+        /// 作者：董帅 创建时间：2012-8-14 14:49:28
+        /// </summary>
+        /// <param name="ids">要删除的分组id。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool deleteItem(int[] ids)
+        {
+            bool bRet = false; //返回值
+
+            try
+            {
+                if (this._menuDataBase != null)
+                {
+                    //连接数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+                        this._menuDataBase.beginTransaction();
+                        if(this.deleteItem(ids,this.menuDataBase))
+                        {
+                            bRet = true;
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._menuDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                //提交或回滚事务。
+                if (bRet)
+                {
+                    this._menuDataBase.commitTransaction();
+                }
+                else
+                {
+                    this._menuDataBase.rollbackTransaction();
+                }
+
+                this._menuDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
+
+        /// <summary>
+        /// 批量删除菜单项。
+        /// </summary>
+        /// <param name="ids">菜单id</param>
+        /// <param name="db">数据库连接。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        private bool deleteItem(int[] ids, YDataBase db)
+        {
+            bool bRet = false; //返回值
+
+            try
+            {
+                if (db != null)
+                {
+                    int i = 0;
+                    for (i = 0; i < ids.Length; i++)
+                    {
+                        //删除关联页面
+                        if (this.deletePagesByMenuId(ids[i], db))
+                        {
+                            //sql语句
+                            YParameters par = new YParameters();
+                            par.add("@id", ids[i]);
+                            string sql = "DELETE SYS_MENUS WHERE ID = @id";
+
+                            int retCount = this._menuDataBase.executeSqlWithOutDs(sql, par);
+                            if (retCount <= 0)
+                            {
+                                this._errorMessage = "删除数据失败！";
+                                this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            this._errorMessage = "删除数据失败！";
+                            break;
+                        }
+                    }
+
+                    //成功
+                    if (i >= ids.Length)
+                    {
+                        bRet = true;
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未创建数据库实例。";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            return bRet;
+        }
+
+        /// <summary>
+        /// 批量删除菜单项。
+        /// </summary>
+        /// <param name="parentId">分组id</param>
+        /// <param name="db">数据库连接。</param>
+        /// <returns>成功法返回true，否则返回false。</returns>
+        private bool deleteItemByParentId(int parentId,YDataBase db)
+        {
+            bool bRet = false; //返回值
+
+            try
+            {
+                if (db != null)
+                {
+                    //获取子菜单
+                    List<MenuInfo> menus = this.getMenuByParentId(parentId,db);
+
+                    int i = 0;
+                    for (i = 0; i < menus.Count; i++)
+                    {
+                        //删除关联页面
+                        if (this.deletePagesByMenuId(menus[i].id, db))
+                        {
+                            //sql语句
+                            YParameters par = new YParameters();
+                            par.add("@id", menus[i].id);
+                            string sql = "DELETE SYS_MENUS WHERE ID = @id";
+
+                            int retCount = this._menuDataBase.executeSqlWithOutDs(sql, par);
+                            if (retCount <= 0)
+                            {
+                                this._errorMessage = "删除数据失败！";
+                                this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            this._errorMessage = "删除数据失败！";
+                            break;
+                        }
+                    }
+                    //成功
+                    if (i >= menus.Count)
+                    {
+                        bRet = true;
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未创建数据库实例。";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
             return bRet;
         }
 
@@ -926,6 +1141,45 @@ namespace YLR.YSystem.Menu
             }
 
             return bRet;
+        }
+
+        /// <summary>
+        /// 通过指定的菜单id删除菜单。
+        /// 作者：董帅 创建时间：2013-5-4 23:17:47
+        /// </summary>
+        /// <param name="menuId">菜单id</param>
+        /// <param name="db">使用的数据库。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        private bool deletePagesByMenuId(int menuId,YDataBase db)
+        {
+            bool retValue = false;
+
+            try
+            {
+                if (db != null)
+                {
+                    //sql语句
+                    YParameters par = new YParameters();
+                    par.add("@menuId", menuId);
+                    string sql = "DELETE SYS_MENU_PAGE WHERE MENUID = @menuId";
+
+                    int retCount = db.executeSqlWithOutDs(sql, par);
+                    if (retCount >= 0)
+                    {
+                        retValue = true;
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+
+            return retValue;
         }
     }
 }
