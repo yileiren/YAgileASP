@@ -42,6 +42,25 @@
 
         /*!
         * \brief
+        * 删除页面。
+        * 作者：董帅 创建时间：2013-5-4 23:14:39
+        */
+        function deletePages()
+        {
+            //判断选中
+            if ($("input:checked[type='checkbox'][name='chkPage']").length > 0)
+            {
+                return confirm("确认要删除选中的页面？");
+            }
+            else
+            {
+                alert("请选中要删除的字典！");
+                return false;
+            }
+        }
+
+        /*!
+        * \brief
         * 动态调整layout。
         */
         $(function ()
@@ -63,7 +82,7 @@
         <div style="width:200px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:window.location.href='setPage_edit.aspx?menuId=<%=menuId %>';">新增</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editPage();">修改</a>
-            <a id="A2" href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteDataDictionarys();" runat="server" >删除</a>
+            <a id="A2" href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deletePages();" runat="server" onserverclick="butDeleteItems_Click">删除</a>
         </div>
     </div>
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD">

@@ -854,5 +854,78 @@ namespace YLR.YSystem.Menu
 
             return bRet;
         }
+
+        /// <summary>
+        /// 批量删除菜单。
+        /// 作者：董帅 创建时间：2013-5-4 23:10:41
+        /// </summary>
+        /// <param name="ids">要删除的菜单id。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool deletePages(int[] ids)
+        {
+            bool bRet = false; //返回值
+
+            try
+            {
+                if (this._menuDataBase != null)
+                {
+                    //连接数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+                        this._menuDataBase.beginTransaction();
+                        int i = 0;
+                        for (i = 0; i < ids.Length; i++)
+                        {
+                            //sql语句
+                            YParameters par = new YParameters();
+                            par.add("@id", ids[i]);
+                            string sql = "DELETE SYS_MENU_PAGE WHERE ID = @id";
+
+                            int retCount = this._menuDataBase.executeSqlWithOutDs(sql, par);
+                            if (retCount <= 0)
+                            {
+                                this._errorMessage = "删除数据失败！";
+                                this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
+                                break;
+                            }
+                        }
+
+                        //成功
+                        if (i >= ids.Length)
+                        {
+                            bRet = true;
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._menuDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                //提交或回滚事务。
+                if (bRet)
+                {
+                    this._menuDataBase.commitTransaction();
+                }
+                else
+                {
+                    this._menuDataBase.rollbackTransaction();
+                }
+
+                this._menuDataBase.disconnectDataBase();
+            }
+
+            return bRet;
+        }
     }
 }
