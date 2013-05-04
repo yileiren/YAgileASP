@@ -631,5 +631,114 @@ namespace YLR.YSystem.Menu
 
             return pageId;
         }
+
+        /// <summary>
+        /// 根据DataRow获取页面对象。
+        /// </summary>
+        /// <param name="r">页面数据</param>
+        /// <returns>页面，失败返回null。</returns>
+        private PageInfo getPageFormDataRow(DataRow r)
+        {
+            if (r != null)
+            {
+                //分组对象
+                PageInfo p = new PageInfo();
+
+                //菜单id不能为null，否则返回失败。
+                if (!r.IsNull("ID"))
+                {
+                    p.id = Convert.ToInt32(r["ID"]);
+                }
+                else
+                {
+                    return null;
+                }
+
+                if (!r.IsNull("DETAIL"))
+                {
+                    p.detail = r["DETAIL"].ToString();
+                }
+
+                if (!r.IsNull("PATH"))
+                {
+                    p.filePath = r["PATH"].ToString();
+                }
+
+                if (!r.IsNull("MENUID"))
+                {
+                    p.menuId = Convert.ToInt32(r["MENUID"]);
+                }
+
+                return p;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取指定菜单的关联页面。
+        /// 作者：董帅 创建时间：2013-5-4 22:33:00
+        /// </summary>
+        /// <param name="menuId">菜单id</param>
+        /// <returns>关联页面列表，出错返回null。</returns>
+        public List<PageInfo> getPageByMenuId(int menuId)
+        {
+            List<PageInfo> pages = null;
+            try
+            {
+                pages = new List<PageInfo>();
+
+                //连接数据库
+                if (this._menuDataBase != null)
+                {
+                    //连接数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+
+                        //构建sql语句。
+                        string sql = "SELECT * FROM SYS_MENU_PAGE WHERE MENUID = @menuId";
+                        YParameters par = new YParameters();
+                        par.add("@menuId", menuId);
+
+                        //获取数据
+                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql, par);
+                        if (dt != null)
+                        {
+
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                PageInfo p = this.getPageFormDataRow(row);
+
+                                if (p != null)
+                                {
+                                    pages.Add(p);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._menuDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                //断开数据库连接。
+                this.menuDataBase.disconnectDataBase();
+            }
+
+            return pages;
+        }
     }
 }

@@ -50,12 +50,38 @@
         </div>
     </div>
     <div id="center" region="center" style="padding:3px;background-color:#EEF5FD">
-        <div style="background-color:#FDFC01;padding:0px;margin:0px;width:100%;height:38px;top:0px;left:0px;right:0px;">
-            <div style="float:left;width:32px;height:37px;"><img src="../../images/warning.png" alt="" style="width:32px;height:32px;margin-top:5px" /></div>
-            <div style="float:left;height:37px;margin-left:5px"><p>页面地址使用相对网站根目录的完整路径，例如“/background/sys/login.aspx”。</p></div>
-        </div>
         <div style="width:100%">
-            
+            <table class="listTable" style="width:100%">
+                <tr class="tableHead"">
+                    <th style="width:30px">选择</th>
+                    <th style="width:300px">路径</th>
+                    <th style="width:300px">说明</th>
+                </tr>
+            <asp:Repeater ID="pageList" runat="server">
+            <ItemTemplate>
+                <tr class="tableBody1">
+                    <td style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkDic" /></td>
+                    <td>
+                        <%#Eval("filePath")%>
+                    </td>
+                    <td>
+                        <%#Eval("detail")%>
+                    </td>
+                </tr>
+            </ItemTemplate>
+            <AlternatingItemTemplate>
+                <tr class="tableBody2">
+                    <td style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkDic" /></td>
+                    <td>
+                        <%#Eval("filePath")%>
+                    </td>
+                    <td>
+                        <%#Eval("detail")%>
+                    </td>
+                </tr>
+            </AlternatingItemTemplate>
+            </asp:Repeater>
+            </table>
         </div>
 
     </div>
