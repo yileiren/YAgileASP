@@ -25,6 +25,23 @@
     <script language="javascript" type="text/javascript">
         /*!
         * \brief
+        * 修改字典。
+        * 作者：董帅 创建时间：2012-8-28 21:59:45
+        */
+        function editPage()
+        {
+            //判断选中
+            if ($("input:checked[type='checkbox'][name='chkPage']").length != 1)
+            {
+                alert("请选中要编辑的页面，一次只能选择一个！");
+                return;
+            }
+
+            window.location.href = "setPage_edit.aspx?menuId=" + $("#hidMenuId").val() + "&&pageId="  + $("input:checked[type='checkbox'][name='chkPage']").val();
+        }
+
+        /*!
+        * \brief
         * 动态调整layout。
         */
         $(function ()
@@ -45,7 +62,7 @@
     <div region="north" border="true" style="height:28px;background-color:#EEF5FD">
         <div style="width:200px;margin-left:auto;margin-top:0px;margin-right:0px">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:window.location.href='setPage_edit.aspx?menuId=<%=menuId %>';">新增</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editDataDictionary();">修改</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editPage();">修改</a>
             <a id="A2" href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:return deleteDataDictionarys();" runat="server" >删除</a>
         </div>
     </div>
@@ -60,7 +77,7 @@
             <asp:Repeater ID="pageList" runat="server">
             <ItemTemplate>
                 <tr class="tableBody1">
-                    <td style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkDic" /></td>
+                    <td style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkPage" /></td>
                     <td>
                         <%#Eval("filePath")%>
                     </td>
@@ -71,7 +88,7 @@
             </ItemTemplate>
             <AlternatingItemTemplate>
                 <tr class="tableBody2">
-                    <td style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkDic" /></td>
+                    <td style="text-align:center;"><input type="checkbox" value="<%#Eval("ID") %>" name="chkPage" /></td>
                     <td>
                         <%#Eval("filePath")%>
                     </td>

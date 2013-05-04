@@ -678,6 +678,60 @@ namespace YLR.YSystem.Menu
         }
 
         /// <summary>
+        /// 获取指定id的页面信息。
+        /// 作者：董帅 创建时间：2013-5-4 22:54:40
+        /// </summary>
+        /// <param name="id">页面id。</param>
+        /// <returns>页面信息。</returns>
+        public PageInfo getPage(int id)
+        {
+            PageInfo page = null;
+
+            try
+            {
+                if (this._menuDataBase != null)
+                {
+                    //连接数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取所有菜单
+                        YParameters par = new YParameters();
+                        par.add("@id", id);
+                        string sql = "SELECT * FROM SYS_MENU_PAGE WHERE id = @id";
+
+                        //获取数据
+                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql, par);
+                        if (dt != null && dt.Rows.Count == 1)
+                        {
+                            //获取分组
+                            page = this.getPageFormDataRow(dt.Rows[0]); //获取父菜单
+                        }
+
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._menuDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._menuDataBase.disconnectDataBase();
+            }
+
+            return page;
+        }
+
+        /// <summary>
         /// 获取指定菜单的关联页面。
         /// 作者：董帅 创建时间：2013-5-4 22:33:00
         /// </summary>
@@ -739,6 +793,66 @@ namespace YLR.YSystem.Menu
             }
 
             return pages;
+        }
+
+        /// <summary>
+        /// 修改指定页面的内容，通过页面id匹配。
+        /// </summary>
+        /// <param name="page">要修改的页面。</param>
+        /// <returns>成功返回true，否则返回false。</returns>
+        public bool changePage(PageInfo page)
+        {
+            bool bRet = false; //返回值
+
+            try
+            {
+                if (this._menuDataBase != null)
+                {
+                    //连接数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+                        //sql语句
+                        string sql = "UPDATE SYS_MENU_PAGE SET DETAIL = @detail,PATH = @filePath WHERE ID = @id";
+                        YParameters par = new YParameters();
+                        par.add("@id", page.id);
+                        par.add("@detail", page.detail);
+                        par.add("@filePath", page.filePath);
+
+                        int retCount = this._menuDataBase.executeSqlWithOutDs(sql, par);
+                        if (retCount == 1)
+                        {
+                            bRet = true;
+                        }
+                        else
+                        {
+                            this._errorMessage = "更新数据失败！";
+                            if (retCount != 1)
+                            {
+                                this._errorMessage += "错误信息[" + this._menuDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库出错！错误信息[" + this._menuDataBase.errorText + "]";
+                    }
+
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._menuDataBase.disconnectDataBase();
+            }
+
+            return bRet;
         }
     }
 }
