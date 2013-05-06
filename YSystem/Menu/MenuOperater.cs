@@ -49,6 +49,35 @@ namespace YLR.YSystem.Menu
         }
 
         /// <summary>
+        /// 创建菜单数据库操作对象实例。
+        /// 作者：董帅 创建时间：2013-5-6 21:56:38
+        /// </summary>
+        /// <param name="configFilePath">配置文件路径。</param>
+        /// <param name="nodeName">节点名称。</param>
+        /// <param name="key">数据加密密钥</param>
+        /// <returns>成功返回操作对象，否则返回false。</returns>
+        public static MenuOperater createMenuOperater(string configFilePath, string nodeName, string key)
+        {
+            MenuOperater menuOper = null;
+
+            //获取数据库实例。
+            YDataBase orgDb = YDataBaseConfigFile.createDataBase(configFilePath, nodeName, key);
+
+            if (orgDb != null)
+            {
+                menuOper = new MenuOperater();
+                menuOper.menuDataBase = orgDb;
+            }
+            else
+            {
+                Exception ex = new Exception("创建数据库实例失败！");
+                throw ex;
+            }
+
+            return menuOper;
+        }
+
+        /// <summary>
         /// 根据DataRow获取菜单对象。
         /// </summary>
         /// <param name="r">菜单数据</param>
@@ -1177,6 +1206,69 @@ namespace YLR.YSystem.Menu
             catch (Exception ex)
             {
                 this._errorMessage = ex.Message;
+            }
+
+            return retValue;
+        }
+
+        /// <summary>
+        /// 判断指定路径的页面在页面关联表中是否存在。
+        /// 作者：董帅 创建时间：2013-5-6 21:43:18
+        /// </summary>
+        /// <param name="path">指定界面。</param>
+        /// <returns>存在返回true，否则返回false。</returns>
+        public bool pageExists(string path)
+        {
+            bool retValue = false;
+
+            try
+            {
+                if (this._menuDataBase != null)
+                {
+                    //连接数据库
+                    if (this._menuDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取字典项
+                        YParameters par = new YParameters();
+                        par.add("@path", path);
+                        string sql = "SELECT 'true' WHERE EXISTS (SELECT * FROM SYS_MENU_PAGE WHERE PATH = @path)";
+
+                        //获取数据
+                        DataTable dt = this._menuDataBase.executeSqlReturnDt(sql,par);
+                        if (dt != null && dt.Rows.Count == 1)
+                        {
+                            retValue = true;
+                        }
+                        else
+                        {
+                            if (dt != null)
+                            {
+                                this._errorMessage = "获取数据失败！";
+                            }
+                            else
+                            {
+                                this._errorMessage = "获取数据失败！错误信息：[" + this._menuDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._menuDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._menuDataBase.disconnectDataBase();
             }
 
             return retValue;

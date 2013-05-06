@@ -841,5 +841,71 @@ namespace YLR.YSystem.Role
 
             return roles;
         }
+
+        /// <summary>
+        /// 页面是否允许访问。
+        /// 作者：董帅 创建时间：2013-5-6 22:27:19 
+        /// </summary>
+        /// <param name="userId">请求用户id</param>
+        /// <param name="path">请求页面文件。</param>
+        /// <returns>允许返回true，否则返回false。</returns>
+        public bool pageAllowRequest(int userId, string path)
+        {
+            bool retValue = false ;
+
+            try
+            {
+                if (this._roleDataBase != null)
+                {
+                    //连接数据库
+                    if (this._roleDataBase.connectDataBase())
+                    {
+
+                        //sql语句，获取字典项
+                        YParameters par = new YParameters();
+                        par.add("@userId", userId);
+                        par.add("@path", path);
+                        
+                        string sql = "SELECT 'true' WHERE EXISTS (SELECT * FROM AUT_USER_ROLE,AUT_ROLE_MENU,SYS_MENU_PAGE WHERE AUT_USER_ROLE.USERID = @userId AND AUT_USER_ROLE.ROLEID = AUT_ROLE_MENU.ROLEID AND AUT_ROLE_MENU.MENUID = SYS_MENU_PAGE.MENUID AND SYS_MENU_PAGE.PATH = @path)";
+
+                        //获取数据
+                        DataTable dt = this._roleDataBase.executeSqlReturnDt(sql, par);
+                        if (dt != null && dt.Rows.Count == 1)
+                        {
+                            retValue = true;
+                        }
+                        else
+                        {
+                            if (dt != null)
+                            {
+                                this._errorMessage = "获取数据失败！";
+                            }
+                            else
+                            {
+                                this._errorMessage = "获取数据失败！错误信息：[" + this._roleDataBase.errorText + "]";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this._errorMessage = "连接数据库失败！错误信息：[" + this._roleDataBase.errorText + "]";
+                    }
+                }
+                else
+                {
+                    this._errorMessage = "未设置数据库实例！";
+                }
+            }
+            catch (Exception ex)
+            {
+                this._errorMessage = ex.Message;
+            }
+            finally
+            {
+                this._roleDataBase.disconnectDataBase();
+            }
+
+            return retValue;
+        }
     }
 }
