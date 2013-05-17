@@ -18,11 +18,11 @@ namespace YAgileASP.background.sys
         /// <summary>
         /// 数据库配置文件节点名称。
         /// </summary>
-        static public string databaseConfigNodeName = "SQLServer";
+        static public string databaseConfigNodeName = "SQLite";
 
         /// <summary>
         /// 配置文件使用的解密密钥。
         /// </summary>
-        static public string configFileKey = "YLRPro@YAgileASP";
+        static public string configFileKey = "";//"YLRPro@YAgileASP";
     }
 }

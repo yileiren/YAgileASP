@@ -108,12 +108,51 @@ namespace YLR.YSystem.Organization
                     par.add("@order",org.order);
                     if (org.parentId == -1)
                     {
-
-                        sql = "INSERT INTO org_organization (name,[ORDER]) VALUES (@name,@order) SELECT SCOPE_IDENTITY() AS id";
+                        switch (this._orgDataBase.databaseType)
+                        {
+                            case DataBaseType.MSSQL:
+                            case DataBaseType.SQL2000:
+                            case DataBaseType.SQL2005:
+                            case DataBaseType.SQL2008:
+                                {
+                                    sql = "INSERT INTO org_organization (name,[ORDER]) VALUES (@name,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                            case DataBaseType.SQLite:
+                                {
+                                    sql = "INSERT INTO org_organization (name,[ORDER]) VALUES (@name,@order);SELECT LAST_INSERT_ROWID() AS id;";
+                                    break;
+                                }
+                            default:
+                                {
+                                    sql = "INSERT INTO org_organization (name,[ORDER]) VALUES (@name,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                        }
                     }
                     else
                     {
-                        sql = "INSERT INTO org_organization (name,parentId,[ORDER]) VALUES (@name,@parentId,@order) SELECT SCOPE_IDENTITY() AS id";
+                        switch (this._orgDataBase.databaseType)
+                        {
+                            case DataBaseType.MSSQL:
+                            case DataBaseType.SQL2000:
+                            case DataBaseType.SQL2005:
+                            case DataBaseType.SQL2008:
+                                {
+                                    sql = "INSERT INTO org_organization (name,parentId,[ORDER]) VALUES (@name,@parentId,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                            case DataBaseType.SQLite:
+                                {
+                                    sql = "INSERT INTO org_organization (name,parentId,[ORDER]) VALUES (@name,@parentId,@order);SELECT LAST_INSERT_ROWID() AS id;";
+                                    break;
+                                }
+                            default:
+                                {
+                                    sql = "INSERT INTO org_organization (name,parentId,[ORDER]) VALUES (@name,@parentId,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                        }
                     }
 
                     //存入数据库
@@ -467,13 +506,53 @@ namespace YLR.YSystem.Organization
                     par.add("@order", user.order);
                     if (user.organizationId > 0)
                     {
-                        sql = "INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,ORGANIZATIONID,[ORDER]) VALUES (@logName,@logPassword,@name,@organizationId,@order) SELECT SCOPE_IDENTITY() AS id";
-                        
+                        switch (this._orgDataBase.databaseType)
+                        {
+                            case DataBaseType.MSSQL:
+                            case DataBaseType.SQL2000:
+                            case DataBaseType.SQL2005:
+                            case DataBaseType.SQL2008:
+                                {
+                                    sql = "INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,ORGANIZATIONID,[ORDER]) VALUES (@logName,@logPassword,@name,@organizationId,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                            case DataBaseType.SQLite:
+                                {
+                                    sql = "INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,ORGANIZATIONID,[ORDER]) VALUES (@logName,@logPassword,@name,@organizationId,@order);SELECT LAST_INSERT_ROWID() AS id;";
+                                    break;
+                                }
+                            default:
+                                {
+                                    sql = "INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,ORGANIZATIONID,[ORDER]) VALUES (@logName,@logPassword,@name,@organizationId,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                        }
                     }
                     else
                     {
                         //顶级用户
-                        sql = "INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,[ORDER]) VALUES (@logName,@logPassword,@name,@order) SELECT SCOPE_IDENTITY() AS id";
+                        switch (this._orgDataBase.databaseType)
+                        {
+                            case DataBaseType.MSSQL:
+                            case DataBaseType.SQL2000:
+                            case DataBaseType.SQL2005:
+                            case DataBaseType.SQL2008:
+                                {
+                                    sql = "INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,[ORDER]) VALUES (@logName,@logPassword,@name,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                            case DataBaseType.SQLite:
+                                {
+                                    sql = "INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,[ORDER]) VALUES (@logName,@logPassword,@name,@order);SELECT LAST_INSERT_ROWID() AS id;";
+                                    break;
+                                }
+                            default:
+                                {
+                                    sql = "INSERT INTO ORG_USER (LOGNAME,LOGPASSWORD,NAME,[ORDER]) VALUES (@logName,@logPassword,@name,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                        }
+                        
                     }
 
                     //存入数据库
@@ -527,7 +606,28 @@ namespace YLR.YSystem.Organization
                 //构建SQL语句
                 YParameters par = new YParameters();
                 par.add("@id",id);
-                string sql = "SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND ID = @id";
+                string sql = ""; 
+                switch (this._orgDataBase.databaseType)
+                {
+                    case DataBaseType.MSSQL:
+                    case DataBaseType.SQL2000:
+                    case DataBaseType.SQL2005:
+                    case DataBaseType.SQL2008:
+                        {
+                            sql = "SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND ID = @id";
+                            break;
+                        }
+                    case DataBaseType.SQLite:
+                        {
+                            sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND ID = @id LIMIT 0,1";
+                            break;
+                        }
+                    default:
+                        {
+                            sql = "SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND ID = @id";
+                            break;
+                        }
+                }
 
                 //连接数据库
                 if (this._orgDataBase.connectDataBase())
@@ -630,8 +730,28 @@ namespace YLR.YSystem.Organization
                 YParameters par = new YParameters();
                 par.add("@logName",logName);
                 par.add("@logPassword",logPassword);
-                string sql = "SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = @logName AND LOGPASSWORD = @logPassword";
-
+                string sql = "";
+                switch(this._orgDataBase.databaseType)
+                {
+                    case DataBaseType.MSSQL:
+                    case DataBaseType.SQL2000:
+                    case DataBaseType.SQL2005:
+                    case DataBaseType.SQL2008:
+                        {
+                            sql = "SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = @logName AND LOGPASSWORD = @logPassword";
+                            break;
+                        }
+                    case DataBaseType.SQLite:
+                        {
+                            sql = "SELECT * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = @logName AND LOGPASSWORD = @logPassword LIMIT 0,1";
+                            break;
+                        }
+                    default:
+                        {
+                            sql = "SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = @logName AND LOGPASSWORD = @logPassword";
+                            break;
+                        }
+                }
                 //连接数据库
                 if (this._orgDataBase.connectDataBase())
                 {
@@ -935,7 +1055,28 @@ namespace YLR.YSystem.Organization
                 //构建SQL语句
                 YParameters par = new YParameters();
                 par.add("@logName",logName);
-                string sql = "SELECT TOP(1) * FROM ORG_USER WHERE LOGNAME = @logName";
+                string sql = "";
+                switch (this._orgDataBase.databaseType)
+                {
+                    case DataBaseType.MSSQL:
+                    case DataBaseType.SQL2000:
+                    case DataBaseType.SQL2005:
+                    case DataBaseType.SQL2008:
+                        {
+                            sql = "SELECT TOP(1) * FROM ORG_USER WHERE LOGNAME = @logName";
+                            break;
+                        }
+                    case DataBaseType.SQLite:
+                        {
+                            sql = "SELECT * FROM ORG_USER WHERE LOGNAME = @logName LIMIT 0,1";
+                            break;
+                        }
+                    default:
+                        {
+                            sql = "SELECT TOP(1) * FROM ORG_USER WHERE LOGNAME = @logName";
+                            break;
+                        }
+                }
 
                 //连接数据库
                 if (this._orgDataBase.connectDataBase())

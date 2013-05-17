@@ -112,11 +112,51 @@ namespace YLR.YSystem.DataDictionary
                         par.add("@dicParentId", dataDic.parentId);
                         if (dataDic.parentId == -1)
                         {
-                            sql = "INSERT INTO SYS_DATADICTIONARY (NAME,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id";
+                            switch (this._dicDataBase.databaseType)
+                            {
+                                case DataBaseType.MSSQL:
+                                case DataBaseType.SQL2000:
+                                case DataBaseType.SQL2005:
+                                case DataBaseType.SQL2008:
+                                    {
+                                        sql = "INSERT INTO SYS_DATADICTIONARY (NAME,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id";
+                                        break;
+                                    }
+                                case DataBaseType.SQLite:
+                                    {
+                                        sql = "INSERT INTO SYS_DATADICTIONARY (NAME,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicValue,@dicCode,@dicOrder);SELECT LAST_INSERT_ROWID() AS id;";
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        sql = "INSERT INTO SYS_DATADICTIONARY (NAME,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id";
+                                        break;
+                                    }
+                            }
                         }
                         else
                         {
-                            sql = "INSERT INTO SYS_DATADICTIONARY (NAME,PARENTID,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicParentId,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id";
+                            switch (this._dicDataBase.databaseType)
+                            {
+                                case DataBaseType.MSSQL:
+                                case DataBaseType.SQL2000:
+                                case DataBaseType.SQL2005:
+                                case DataBaseType.SQL2008:
+                                    {
+                                        sql = "INSERT INTO SYS_DATADICTIONARY (NAME,PARENTID,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicParentId,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id";
+                                        break;
+                                    }
+                                case DataBaseType.SQLite:
+                                    {
+                                        sql = "INSERT INTO SYS_DATADICTIONARY (NAME,PARENTID,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicParentId,@dicValue,@dicCode,@dicOrder);SELECT LAST_INSERT_ROWID() AS id;";
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        sql = "INSERT INTO SYS_DATADICTIONARY (NAME,PARENTID,VALUE,CODE,[ORDER]) VALUES (@dicName,@dicParentId,@dicValue,@dicCode,@dicOrder) SELECT SCOPE_IDENTITY() AS id";
+                                        break;
+                                    }
+                            }
                         }
 
                         DataTable retDt = this._dicDataBase.executeSqlReturnDt(sql,par);
@@ -444,7 +484,7 @@ namespace YLR.YSystem.DataDictionary
                         if (this.deleteChildDataDictionarys(i))
                         {
                             //删除当前机构
-                            string sql = "DELETE SYS_DATADICTIONARY WHERE ID = @id";
+                            string sql = "DELETE FROM SYS_DATADICTIONARY WHERE ID = @id";
                             YParameters par = new YParameters();
                             par.add("@id",i);
                             if (this._dicDataBase.executeSqlWithOutDs(sql,par) != 1)
@@ -541,7 +581,7 @@ namespace YLR.YSystem.DataDictionary
                         if (this.deleteChildDataDictionarys(cDics[j].id))
                         {
                             //删除当前字典项
-                            sql = "DELETE SYS_DATADICTIONARY WHERE ID = @dicId";
+                            sql = "DELETE FROM SYS_DATADICTIONARY WHERE ID = @dicId";
                             YParameters par2 = new YParameters();
                             par2.add("@dicId", cDics[j].id);
                             if (this._dicDataBase.executeSqlWithOutDs(sql, par2) != 1)

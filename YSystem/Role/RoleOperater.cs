@@ -102,7 +102,28 @@ namespace YLR.YSystem.Role
                     YParameters par = new YParameters();
                     par.add("@name",role.name);
                     par.add("@explain",role.explain);
-                    string sql = "INSERT INTO AUT_ROLE (NAME,EXPLAIN) VALUES (@name,@explain) SELECT SCOPE_IDENTITY() AS id";
+                    string sql = ""; 
+                    switch (this._roleDataBase.databaseType)
+                    {
+                        case DataBaseType.MSSQL:
+                        case DataBaseType.SQL2000:
+                        case DataBaseType.SQL2005:
+                        case DataBaseType.SQL2008:
+                            {
+                                sql = "INSERT INTO AUT_ROLE (NAME,EXPLAIN) VALUES (@name,@explain) SELECT SCOPE_IDENTITY() AS id";
+                                break;
+                            }
+                        case DataBaseType.SQLite:
+                            {
+                                sql = "INSERT INTO AUT_ROLE (NAME,EXPLAIN) VALUES (@name,@explain);SELECT LAST_INSERT_ROWID() AS id;";
+                                break;
+                            }
+                        default:
+                            {
+                                sql = "INSERT INTO AUT_ROLE (NAME,EXPLAIN) VALUES (@name,@explain) SELECT SCOPE_IDENTITY() AS id";
+                                break;
+                            }
+                    }
 
                     //存入数据库
                     if (this._roleDataBase.connectDataBase())
@@ -389,7 +410,7 @@ namespace YLR.YSystem.Role
                             }
                         }
                         //sql语句
-                        string sql = string.Format("DELETE AUT_ROLE WHERE ID IN ({0})", strIds);
+                        string sql = string.Format("DELETE FROM AUT_ROLE WHERE ID IN ({0})", strIds);
 
                         int retCount = this._roleDataBase.executeSqlWithOutDs(sql);
                         if (retCount > 0)
@@ -609,7 +630,7 @@ namespace YLR.YSystem.Role
                     {
                         this._roleDataBase.beginTransaction();
 
-                        string deleteSql = "DELETE AUT_ROLE_MENU WHERE ROLEID = " + roleId.ToString();
+                        string deleteSql = "DELETE FROM AUT_ROLE_MENU WHERE ROLEID = " + roleId.ToString();
 
                         if (this._roleDataBase.executeSqlWithOutDs(deleteSql) >= 0)
                         {
@@ -693,7 +714,7 @@ namespace YLR.YSystem.Role
                     {
                         this._roleDataBase.beginTransaction();
 
-                        string deleteSql = "DELETE AUT_USER_ROLE WHERE USERID = " + userId.ToString();
+                        string deleteSql = "DELETE FROM AUT_USER_ROLE WHERE USERID = " + userId.ToString();
 
                         if (this._roleDataBase.executeSqlWithOutDs(deleteSql) >= 0)
                         {

@@ -383,12 +383,51 @@ namespace YLR.YSystem.Menu
                     par.add("@order", menu.order);
                     if (menu.parentID == -1)
                     {
-
-                        sql = "INSERT INTO SYS_MENUS (NAME,ICON,[ORDER]) VALUES (@name,@icon,@order) SELECT SCOPE_IDENTITY() AS id";
+                        switch (this._menuDataBase.databaseType)
+                        {
+                            case DataBaseType.MSSQL:
+                            case DataBaseType.SQL2000:
+                            case DataBaseType.SQL2005:
+                            case DataBaseType.SQL2008:
+                                {
+                                    sql = "INSERT INTO SYS_MENUS (NAME,ICON,[ORDER]) VALUES (@name,@icon,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                            case DataBaseType.SQLite:
+                                {
+                                    sql = "INSERT INTO SYS_MENUS (NAME,ICON,[ORDER]) VALUES (@name,@icon,@order);SELECT LAST_INSERT_ROWID() AS id;";
+                                    break;
+                                }
+                            default:
+                                {
+                                    sql = "INSERT INTO SYS_MENUS (NAME,ICON,[ORDER]) VALUES (@name,@icon,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                        }
                     }
                     else
                     {
-                        sql = "INSERT INTO SYS_MENUS (NAME,URL,PARENTID,ICON,DESKTOPICON,[ORDER]) VALUES (@name,@url,@parentID,@icon,@desktopIcon,@order) SELECT SCOPE_IDENTITY() AS id";
+                        switch (this._menuDataBase.databaseType)
+                        {
+                            case DataBaseType.MSSQL:
+                            case DataBaseType.SQL2000:
+                            case DataBaseType.SQL2005:
+                            case DataBaseType.SQL2008:
+                                {
+                                    sql = "INSERT INTO SYS_MENUS (NAME,URL,PARENTID,ICON,DESKTOPICON,[ORDER]) VALUES (@name,@url,@parentID,@icon,@desktopIcon,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                            case DataBaseType.SQLite:
+                                {
+                                    sql = "INSERT INTO SYS_MENUS (NAME,URL,PARENTID,ICON,DESKTOPICON,[ORDER]) VALUES (@name,@url,@parentID,@icon,@desktopIcon,@order);SELECT LAST_INSERT_ROWID() AS id;";
+                                    break;
+                                }
+                            default:
+                                {
+                                    sql = "INSERT INTO SYS_MENUS (NAME,URL,PARENTID,ICON,DESKTOPICON,[ORDER]) VALUES (@name,@url,@parentID,@icon,@desktopIcon,@order) SELECT SCOPE_IDENTITY() AS id";
+                                    break;
+                                }
+                        }
                     }
 
                     //存入数据库
@@ -581,7 +620,7 @@ namespace YLR.YSystem.Menu
                                 //sql语句
                                 YParameters par = new YParameters();
                                 par.add("@id", ids[i]);
-                                string sql = "DELETE SYS_MENUS WHERE ID = @id";
+                                string sql = "DELETE FROM SYS_MENUS WHERE ID = @id";
 
                                 int retCount = this._menuDataBase.executeSqlWithOutDs(sql, par);
                                 if (retCount <= 0)
@@ -714,7 +753,7 @@ namespace YLR.YSystem.Menu
                             //sql语句
                             YParameters par = new YParameters();
                             par.add("@id", ids[i]);
-                            string sql = "DELETE SYS_MENUS WHERE ID = @id";
+                            string sql = "DELETE FROM SYS_MENUS WHERE ID = @id";
 
                             int retCount = this._menuDataBase.executeSqlWithOutDs(sql, par);
                             if (retCount <= 0)
@@ -775,7 +814,7 @@ namespace YLR.YSystem.Menu
                             //sql语句
                             YParameters par = new YParameters();
                             par.add("@id", menus[i].id);
-                            string sql = "DELETE SYS_MENUS WHERE ID = @id";
+                            string sql = "DELETE FROM SYS_MENUS WHERE ID = @id";
 
                             int retCount = this._menuDataBase.executeSqlWithOutDs(sql, par);
                             if (retCount <= 0)
@@ -833,7 +872,30 @@ namespace YLR.YSystem.Menu
                 else
                 {
                     //新增数据
-                    string sql = "INSERT INTO SYS_MENU_PAGE (DETAIL,PATH,MENUID) VALUES (@detail,@filePath,@menuId) SELECT SCOPE_IDENTITY() AS id";
+                    string sql = "";
+                    switch (this._menuDataBase.databaseType)
+                    {
+                        case DataBaseType.MSSQL:
+                        case DataBaseType.SQL2000:
+                        case DataBaseType.SQL2005:
+                        case DataBaseType.SQL2008:
+                            {
+                                sql = "INSERT INTO SYS_MENU_PAGE (DETAIL,PATH,MENUID) VALUES (@detail,@filePath,@menuId) SELECT SCOPE_IDENTITY() AS id";
+                                break;
+                            }
+                        case DataBaseType.SQLite:
+                            {
+                                sql = "INSERT INTO SYS_MENU_PAGE (DETAIL,PATH,MENUID) VALUES (@detail,@filePath,@menuId);SELECT LAST_INSERT_ROWID() AS id;";
+                                break;
+                            }
+                        default:
+                            {
+                                sql = "INSERT INTO SYS_MENU_PAGE (DETAIL,PATH,MENUID) VALUES (@detail,@filePath,@menuId) SELECT SCOPE_IDENTITY() AS id";
+                                break;
+                            }
+                    }
+
+                     
                     YParameters par = new YParameters();
                     par.add("@filePath", page.filePath);
                     par.add("@detail", page.detail);
@@ -1123,7 +1185,7 @@ namespace YLR.YSystem.Menu
                             //sql语句
                             YParameters par = new YParameters();
                             par.add("@id", ids[i]);
-                            string sql = "DELETE SYS_MENU_PAGE WHERE ID = @id";
+                            string sql = "DELETE FROM SYS_MENU_PAGE WHERE ID = @id";
 
                             int retCount = this._menuDataBase.executeSqlWithOutDs(sql, par);
                             if (retCount <= 0)
@@ -1190,7 +1252,7 @@ namespace YLR.YSystem.Menu
                     //sql语句
                     YParameters par = new YParameters();
                     par.add("@menuId", menuId);
-                    string sql = "DELETE SYS_MENU_PAGE WHERE MENUID = @menuId";
+                    string sql = "DELETE FROM SYS_MENU_PAGE WHERE MENUID = @menuId";
 
                     int retCount = db.executeSqlWithOutDs(sql, par);
                     if (retCount >= 0)
