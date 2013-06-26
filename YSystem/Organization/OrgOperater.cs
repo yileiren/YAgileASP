@@ -603,11 +603,45 @@ namespace YLR.YSystem.Organization
             UserInfo user = null;
             try
             {
+                //连接数据库
+                if (this._orgDataBase.connectDataBase())
+                {
+                    user = this.getUser(id, this._orgDataBase);
+                }
+                else
+                {
+                    this._errorMessage = "连接数据库出错！错误信息[" + this._orgDataBase.errorText + "]";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                this._orgDataBase.disconnectDataBase();
+            }
+
+            return user;
+        }
+
+        /// <summary>
+        /// 从指定的数据库连接获取用户信息。
+        /// 作者：董帅 创建时间：2013-6-26 14:04:32
+        /// </summary>
+        /// <param name="id">用户id。</param>
+        /// <param name="db">指定的数据库连接，使用时确保数据连接已打开。</param>
+        /// <returns>用户信息，失败返回null。</returns>
+        public UserInfo getUser(int id,YDataBase db)
+        {
+            UserInfo user = null;
+            try
+            {
                 //构建SQL语句
                 YParameters par = new YParameters();
-                par.add("@id",id);
-                string sql = ""; 
-                switch (this._orgDataBase.databaseType)
+                par.add("@id", id);
+                string sql = "";
+                switch (db.databaseType)
                 {
                     case DataBaseType.MSSQL:
                     case DataBaseType.SQL2000:
@@ -629,87 +663,75 @@ namespace YLR.YSystem.Organization
                         }
                 }
 
-                //连接数据库
-                if (this._orgDataBase.connectDataBase())
+                //获取用户
+                DataTable dt = db.executeSqlReturnDt(sql, par);
+
+                //构建用户
+                if (dt != null && dt.Rows.Count > 0)
                 {
-                    //获取用户
-                    DataTable dt = this._orgDataBase.executeSqlReturnDt(sql,par);
-
-                    //构建用户
-                    if (dt != null && dt.Rows.Count > 0)
+                    user = new UserInfo();
+                    //获取用户id
+                    if (!dt.Rows[0].IsNull("ID"))
                     {
-                        user = new UserInfo();
-                        //获取用户id
-                        if (!dt.Rows[0].IsNull("ID"))
+                        user.id = Convert.ToInt32(dt.Rows[0]["ID"]);
+
+                        //用户登录名
+                        if (!dt.Rows[0].IsNull("LOGNAME"))
                         {
-                            user.id = Convert.ToInt32(dt.Rows[0]["ID"]);
+                            user.logName = Convert.ToString(dt.Rows[0]["LOGNAME"]);
+                        }
 
-                            //用户登录名
-                            if (!dt.Rows[0].IsNull("LOGNAME"))
+                        //用户登录密码
+                        if (!dt.Rows[0].IsNull("LOGPASSWORD"))
+                        {
+                            user.logPassword = Convert.ToString(dt.Rows[0]["LOGPASSWORD"]);
+                        }
+
+                        //用户姓名
+                        if (!dt.Rows[0].IsNull("NAME"))
+                        {
+                            user.name = Convert.ToString(dt.Rows[0]["NAME"]);
+                        }
+
+                        //用户所属组织机构
+                        if (!dt.Rows[0].IsNull("ORGANIZATIONID"))
+                        {
+                            user.organizationId = Convert.ToInt32(dt.Rows[0]["ORGANIZATIONID"]);
+                        }
+
+                        //是否删除
+                        if (!dt.Rows[0].IsNull("ISDELETE"))
+                        {
+                            if ("Y" == dt.Rows[0]["ISDELETE"].ToString())
                             {
-                                user.logName = Convert.ToString(dt.Rows[0]["LOGNAME"]);
+                                user.isDelete = true;
                             }
-
-                            //用户登录密码
-                            if (!dt.Rows[0].IsNull("LOGPASSWORD"))
+                            else
                             {
-                                user.logPassword = Convert.ToString(dt.Rows[0]["LOGPASSWORD"]);
-                            }
-
-                            //用户姓名
-                            if (!dt.Rows[0].IsNull("NAME"))
-                            {
-                                user.name = Convert.ToString(dt.Rows[0]["NAME"]);
-                            }
-
-                            //用户所属组织机构
-                            if (!dt.Rows[0].IsNull("ORGANIZATIONID"))
-                            {
-                                user.organizationId = Convert.ToInt32(dt.Rows[0]["ORGANIZATIONID"]);
-                            }
-
-                            //是否删除
-                            if (!dt.Rows[0].IsNull("ISDELETE"))
-                            {
-                                if ("Y" == dt.Rows[0]["ISDELETE"].ToString())
-                                {
-                                    user.isDelete = true;
-                                }
-                                else
-                                {
-                                    user.isDelete = false;
-                                }
-                            }
-
-                            //序号
-                            if (!dt.Rows[0].IsNull("ORDER"))
-                            {
-                                user.order = Convert.ToInt32(dt.Rows[0]["ORDER"]);
+                                user.isDelete = false;
                             }
                         }
-                    }
-                    else
-                    {
-                        this._errorMessage = "获取用户信息出错！";
 
-                        if (dt == null)
+                        //序号
+                        if (!dt.Rows[0].IsNull("ORDER"))
                         {
-                            this._errorMessage += "错误信息[" + this._orgDataBase.errorText + "]";
+                            user.order = Convert.ToInt32(dt.Rows[0]["ORDER"]);
                         }
                     }
                 }
                 else
                 {
-                    this._errorMessage = "连接数据库出错！错误信息[" + this._orgDataBase.errorText + "]";
+                    this._errorMessage = "获取用户信息出错！";
+
+                    if (dt == null)
+                    {
+                        this._errorMessage += "错误信息[" + db.errorText + "]";
+                    }
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                this._orgDataBase.disconnectDataBase();
             }
 
             return user;
