@@ -60,6 +60,7 @@ namespace YAgileASP.background.sys
                             else
                             {
                                 //更新出错。
+                                user.logPassword = md5Encrypt.GetMD5(this.pswOldPsw.Value);
                                 YMessageBox.show(this, "修改用户密码出错！错误信息[" + orgOper.errorMessage + "]");
                             }
                         }
