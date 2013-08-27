@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAgileASP", "YAgileASP\YAgileASP.csproj", "{00EA9EA8-526D-4BF2-BD5C-37F0674793ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSystem", "YSystem\YSystem.csproj", "{4532D292-2B0B-4A9E-920E-1E91BB2AD647}"
