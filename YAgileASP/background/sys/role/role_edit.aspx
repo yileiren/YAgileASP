@@ -6,8 +6,8 @@
 <head runat="server">
     <title>编辑角色</title>
     <meta http-equiv="pragma" content="no-cache" />
-    <meta http-equiv="cache-control" ontent="no-cache">  
-    <meta http-equiv="expires" content="0">  
+    <meta http-equiv="cache-control" ontent="no-cache" />  
+    <meta http-equiv="expires" content="0" />  
 
     <link href="../../../js/jquery-easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../../js/jquery-easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
