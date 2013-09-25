@@ -760,7 +760,7 @@ namespace YLR.YSystem.Organization
                     case DataBaseType.SQL2005:
                     case DataBaseType.SQL2008:
                         {
-                            sql = "SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = @logName AND LOGPASSWORD = @logPassword";
+                            sql = "SELECT TOP 1 * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = @logName AND LOGPASSWORD = @logPassword";
                             break;
                         }
                     case DataBaseType.SQLite:
@@ -770,7 +770,7 @@ namespace YLR.YSystem.Organization
                         }
                     default:
                         {
-                            sql = "SELECT TOP(1) * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = @logName AND LOGPASSWORD = @logPassword";
+                            sql = "SELECT TOP 1  * FROM ORG_USER WHERE ISDELETE = 'N' AND LOGNAME = @logName AND LOGPASSWORD = @logPassword";
                             break;
                         }
                 }
